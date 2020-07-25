@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="container">
     <LayoutMenu />
-    <div>
+    <div class="content">
       <router-view />
     </div>
   </div>
@@ -15,4 +15,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.container {
+  display: flex;
+  .content {
+    width: 100%;
+  }
+}
+</style>

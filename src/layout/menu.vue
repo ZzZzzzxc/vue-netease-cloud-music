@@ -33,8 +33,8 @@ export default {
     },
     handleItemSelect(index) {
       console.log(index);
-    },
-  },
+    }
+  }
 };
 </script>
 

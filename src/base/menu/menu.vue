@@ -9,33 +9,33 @@ export default {
   name: "ZMenu",
   provide: function() {
     return {
-      rootMenu: this,
+      rootMenu: this
     };
   },
   props: {
     // 是否开启路由模式
     router: {
       type: Boolean,
-      default: true,
+      default: true
     },
     menuClass: {
       type: String,
-      default: "",
+      default: ""
     },
     mode: {
       type: String,
       default: "vertical",
-      validator: value => ["vertical", "horizontal "].indexOf(value) > -1,
+      validator: value => ["vertical", "horizontal "].indexOf(value) > -1
     },
     defaultActive: {
       type: String,
-      default: "",
+      default: ""
     },
     trigger: {
       type: String,
       default: "click",
-      validator: value => ["hover", "click"].indexOf(value) > -1,
-    },
+      validator: value => ["hover", "click"].indexOf(value) > -1
+    }
   },
   data() {
     return {
@@ -45,7 +45,7 @@ export default {
       // menuItem 实例
       menuItems: {},
       // submenu 实例
-      submenus: {},
+      submenus: {}
     };
   },
   methods: {
@@ -74,8 +74,8 @@ export default {
       } catch (e) {
         console.error(e);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

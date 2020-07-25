@@ -12,7 +12,7 @@ export default {
   name: "ZMenuItemGroup",
   provide: function() {
     return {
-      menuItemGroup: this,
+      menuItemGroup: this
     };
   },
   inject: ["rootMenu"],
@@ -20,13 +20,13 @@ export default {
     title: {
       type: String,
       default: "group-title",
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {};
   },
-  methods: {},
+  methods: {}
 };
 </script>
 

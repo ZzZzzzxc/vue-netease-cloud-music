@@ -16,15 +16,14 @@ export default {
     index: {
       type: String,
       default: "",
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {};
   },
   mounted() {
     this.rootMenu.setItems(this.index, this);
-    console.log(this.rootMenu.activeIndex)
   },
   methods: {
     onClick() {
@@ -34,8 +33,8 @@ export default {
     // 通知 menu activeIndex 改变
     handleActiveIndexChange() {
       this.$emit("activeIndexChange", this.index);
-    },
-  },
+    }
+  }
 };
 </script>
 
