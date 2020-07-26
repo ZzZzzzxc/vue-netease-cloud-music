@@ -1,17 +1,22 @@
 <template>
-  <div>
+  <div class="tabs-wrapper">
     <Tabs v-model="activeName">
-      <TabsPanel label="个性推荐" name="1">个性推荐</TabsPanel>
-      <TabsPanel label="歌单" name="2">歌单</TabsPanel>
-      <TabsPanel label="排行榜" name="3">排行榜</TabsPanel>
-      <TabsPanel label="歌手" name="4">歌手</TabsPanel>
-      <TabsPanel label="最新音乐" name="5">最新音乐</TabsPanel>
+      <TabsPane label="个性推荐" name="1"><recommend /></TabsPane>
+      <TabsPane label="歌单" name="2"><sheet /></TabsPane>
+      <TabsPane label="排行榜" name="3"><rank /></TabsPane>
+      <TabsPane label="歌手" name="4"><singer /></TabsPane>
+      <TabsPane label="最新音乐" name="5"><music /></TabsPane>
     </Tabs>
   </div>
 </template>
 
 <script>
-import { Tabs, TabsPanel } from "@/base/index";
+import { Tabs, TabsPane } from "@/base/index";
+import rank from "./rank.vue";
+import recommend from "./recommend.vue";
+import sheet from "./sheet.vue";
+import singer from "./singer.vue";
+import music from "./music";
 export default {
   name: "Discovery",
   data() {
@@ -21,9 +26,18 @@ export default {
   },
   components: {
     Tabs,
-    TabsPanel
+    TabsPane,
+    music,
+    singer,
+    sheet,
+    recommend,
+    rank
   }
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.tabs-wrapper {
+  padding: 16px 56px;
+}
+</style>

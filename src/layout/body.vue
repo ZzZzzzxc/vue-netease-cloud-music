@@ -18,8 +18,10 @@ export default {
 <style lang="scss" scoped>
 .container {
   display: flex;
+  height: calc(100vh - 64px);
   .content {
     width: 100%;
+    overflow-y: scroll;
   }
 }
 </style>

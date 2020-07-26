@@ -22,16 +22,18 @@ export default {
       this.getActiveBarPosition(`ref_${pane.name}`);
     },
     getActiveBarPosition(refName) {
-      this.$nextTick(() => {
-        const ele = this.$refs[refName];
+      const ele = this.$refs[refName];
+      if (ele) {
         const { width } = window.getComputedStyle(ele);
         this.activeBarWidth = width;
         this.activeBarOffsetLeft = ele.offsetLeft;
-      });
+      }
     }
   },
   mounted() {
-    this.getActiveBarPosition(`ref_${this.root.currentName}`);
+    this.$nextTick(() => {
+      this.getActiveBarPosition(`ref_${this.root.currentName}`);
+    });
   },
   render() {
     return (

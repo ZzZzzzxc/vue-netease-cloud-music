@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <Menu menuClass="menu-wrapper" defaultActive="/discovery">
       <MenuItemGroup title="推荐">
         <MenuItem index="/discovery">发现音乐</MenuItem>
@@ -39,10 +39,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  height: calc(100vh - 64px);
-  .menu-wrapper {
-    height: 100%;
-  }
+.menu-wrapper {
+  height: 100%;
 }
 </style>

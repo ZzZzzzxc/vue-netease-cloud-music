@@ -3,11 +3,19 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
+// fix 跳转 url 与当前 url 相同导致的 error
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject)
+    return originalPush.call(this, location, onResolve, onReject);
+  return originalPush.call(this, location).catch(err => err);
+};
+
 const layout = () =>
   import(/* webpackChunkName: "layout" */ "../layout/index.vue");
 const discovery = () =>
   import(/* webpackChunkName: "discovery" */ "../views/discovery/index.vue");
-
+const fm = () => import(/* webpackChunkName: "fm" */ "../views/fm/index.vue");
 const routes = [
   {
     name: "Layout",
@@ -19,6 +27,11 @@ const routes = [
         name: "Discovery",
         path: "/discovery",
         component: discovery
+      },
+      {
+        name: "Fm",
+        path: "/fm",
+        component: fm
       }
     ]
   }
