@@ -1,6 +1,10 @@
 <template>
-  <div class="z-swiper-wrapper">
-    <div class="z-swiper">
+  <div
+    class="z-swiper-wrapper"
+    @mouseenter="clearTimer"
+    @mouseleave="startTimer"
+  >
+    <div class="z-swiper" :style="{ height: `${height}px` }">
       <slot />
     </div>
     <div class="z-swiper-control">
@@ -8,13 +12,16 @@
         class="z-swiper-control__left z-swiper-control__trigger"
         @click="prev"
       >
-        prev
+        <img class="icon" :src="require(`@/assets/icon/arrow-left-bold.png`)" />
       </div>
       <div
         class="z-swiper-control__right z-swiper-control__trigger"
         @click="next"
       >
-        next
+        <img
+          class="icon"
+          :src="require(`@/assets/icon/arrow-right-bold.png`)"
+        />
       </div>
     </div>
     <div class="z-swiper-btn">
@@ -30,21 +37,36 @@
 </template>
 
 <script>
+const WAIT = 2000;
 export default {
   name: "ZSwiper",
+  props: {
+    height: {
+      type: Number,
+      default: 240
+    }
+  },
   data() {
     return {
       items: [],
       activeIndex: -1,
+      timer: null
     };
   },
   computed: {},
   watch: {
     activeIndex() {
       this.resetItemPosition();
-    },
+    }
   },
   methods: {
+    startTimer() {
+      if (this.timer) this.clearTimer();
+      this.timer = setInterval(this.next, WAIT);
+    },
+    clearTimer() {
+      clearInterval(this.timer);
+    },
     setActiveIndex(index) {
       this.activeIndex = index;
     },
@@ -71,18 +93,21 @@ export default {
       this.items.forEach((item, index) => {
         item.translateItem(index, this.activeIndex);
       });
-    },
+    }
   },
   mounted() {
     this.updateItems();
-    this.activeIndex = 1;
+    this.activeIndex = 0;
+    this.startTimer();
   },
+  beforeDestroy() {
+    this.clearTimer();
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .z-swiper-wrapper {
-  width: 500px;
   margin: 0 auto;
   position: relative;
   &:hover {
@@ -92,7 +117,7 @@ export default {
   }
   .z-swiper {
     position: relative;
-    height: 240px;
+    min-height: 240px;
     overflow: hidden;
   }
   .z-swiper-control {
@@ -106,6 +131,14 @@ export default {
       height: 90%;
       bottom: 0;
       width: 46px;
+      z-index: $swiper-trigger-index;
+      .icon {
+        position: absolute;
+        top: 42%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+      }
     }
     &__left {
       left: 0;
@@ -118,7 +151,7 @@ export default {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: -10px;
+    bottom: -20px;
     display: flex;
     &__item {
       width: 28px;
@@ -127,7 +160,7 @@ export default {
       background: $grey;
       margin: 0 10px;
       &__active {
-        background: $black;
+        background: $theme-color;
       }
     }
   }

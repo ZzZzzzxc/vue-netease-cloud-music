@@ -7,6 +7,7 @@ $white: #fff;
 $gold: #e7aa5a;
 $blue: #517eaf;
 $grey: #ebeef5;
+$grey-dark: #909399;
 
 $font-size: 14px;
 $font-size-lg: 16px;
@@ -23,9 +24,13 @@ $popper-min-width: 80px;
 // z-meun
 $menu-width: 200px;
 $menu-bg: #ebeef547;
-
 $menu-title-height: 56px;
 $menu-title-color: #909399;
-
 $menu-item-active: #ebeef5;
 $menu-item-height: 50px;
+
+// z-swiper
+$swiper-trigger-index: 40;
+
+// z-card
+$card-header-height: 40px;

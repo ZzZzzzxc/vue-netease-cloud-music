@@ -14,19 +14,26 @@ export default {
       active: false,
       translate: 0,
       scale: 1,
-      inStage: false,
+      inStage: false
     };
   },
   computed: {
     itemStyle() {
       const value = `translateX(${this.translate}px) scale(${this.scale})`;
-      const zIndex = this.active ? 6 : 0;
+      let zIndex = 0;
+      if (this.active) {
+        zIndex = 4;
+      } else if (this.inStage) {
+        zIndex = 3;
+      } else {
+        zIndex = 0;
+      }
       const style = {
         transform: value,
-        zIndex,
+        zIndex
       };
       return style;
-    },
+    }
   },
   methods: {
     processIndex(index, activeIndex, length) {
@@ -63,14 +70,14 @@ export default {
       this.translate = this.calcCardTranslate(index, activeIndex);
       this.scale = this.active ? 1 : CARD_SCALE;
       this.ready = true;
-    },
+    }
   },
   created() {
     this.$parent && this.$parent.updateItems();
   },
   destroyed() {
     this.$parent && this.$parent.updateItems();
-  },
+  }
 };
 </script>
 
