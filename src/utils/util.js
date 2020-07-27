@@ -151,6 +151,6 @@ export function throttle(func, wait, options) {
   return debounce(func, wait, {
     leading,
     trailing,
-    maxWait: wait,
+    maxWait: wait
   });
 }

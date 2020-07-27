@@ -1,5 +1,4 @@
 import Popover from "./popover";
-import Card from "./card";
 import Menu from "./menu/menu.vue";
 import SubMenu from "./menu/subMenu.vue";
 import MenuItem from "./menu/menuItem.vue";
@@ -11,7 +10,6 @@ import SwiperItem from "./swiper/swiperItem.vue";
 
 export {
   Popover,
-  Card,
   Menu,
   SubMenu,
   MenuItem,
@@ -19,5 +17,5 @@ export {
   Tabs,
   TabsPane,
   Swiper,
-  SwiperItem,
+  SwiperItem
 };
