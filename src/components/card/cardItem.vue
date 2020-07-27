@@ -10,9 +10,15 @@
       <transition name="fade">
         <div class="extend" v-show="extendShow"><slot /></div>
       </transition>
-      <div class="title text-line" v-if="title" :style="titleStyle">
-        {{ title }}
-      </div>
+      <transition name="fade">
+        <div
+          class="title text-line"
+          v-if="title && titleShow"
+          :style="titleStyle"
+        >
+          {{ title }}
+        </div>
+      </transition>
       <div class="label text-line" v-if="label" :style="labelStyle">
         {{ label }}
       </div>
@@ -70,9 +76,15 @@ export default {
   },
   data() {
     return {
+      titleShow: !this.labelShow,
       extendShow: !this.extendAnimation,
       labelShow: !this.labelAnimation,
     };
+  },
+  watch: {
+    labelShow(val) {
+      this.titleShow = !val;
+    },
   },
   computed: {
     contentStyle() {
@@ -117,7 +129,7 @@ export default {
 
 <style lang="scss" scoped>
 .z-card-item {
-  margin-right: 12px;
+  margin: 0 12px 16px 0;
   overflow: hidden;
   &__content {
     position: relative;
@@ -147,7 +159,7 @@ export default {
     }
   }
   &__footer {
-    margin-top: 12px;
+    margin-top: 16px;
     font-size: $font-size;
     width: 100%;
   }

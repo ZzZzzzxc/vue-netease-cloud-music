@@ -8,9 +8,11 @@ import axios from "axios";
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
+const baseURL = `http://localhost:1234`;
+
 let config = {
-  // baseURL: process.env.baseURL || process.env.apiUrl || ""
-  // timeout: 60 * 1000, // Timeout
+  baseURL,
+  timeout: 60 * 1000 // Timeout
   // withCredentials: true, // Check cross-site Access-Control
 };
 
@@ -31,7 +33,7 @@ _axios.interceptors.request.use(
 _axios.interceptors.response.use(
   function(response) {
     // Do something with response data
-    return response;
+    return response.data;
   },
   function(error) {
     // Do something with response error
@@ -57,5 +59,5 @@ Plugin.install = function(Vue) {
 };
 
 Vue.use(Plugin);
-
+export const request = _axios;
 export default Plugin;
