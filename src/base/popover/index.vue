@@ -7,7 +7,9 @@
         :class="[popperClass, `z-popper__${placement}`]"
         v-show="showPopper"
       >
-        <slot name="content" />
+        <div class="z-popper-content">
+          <slot name="content" />
+        </div>
         <div :class="[`z-popper-arrow`, `z-popper-arrow__${placement}`]"></div>
       </div>
     </transition>
@@ -25,34 +27,35 @@ export default {
     // className
     popperClass: {
       type: String,
-      default: ""
+      default: "",
     },
     // 触发方式
     trigger: {
       type: String,
       default: "click",
-      validator: value => ["click", "hover"].indexOf(value) > -1
+      validator: value => ["click", "hover"].indexOf(value) > -1,
     },
     // 出现位置
     placement: {
       type: String,
       default: "bottom",
-      validator: value => ["top", "right", "bottom", "left"].indexOf(value) > -1
+      validator: value =>
+        ["top", "right", "bottom", "left"].indexOf(value) > -1,
     },
     // 打开延迟
     openDelay: {
       type: Number,
-      default: 0
+      default: 0,
     },
     // 关闭延迟
     closeDelay: {
       type: Number,
-      default: 400
-    }
+      default: 400,
+    },
   },
   data() {
     return {
-      showPopper: false
+      showPopper: false,
     };
   },
   mounted() {
@@ -83,29 +86,29 @@ export default {
       const { width, height, left, top } = trigger.getBoundingClientRect();
       const {
         // height: contentHeight,
-        width: contentWidth
+        width: contentWidth,
       } = popper.getBoundingClientRect();
       const {
         // height: triggerHeight,
-        width: triggerWidth
+        width: triggerWidth,
       } = trigger.getBoundingClientRect();
       const map = {
         top: {
           left: window.scrollX + left,
-          top: window.scrollY + top
+          top: window.scrollY + top,
         },
         bottom: {
           left: window.scrollX + left - contentWidth / 2 + triggerWidth / 2,
-          top: window.scrollY + height + top
+          top: window.scrollY + height + top,
         },
         left: {
           left: window.scrollX + left - contentWidth - triggerWidth / 2,
-          top: window.scrollY + top
+          top: window.scrollY + top,
         },
         right: {
           left: window.scrollX + left + width,
-          top: window.scrollY + top
-        }
+          top: window.scrollY + top,
+        },
       };
       popper.style.left = `${map[this.placement].left}px`;
       popper.style.top = `${map[this.placement].top}px`;
@@ -152,13 +155,13 @@ export default {
       )
         return;
       this.showPopper = false;
-    }
+    },
   },
   destroyed() {
     const { trigger } = this.$refs;
     off(trigger, "click", this.doToggle);
     off(document, "click", this.handleDocumentClick);
-  }
+  },
 };
 </script>
 
@@ -168,6 +171,7 @@ export default {
   display: inline-block;
   .trigger {
     display: inline-block;
+    cursor: pointer;
   }
 }
 .z-popper {
@@ -178,6 +182,9 @@ export default {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   border: 1px solid $grey;
   padding: 18px 20px;
+  .z-popper-content {
+    z-index: $popper-index;
+  }
   .z-popper-arrow,
   .z-popper-arrow::after {
     width: 0;

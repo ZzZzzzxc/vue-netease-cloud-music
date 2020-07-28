@@ -14,12 +14,10 @@ export const getPersonalPrivatecontent = () =>
 /**
  * 独家放送列表
  * @param {Number} limit 返回数量 , 默认为 60
- * @param {Number} offset 偏移数量，用于分页 , 如 :( 页数 -1)*60, 其中 60 为 limit 的值 , 默认为 0
+ * @param {Number} offset 偏移数量，用于分页 , 如 :(页数 -1) * 60, 其中 60 为 limit 的值 , 默认为 0
  */
-export const getPersonalPrivatecontentList = (limit = 60, offset = 0) =>
-  request.get(
-    `/personalized/privatecontent/list?limit=${limit}&offset=${offset}`
-  );
+export const getPersonalPrivatecontentList = params =>
+  request.get(`/personalized/privatecontent/list`, params);
 
 // 推荐新音乐
 export const getPersonalNewSong = () => request.get("/personalized/newsong");

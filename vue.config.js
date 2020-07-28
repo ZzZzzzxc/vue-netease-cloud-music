@@ -9,6 +9,7 @@ module.exports = {
           @import "~@/style/transition.scss";
           @import "~@/style/variables.scss";
           @import "~@/style/mixin.scss";
+          @import "~@/style/scroll.scss";
         `
       }
     }

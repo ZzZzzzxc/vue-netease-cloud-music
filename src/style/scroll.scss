@@ -1,0 +1,22 @@
+::-webkit-scrollbar {
+  background-color: $grey;
+  width: 10px;
+  height: 10px;
+  background-clip: padding-box;
+}
+
+/*滚动条两端方向按钮*/
+::-webkit-scrollbar-button {
+  background-color: $grey;
+}
+
+/*滚动条中间滑动部分*/
+::-webkit-scrollbar-thumb {
+  background-color: $theme-color;
+  border-radius: 5px;
+}
+
+/*滚动条右下角区域*/
+::-webkit-scrollbar-corner {
+  background-color: $grey;
+}

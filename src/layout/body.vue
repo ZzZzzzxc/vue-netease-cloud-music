@@ -22,6 +22,7 @@ export default {
   .content {
     width: 100%;
     overflow-y: scroll;
+    padding: 0 36px;
   }
 }
 </style>

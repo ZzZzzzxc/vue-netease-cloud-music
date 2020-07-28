@@ -42,6 +42,7 @@ export default {
   flex-direction: column;
   height: 322px;
   .item {
+    cursor: pointer;
     width: 50%;
     height: 64px;
     &:nth-child(n) {
