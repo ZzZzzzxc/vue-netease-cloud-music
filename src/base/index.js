@@ -7,6 +7,7 @@ import Tabs from "./tabs/tabs.vue";
 import TabsPane from "./tabs/tabsPane.vue";
 import Swiper from "./swiper/swiper.vue";
 import SwiperItem from "./swiper/swiperItem.vue";
+import Pagination from "./pagination";
 
 export {
   Popover,
@@ -17,5 +18,6 @@ export {
   Tabs,
   TabsPane,
   Swiper,
-  SwiperItem
+  SwiperItem,
+  Pagination
 };
