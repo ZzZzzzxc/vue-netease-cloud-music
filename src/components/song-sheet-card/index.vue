@@ -15,29 +15,29 @@ export default {
   props: {
     height: {
       default: 180,
-      type: Number,
+      type: Number
     },
     width: {
       default: 180,
-      type: Number,
+      type: Number
     },
     count: {
       default: "",
-      type: String,
+      type: String
     },
     imgUrl: {
       default: "",
-      type: String,
+      type: String
     },
     author: {
       default: "",
-      type: String,
+      type: String
     },
     footer: {
       default: "",
-      type: String,
-    },
-  },
+      type: String
+    }
+  }
 };
 </script>
 

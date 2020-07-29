@@ -17,5 +17,5 @@ export {
   CardItem,
   SongList,
   HotTabs,
-  SongSheetCard,
+  SongSheetCard
 };

@@ -33,58 +33,58 @@ export default {
   props: {
     onClick: {
       default: () => {},
-      type: Function,
+      type: Function
     },
     image: {
       required: true,
-      type: String,
+      type: String
     },
     height: {
       type: Number,
-      default: 140,
+      default: 140
     },
     width: {
       type: Number,
-      default: 140,
+      default: 140
     },
     label: {
       default: "",
-      type: String,
+      type: String
     },
     labelPlacement: {
       default: "top",
       type: String,
-      validator: value => ["top", "bottom"].indexOf(value) > -1,
+      validator: value => ["top", "bottom"].indexOf(value) > -1
     },
     labelAnimation: {
       default: true,
-      type: Boolean,
+      type: Boolean
     },
     title: {
       default: "",
-      type: String,
+      type: String
     },
     titlePlacement: {
       default: "bottom",
       type: String,
-      validator: value => ["top", "bottom"].indexOf(value) > -1,
+      validator: value => ["top", "bottom"].indexOf(value) > -1
     },
     extendAnimation: {
       default: true,
-      type: Boolean,
-    },
+      type: Boolean
+    }
   },
   data() {
     return {
       titleShow: !this.labelShow,
       extendShow: !this.extendAnimation,
-      labelShow: !this.labelAnimation,
+      labelShow: !this.labelAnimation
     };
   },
   watch: {
     labelShow(val) {
       this.titleShow = !val;
-    },
+    }
   },
   computed: {
     contentStyle() {
@@ -92,7 +92,7 @@ export default {
         backgroundImage: `url(${this.image})`,
         backgroundSepeat: `no-repeat`,
         backgroundSize: `cover`,
-        height: `${this.height}px`,
+        height: `${this.height}px`
       };
     },
     titleStyle() {
@@ -104,7 +104,7 @@ export default {
       const style = {};
       style[this.labelPlacement] = this.labelShow ? 0 : `-100%`;
       return style;
-    },
+    }
   },
   methods: {
     onMouseEnter() {
@@ -122,8 +122,8 @@ export default {
       if (this.labelAnimation) {
         this.labelShow = false;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -11,7 +11,7 @@
 import LayoutMenu from "./menu";
 export default {
   name: "LayoutBody",
-  components: { LayoutMenu }
+  components: { LayoutMenu },
 };
 </script>
 
@@ -19,6 +19,7 @@ export default {
 .container {
   display: flex;
   height: calc(100vh - 64px);
+  padding-top: $header-height;
   .content {
     width: 100%;
     overflow-y: scroll;

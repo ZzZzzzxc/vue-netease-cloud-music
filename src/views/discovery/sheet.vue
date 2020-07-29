@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="playlist">
     <Popover trigger="click" placement="bottom">
       <template slot="content">
         <div class="tag-selection">
@@ -51,19 +51,21 @@
         />
       </div>
     </div>
-    <Pagination
-      v-model="pagination.currentPage"
-      :pagerCount="pagination.pagerCount"
-      :limit="params.limit"
-      :total="total"
-    />
+    <div class="pagination-wrapper">
+      <Pagination
+        v-model="pagination.currentPage"
+        :pagerCount="pagination.pagerCount"
+        :limit="params.limit"
+        :total="total"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import { getCatList, getHotCatList, getTopPlayList } from "@/api";
 import { SongSheetCard } from "@/components";
-import { formatNumber } from "@/utils";
+import { formatNumber, scrollInto } from "@/utils";
 import { Popover, Pagination } from "@/base";
 const OFFSET_VAL = 0;
 export default {
@@ -151,6 +153,8 @@ export default {
       const { playlists, total } = await getTopPlayList(params);
       this.total = total;
       this.playlists = playlists;
+      //  this.$refs.playlist.scrollTop = 0
+      scrollInto(this.$refs.playlist);
     },
   },
   created() {
@@ -231,5 +235,9 @@ export default {
     flex-grow: 1;
     margin: 0 20px 20px 0;
   }
+}
+.pagination-wrapper {
+  margin-top: 32px;
+  float: right;
 }
 </style>

@@ -23,13 +23,13 @@ export default {
   props: {
     songList: {
       default: () => [],
-      type: Array,
-    },
+      type: Array
+    }
   },
   data() {
     return {};
   },
-  methods: {},
+  methods: {}
 };
 </script>
 

@@ -49,7 +49,7 @@ export default {
   name: "ZPagination",
   model: {
     prop: "currentPage",
-    event: "pageChange",
+    event: "pageChange"
   },
   props: {
     currentPage: Number,
@@ -57,14 +57,14 @@ export default {
     total: Number,
     pagerCount: {
       default: 7,
-      type: Number,
-    },
+      type: Number
+    }
   },
   data() {
     return {
       pagers: [],
       showPrevMore: false,
-      showNextMore: false,
+      showNextMore: false
     };
   },
   watch: {
@@ -73,7 +73,7 @@ export default {
     },
     totalPage() {
       this.initPagers();
-    },
+    }
   },
   computed: {
     canNext() {
@@ -84,7 +84,7 @@ export default {
     },
     totalPage() {
       return Math.ceil(this.total / this.limit);
-    },
+    }
   },
   methods: {
     prev() {
@@ -145,9 +145,9 @@ export default {
       this.showPrevMore = showPrevMore;
       this.showNextMore = showNextMore;
       this.pagers = array;
-    },
+    }
   },
-  mounted() {},
+  mounted() {}
 };
 </script>
 
@@ -155,6 +155,7 @@ export default {
 .z-pagination {
   user-select: none;
   display: flex;
+  width: 100%;
   .list {
     display: flex;
     .item {

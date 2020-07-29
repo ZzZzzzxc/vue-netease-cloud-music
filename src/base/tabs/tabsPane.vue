@@ -5,16 +5,16 @@ export default {
   props: {
     lazy: {
       type: Boolean,
-      default: false,
+      default: false
     },
     label: {
       type: String,
-      required: true,
+      required: true
     },
     name: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {};
@@ -22,7 +22,7 @@ export default {
   computed: {
     active() {
       return this.root.currentName === this.name;
-    },
+    }
   },
   mounted() {
     this.root.setPanes(this);
@@ -36,7 +36,7 @@ export default {
     ) : active ? (
       <div>{this.$slots.default}</div>
     ) : null;
-  },
+  }
 };
 </script>
 

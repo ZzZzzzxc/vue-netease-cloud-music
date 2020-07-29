@@ -1,8 +1,6 @@
 <template>
   <ul class="hot-tabs">
-    <li v-for="tab in tabs" :key="tab">
-        
-    </li>
+    <li v-for="tab in tabs" :key="tab"></li>
   </ul>
 </template>
 
@@ -12,12 +10,12 @@ export default {
   props: {
     tabs: {
       type: Array,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   data() {
     return {};
-  },
+  }
 };
 </script>
 
