@@ -51,6 +51,12 @@
         />
       </div>
     </div>
+    <Pagination
+      v-model="pagination.currentPage"
+      :pagerCount="pagination.pagerCount"
+      :limit="params.limit"
+      :total="total"
+    />
   </div>
 </template>
 
@@ -58,10 +64,11 @@
 import { getCatList, getHotCatList, getTopPlayList } from "@/api";
 import { SongSheetCard } from "@/components";
 import { formatNumber } from "@/utils";
-import { Popover } from "@/base";
+import { Popover, Pagination } from "@/base";
+const OFFSET_VAL = 0;
 export default {
   name: "sheet",
-  components: { SongSheetCard, Popover },
+  components: { SongSheetCard, Popover, Pagination },
   data() {
     return {
       currentTag: {},
@@ -77,11 +84,17 @@ export default {
       sub: [],
       tags: [],
       playlists: [],
-      pages: {
-        limit: 50,
-        offset: 0,
+      pagination: {
+        currentPage: 1,
+        pagerCount: 7,
       },
       total: 0,
+      params: {
+        order: "hot",
+        limit: 50,
+        offset: OFFSET_VAL,
+        cat: "",
+      },
     };
   },
   computed: {
@@ -98,9 +111,20 @@ export default {
     },
   },
   watch: {
+    params: {
+      handler() {
+        this.initPlayList();
+      },
+      deep: true,
+    },
+    "pagination.currentPage": function(page) {
+      this.params.offset = page - 1;
+    },
     currentTag(tag) {
-      const params = { order: "hot", cat: tag.name, ...this.pages };
-      this.initPlayList(params);
+      const { params } = this;
+      params.offset = OFFSET_VAL;
+      params.cat = tag.name;
+      this.params = params;
     },
   },
   methods: {
@@ -122,8 +146,10 @@ export default {
       const { tags } = await getHotCatList();
       this.tags = tags;
     },
-    async initPlayList(params) {
-      const { playlists } = await getTopPlayList(params);
+    async initPlayList() {
+      const { params } = this;
+      const { playlists, total } = await getTopPlayList(params);
+      this.total = total;
       this.playlists = playlists;
     },
   },
