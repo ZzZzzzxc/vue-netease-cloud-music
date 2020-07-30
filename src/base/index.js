@@ -8,6 +8,7 @@ import TabsPane from "./tabs/tabsPane.vue";
 import Swiper from "./swiper/swiper.vue";
 import SwiperItem from "./swiper/swiperItem.vue";
 import Pagination from "./pagination";
+import Scroller from "./scroller";
 
 export {
   Popover,
@@ -19,5 +20,6 @@ export {
   TabsPane,
   Swiper,
   SwiperItem,
-  Pagination
+  Pagination,
+  Scroller
 };

@@ -9,6 +9,7 @@ import HotTabs from "./hot-tabs";
 import SongSheetCard from "./song-sheet-card";
 import FlexCard from "./flex-card";
 import RankList from "./rank-list";
+import TagList from "./tag-list";
 
 export {
   HistoryControll,
@@ -21,5 +22,6 @@ export {
   HotTabs,
   SongSheetCard,
   FlexCard,
-  RankList
+  RankList,
+  TagList
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="flex-card">
-    <div class="header">{{ title }}</div>
+    <div class="header" v-if="title">{{ title }}</div>
     <div class="content">
       <slot />
     </div>

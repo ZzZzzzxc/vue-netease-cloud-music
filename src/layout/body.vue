@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div class="container" >
     <LayoutMenu />
-    <div class="content">
+    <div class="content" id="content_ref">
       <router-view />
     </div>
   </div>
@@ -11,7 +11,8 @@
 import LayoutMenu from "./menu";
 export default {
   name: "LayoutBody",
-  components: { LayoutMenu }
+  components: { LayoutMenu },
+  mounted() {},
 };
 </script>
 

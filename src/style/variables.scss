@@ -6,7 +6,7 @@ $light-black: #242424;
 $white: #fff;
 $gold: #e7aa5a;
 $blue: #517eaf;
-$grey-light:#ebeef57d;
+$grey-light: #ebeef57d;
 $grey: #ebeef5;
 $grey-dark: #909399;
 
@@ -17,7 +17,11 @@ $font-size-xs: 10px;
 $font-size-md: 15px;
 
 $header-height: 64px;
+$header-index: 999;
 $menu-width: 200px;
+
+// 版心宽度
+$content-width: 1080px;
 
 // z-popper
 $popper-min-width: 80px;

@@ -34,6 +34,7 @@ export default {
   padding: 0 54px;
   background-color: $theme-color;
   color: $white;
+  z-index: $header-index;
   .left {
     height: $header-height;
     line-height: $header-height;

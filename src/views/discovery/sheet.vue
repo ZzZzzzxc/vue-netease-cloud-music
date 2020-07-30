@@ -28,19 +28,7 @@
       </template>
       <div class="current-tag">{{ currentTag.name }}</div>
     </Popover>
-    <div class="hot-tags">
-      <div class="title">热门标签：</div>
-      <ul class="list">
-        <li
-          class="item"
-          v-for="tag in tags"
-          :key="tag.name"
-          @click="selectTag(tag)"
-        >
-          {{ tag.name }}
-        </li>
-      </ul>
-    </div>
+    <TagList :title="`热门标签：`" :tags="tags" @tagClick="selectTag" />
     <div class="card-list">
       <div class="item" v-for="card in playlists" :key="card.id">
         <SongSheetCard
@@ -64,13 +52,13 @@
 
 <script>
 import { getCatList, getHotCatList, getTopPlayList } from "@/api";
-import { SongSheetCard } from "@/components";
+import { SongSheetCard, TagList } from "@/components";
 import { formatNumber, scrollInto } from "@/utils";
 import { Popover, Pagination } from "@/base";
 const OFFSET_VAL = 0;
 export default {
   name: "sheet",
-  components: { SongSheetCard, Popover, Pagination },
+  components: { SongSheetCard, Popover, Pagination, TagList },
   data() {
     return {
       currentTag: {},
@@ -211,21 +199,6 @@ export default {
   border: $grey 1px solid;
   padding: 12px 16px;
   font-size: $font-size-sm;
-}
-.hot-tags {
-  display: flex;
-  font-size: $font-size-sm;
-  margin: 18px 0;
-  .list {
-    display: flex;
-    .item {
-      padding: 0 12px;
-      cursor: pointer;
-      &:not(:first-child) {
-        border-left: 1px $grey solid;
-      }
-    }
-  }
 }
 .card-list {
   display: flex;
