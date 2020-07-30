@@ -88,15 +88,15 @@ export default {
       playlists: [],
       pagination: {
         currentPage: 1,
-        pagerCount: 7,
+        pagerCount: 7
       },
       total: 0,
       params: {
         order: "hot",
         limit: 50,
         offset: OFFSET_VAL,
-        cat: "",
-      },
+        cat: ""
+      }
     };
   },
   computed: {
@@ -106,18 +106,18 @@ export default {
       for (let i = 0; i < categories.length; i++) {
         catSelectionList.push({
           title: categories[i],
-          list: this.filterCatList(i),
+          list: this.filterCatList(i)
         });
       }
       return catSelectionList;
-    },
+    }
   },
   watch: {
     params: {
       handler() {
         this.initPlayList();
       },
-      deep: true,
+      deep: true
     },
     "pagination.currentPage": function(page) {
       this.params.offset = page - 1;
@@ -127,7 +127,7 @@ export default {
       params.offset = OFFSET_VAL;
       params.cat = tag.name;
       this.params = params;
-    },
+    }
   },
   methods: {
     formatNumber,
@@ -155,12 +155,12 @@ export default {
       this.playlists = playlists;
       //  this.$refs.playlist.scrollTop = 0
       scrollInto(this.$refs.playlist);
-    },
+    }
   },
   created() {
     this.initCatList();
     this.initHotCatList();
-  },
+  }
 };
 </script>
 

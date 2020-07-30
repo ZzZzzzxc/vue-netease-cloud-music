@@ -11,7 +11,7 @@
 import LayoutMenu from "./menu";
 export default {
   name: "LayoutBody",
-  components: { LayoutMenu },
+  components: { LayoutMenu }
 };
 </script>
 

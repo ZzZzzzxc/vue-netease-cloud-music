@@ -61,6 +61,7 @@ export default {
       right: 0;
       text-align: right;
       background-color: rgba($color: #000000, $alpha: 0.4);
+      z-index: 100;
     }
     .img {
       position: absolute;

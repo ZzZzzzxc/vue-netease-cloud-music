@@ -7,6 +7,8 @@ import CardItem from "./card/cardItem";
 import SongList from "./song-list";
 import HotTabs from "./hot-tabs";
 import SongSheetCard from "./song-sheet-card";
+import FlexCard from "./flex-card";
+import RankList from "./rank-list";
 
 export {
   HistoryControll,
@@ -17,5 +19,7 @@ export {
   CardItem,
   SongList,
   HotTabs,
-  SongSheetCard
+  SongSheetCard,
+  FlexCard,
+  RankList
 };

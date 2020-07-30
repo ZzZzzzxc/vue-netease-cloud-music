@@ -159,3 +159,21 @@ export function formatNumber(number) {
   number = Number(number) || 0;
   return number > 100000 ? `${Math.round(number / 10000)}万` : number;
 }
+
+export function flattenDeep(array, depth = Infinity, result = []) {
+  if (array == null) {
+    return result;
+  }
+  for (const value of array) {
+    if (depth && Array.isArray(value)) {
+      if (depth > 1) {
+        flattenDeep(value, depth - 1, result);
+      } else {
+        result.push(...value);
+      }
+    } else {
+      result[result.length] = value;
+    }
+  }
+  return result;
+}
