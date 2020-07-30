@@ -5,16 +5,22 @@ export default {
   data() {
     return {
       activeBarWidth: 0,
-      activeBarOffsetLeft: 0
+      activeBarOffsetLeft: 0,
     };
   },
   computed: {
     activeBarStyle() {
       return {
         width: this.activeBarWidth,
-        transform: `translateX(${this.activeBarOffsetLeft}px)`
+        transform: `translateX(${this.activeBarOffsetLeft}px)`,
       };
-    }
+    },
+    navStyle() {
+      const placement = this.root.center ? "center" : "flex-start";
+      return {
+        justifyContent: placement,
+      };
+    },
   },
   methods: {
     handleCurrentNameChange(pane) {
@@ -28,7 +34,7 @@ export default {
         this.activeBarWidth = width;
         this.activeBarOffsetLeft = ele.offsetLeft;
       }
-    }
+    },
   },
   mounted() {
     this.$nextTick(() => {
@@ -37,7 +43,7 @@ export default {
   },
   render() {
     return (
-      <div class="z-tabs-nav-wrapper">
+      <div class="z-tabs-nav-wrapper" style={this.navStyle}>
         <div class="z-tabs-nav">
           {this.root.panes.map(pane => (
             <div
@@ -45,7 +51,7 @@ export default {
                 "z-tabs-nav__item",
                 this.root.currentName === pane.name
                   ? "z-tabs-nav__item__active"
-                  : ""
+                  : "",
               ]}
               onClick={() => {
                 this.handleCurrentNameChange(pane);
@@ -60,14 +66,13 @@ export default {
         </div>
       </div>
     );
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .z-tabs-nav-wrapper {
   display: flex;
-  justify-content: center;
   border-bottom: 1px $grey solid;
   margin-bottom: 12px;
   .z-tabs-nav {

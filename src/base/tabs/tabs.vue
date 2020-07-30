@@ -27,6 +27,10 @@ export default {
       type: String,
     },
     value: {},
+    center: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
