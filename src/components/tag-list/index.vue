@@ -13,7 +13,7 @@
         <span
           class="item"
           :class="[
-            active && activeTag && activeTag.name === tag.name ? `active` : ``
+            active && activeTag && activeTag.name === tag.name ? `active` : ``,
           ]"
           >{{ tag.name }}</span
         >
@@ -30,21 +30,25 @@ export default {
     title: String,
     active: {
       default: false,
-      type: Boolean
+      type: Boolean,
     },
-    defaultActive: Object
+    defaultActive: Object,
   },
   data() {
     return {
-      activeTag: this.defaultActive
+      activeTag: this.defaultActive,
     };
+  },
+  watch: {
+    activeTag(tag) {
+      this.$emit("tagChange", tag);
+    },
   },
   methods: {
     onTagClick(tag) {
       this.activeTag = tag;
-      this.$emit("tagClick", tag);
-    }
-  }
+    },
+  },
 };
 </script>
 

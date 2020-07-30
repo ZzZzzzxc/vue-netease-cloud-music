@@ -28,7 +28,7 @@
       </template>
       <div class="current-tag">{{ currentTag.name }}</div>
     </Popover>
-    <TagList :title="`热门标签：`" :tags="tags" @tagClick="selectTag" />
+    <TagList :title="`热门标签：`" :tags="tags" @tagChange="selectTag" />
     <div class="card-list">
       <div class="item" v-for="card in playlists" :key="card.id">
         <SongSheetCard

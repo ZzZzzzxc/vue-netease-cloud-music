@@ -48,6 +48,7 @@ export default {
     position: relative;
     overflow: hidden;
     margin-bottom: 12px;
+    border-radius: 8px;
     .text {
       color: $white;
       width: 100%;

@@ -6,21 +6,21 @@
         :defaultActive="LANGUAGES[0]"
         :title="`语种：`"
         :tags="LANGUAGES"
-        @tagClick="onLanguageTagClick"
+        @tagChange="onLanguageTagChange"
       />
       <TagList
         :active="true"
         :defaultActive="SINGERTYPE[0]"
         :title="`分类：`"
         :tags="SINGERTYPE"
-        @tagClick="onTypeTagClick"
+        @tagChange="onTypeTagChange"
       />
       <TagList
         :active="true"
         :defaultActive="INITIALS[1]"
         :title="`筛选：`"
         :tags="INITIALS"
-        @tagClick="onInitialsTagClick"
+        @tagChange="onInitialsTagChange"
       />
     </div>
     <div class="list-wrapper">
@@ -56,18 +56,13 @@ export default {
         initial: "A",
       },
       singerList: [],
-      scrollTop: 0,
+      scrollToBottom: 0,
       more: true,
       loading: false,
       contentRef: null,
     };
   },
-  computed: {
-    //距离底部多少触发加载
-    loadHref() {
-      return window.screen.height;
-    },
-  },
+  computed: {},
   watch: {
     params: {
       handler(params) {
@@ -75,22 +70,22 @@ export default {
       },
       deep: true,
     },
-    scrollTop(val) {
+    scrollToBottom(val) {
       if (val < 500 && !this.loading) {
         this.params.offset++;
       }
     },
   },
   methods: {
-    onLanguageTagClick(tag) {
+    onLanguageTagChange(tag) {
       this.resetStatus();
       this.params.area = tag.value;
     },
-    onTypeTagClick(tag) {
+    onTypeTagChange(tag) {
       this.resetStatus();
       this.params.type = tag.value;
     },
-    onInitialsTagClick(tag) {
+    onInitialsTagChange(tag) {
       this.resetStatus();
       this.params.initial = tag.value || tag.name;
     },
@@ -109,9 +104,11 @@ export default {
       this.more = true;
     },
     scrollAction() {
-      let scrollTop = this.contentRef.scrollTop || this.contentRef.scrollTop;
+      let scrollTop = this.contentRef.scrollTop;
       let scrollHeight = this.contentRef.scrollHeight;
-      this.scrollTop = scrollHeight - scrollTop;
+      let clientHeight = this.contentRef.clientHeight;
+      // 滚动条距离底部的距离
+      this.scrollToBottom = scrollHeight - scrollTop - clientHeight;
     },
   },
   created() {
@@ -122,7 +119,7 @@ export default {
     this.contentRef.addEventListener("scroll", this.scrollAction);
   },
   destroyed() {
-    // this.contentRef.removeEventListener("scroll", this.scrollAction);
+    this.contentRef.removeEventListener("scroll", this.scrollAction);
   },
 };
 </script>
