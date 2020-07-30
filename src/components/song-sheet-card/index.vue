@@ -2,7 +2,7 @@
   <div class="card-wrapper" :style="{ width: `${width}px` }">
     <div class="content" :style="{ height: `${height}px` }">
       <div class="header text">{{ count }}</div>
-      <img class="img" :src="imgUrl" alt="" />
+      <div class="img" :style="{ backgroundImage: `url(${imgUrl})` }"></div>
       <div class="bottom text">{{ author }}</div>
     </div>
     <div class="footer">{{ footer }}</div>
@@ -15,29 +15,29 @@ export default {
   props: {
     height: {
       default: 180,
-      type: Number
+      type: Number,
     },
     width: {
       default: 180,
-      type: Number
+      type: Number,
     },
     count: {
       default: "",
-      type: String
+      type: String,
     },
     imgUrl: {
       default: "",
-      type: String
+      type: String,
     },
     author: {
       default: "",
-      type: String
+      type: String,
     },
     footer: {
       default: "",
-      type: String
-    }
-  }
+      type: String,
+    },
+  },
 };
 </script>
 
@@ -67,6 +67,8 @@ export default {
       position: absolute;
       width: 100%;
       height: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
     }
     .bottom {
       position: absolute;
