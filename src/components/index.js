@@ -10,6 +10,7 @@ import SongSheetCard from "./song-sheet-card";
 import FlexCard from "./flex-card";
 import RankList from "./rank-list";
 import TagList from "./tag-list";
+import AlbumCard from "./album-card";
 
 export {
   HistoryControll,
@@ -23,5 +24,6 @@ export {
   SongSheetCard,
   FlexCard,
   RankList,
-  TagList
+  TagList,
+  AlbumCard
 };

@@ -3,6 +3,7 @@
     <div
       class="z-card-item__content"
       :style="contentStyle"
+      v-lazy:background-image="image"
       @mouseenter="onMouseEnter"
       @mouseleave="onMouseLeave"
       @click="onClick"
@@ -89,7 +90,6 @@ export default {
   computed: {
     contentStyle() {
       return {
-        backgroundImage: `url(${this.image})`,
         backgroundSepeat: `no-repeat`,
         backgroundSize: `cover`,
         height: `${this.height}px`

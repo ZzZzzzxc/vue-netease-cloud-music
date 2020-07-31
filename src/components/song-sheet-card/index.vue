@@ -2,7 +2,7 @@
   <div class="card-wrapper" :style="{ width: `${width}px` }">
     <div class="content" :style="{ height: `${height}px` }">
       <div class="header text">{{ count }}</div>
-      <div class="img" :style="{ backgroundImage: `url(${imgUrl})` }"></div>
+      <div class="img" v-lazy:background-image="imgUrl"></div>
       <div class="bottom text">{{ author }}</div>
     </div>
     <div class="footer">{{ footer }}</div>
@@ -15,29 +15,29 @@ export default {
   props: {
     height: {
       default: 180,
-      type: Number,
+      type: Number
     },
     width: {
       default: 180,
-      type: Number,
+      type: Number
     },
     count: {
       default: "",
-      type: String,
+      type: String
     },
     imgUrl: {
       default: "",
-      type: String,
+      type: String
     },
     author: {
       default: "",
-      type: String,
+      type: String
     },
     footer: {
       default: "",
-      type: String,
-    },
-  },
+      type: String
+    }
+  }
 };
 </script>
 

@@ -5,3 +5,4 @@ export * from "./playlist";
 export * from "./toplist";
 export * from "./top";
 export * from "./artist";
+export * from "./album";

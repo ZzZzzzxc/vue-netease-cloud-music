@@ -1,5 +1,5 @@
 <template>
-  <div class="container" >
+  <div class="container">
     <LayoutMenu />
     <div class="content" id="content_ref">
       <router-view />
@@ -12,7 +12,7 @@ import LayoutMenu from "./menu";
 export default {
   name: "LayoutBody",
   components: { LayoutMenu },
-  mounted() {},
+  mounted() {}
 };
 </script>
 

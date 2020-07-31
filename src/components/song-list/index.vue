@@ -3,7 +3,7 @@
     <div class="item" v-for="(item, index) in songList" :key="item.id">
       <div class="content">
         <div class="order">{{ index + 1 }}</div>
-        <img class="img" :src="item.picUrl" />
+        <img class="img" v-lazy="item.picUrl" />
         <div class="detail">
           <div class="song">{{ item.song.name }}</div>
           <div class="singer">
