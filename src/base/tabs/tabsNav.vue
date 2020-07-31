@@ -10,10 +10,19 @@ export default {
   },
   computed: {
     activeBarStyle() {
-      return {
+      const style = {
         width: this.activeBarWidth,
         transform: `translateX(${this.activeBarOffsetLeft}px)`,
       };
+      if (this.root.activeColor) style.backgroundColor = this.root.activeColor;
+      return style;
+    },
+    activeNavStyle() {
+      const style = {
+        fontWeight: "bold",
+        color: this.root.activeColor ? this.root.activeColor : `#d33a31`,
+      };
+      return style;
     },
     navStyle() {
       const placement = this.root.center ? "center" : "flex-start";
@@ -47,12 +56,10 @@ export default {
         <div class="z-tabs-nav">
           {this.root.panes.map(pane => (
             <div
-              class={[
-                "z-tabs-nav__item",
-                this.root.currentName === pane.name
-                  ? "z-tabs-nav__item__active"
-                  : "",
-              ]}
+              class={["z-tabs-nav__item"]}
+              style={
+                this.root.currentName === pane.name ? this.activeNavStyle : ""
+              }
               onClick={() => {
                 this.handleCurrentNameChange(pane);
               }}
@@ -83,10 +90,6 @@ export default {
       height: 40px;
       line-height: 40px;
       cursor: pointer;
-      &__active {
-        color: $theme-color;
-        font-weight: bold;
-      }
     }
     .active-bar {
       transition: 0.3s;

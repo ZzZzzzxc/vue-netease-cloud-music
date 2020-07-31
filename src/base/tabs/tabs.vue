@@ -23,6 +23,7 @@ export default {
     event: "activeChange",
   },
   props: {
+    activeColor: String,
     activeName: {
       type: String,
     },
