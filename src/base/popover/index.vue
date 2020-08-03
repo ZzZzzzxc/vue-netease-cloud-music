@@ -181,7 +181,7 @@ export default {
   background-color: $white;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   border: 1px solid $grey;
-  padding: 18px 20px;
+  padding: 18px 0;
   .z-popper-arrow,
   .z-popper-arrow::after {
     width: 0;
@@ -230,6 +230,18 @@ export default {
   }
   &__left {
     margin-right: 12px;
+  }
+  ::-webkit-scrollbar {
+    background-color: $grey;
+    width: 2px;
+    height: 4px;
+    background-clip: padding-box;
+  }
+
+  /*滚动条中间滑动部分*/
+  ::-webkit-scrollbar-thumb {
+    background-color: $theme-color;
+    border-radius: 5px;
   }
 }
 </style>

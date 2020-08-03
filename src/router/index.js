@@ -16,6 +16,8 @@ const layout = () =>
 const discovery = () =>
   import(/* webpackChunkName: "discovery" */ "../views/discovery/index.vue");
 const fm = () => import(/* webpackChunkName: "fm" */ "../views/fm/index.vue");
+const singer = () =>
+  import(/* webpackChunkName: "fm" */ "../views/detail/singer.vue");
 const routes = [
   {
     name: "Layout",
@@ -32,6 +34,11 @@ const routes = [
         name: "Fm",
         path: "/fm",
         component: fm
+      },
+      {
+        name: "Singer",
+        path: "/singer/:id",
+        component: singer
       }
     ]
   }

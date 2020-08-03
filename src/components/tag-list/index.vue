@@ -26,7 +26,7 @@
 export default {
   name: "TagList",
   props: {
-    tags: Array,
+    tags: Array, // [{name:xxx}]
     title: String,
     active: {
       default: false,

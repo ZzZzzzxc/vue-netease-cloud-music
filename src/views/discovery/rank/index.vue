@@ -1,56 +1,62 @@
 <template>
   <div>
-    <FlexCard :title="`官方榜`">
-      <RankList
-        :list="flattenDeep(soar.tracks)"
-        :banner="soar.coverImgUrl"
-        :len="8"
-        :customStyle="listStyle"
-      />
-      <RankList
-        :list="flattenDeep(news.tracks)"
-        :banner="news.coverImgUrl"
-        :len="8"
-        :customStyle="listStyle"
-      />
-      <RankList
-        :list="flattenDeep(original.tracks)"
-        :banner="original.coverImgUrl"
-        :len="8"
-        :customStyle="listStyle"
-      />
-      <RankList
-        :list="flattenDeep(hot.tracks)"
-        :banner="hot.coverImgUrl"
-        :len="8"
-        :customStyle="listStyle"
-      />
-      <RankList
-        :list="flattenDeep(singer.tracks)"
-        :banner="singer.coverUrl"
-        :len="8"
-        :customStyle="listStyle"
-      />
-    </FlexCard>
-    <FlexCard :title="`全球榜`">
-      <div v-for="sheet in global" :key="sheet.id" class="song-sheet-wrapper">
-        <SongSheetCard
-          :count="formatNumber(sheet.playCount).toString()"
-          :imgUrl="sheet.coverImgUrl"
-          :footer="sheet.name"
+    <Card :title="`官方榜`" :shadow="`never`">
+      <div class="rank-list-wrapper">
+        <RankList
+          :list="flattenDeep(soar.tracks)"
+          :banner="soar.coverImgUrl"
+          :len="8"
+          :customStyle="listStyle"
+        />
+        <RankList
+          :list="flattenDeep(news.tracks)"
+          :banner="news.coverImgUrl"
+          :len="8"
+          :customStyle="listStyle"
+        />
+        <RankList
+          :list="flattenDeep(original.tracks)"
+          :banner="original.coverImgUrl"
+          :len="8"
+          :customStyle="listStyle"
+        />
+        <RankList
+          :list="flattenDeep(hot.tracks)"
+          :banner="hot.coverImgUrl"
+          :len="8"
+          :customStyle="listStyle"
+        />
+        <RankList
+          :list="flattenDeep(singer.tracks)"
+          :banner="singer.coverUrl"
+          :len="8"
+          :customStyle="listStyle"
         />
       </div>
-    </FlexCard>
+    </Card>
+    <Card :title="`全球榜`" :shadow="`never`">
+      <div class="song-sheet-list-wrapper">
+        <div v-for="sheet in global" :key="sheet.id" class="song-sheet-wrapper">
+          <SongSheetCard
+            :count="formatNumber(sheet.playCount).toString()"
+            :imgUrl="sheet.coverImgUrl"
+            :footer="sheet.name"
+          />
+        </div>
+      </div>
+    </Card>
   </div>
 </template>
 
 <script>
 import { getTopList, getPlayListDetail, getTopArtists } from "@/api";
-import { FlexCard, RankList, SongSheetCard } from "@/components";
+import { SongSheetCard } from "@/components";
+import { Card } from "@/base";
+import RankList from "./list";
 import { flattenDeep, formatNumber } from "@/utils";
 export default {
   name: "Rank",
-  components: { FlexCard, RankList, SongSheetCard },
+  components: { Card, RankList, SongSheetCard },
   data() {
     return {
       totalList: [], // 榜单集合
@@ -60,8 +66,8 @@ export default {
       hot: {}, // 热歌榜,
       singer: {}, // 歌手榜
       listStyle: {
-        margin: "32px 32px 32px 0"
-      }
+        margin: "32px 32px 32px 0",
+      },
     };
   },
   computed: {
@@ -85,7 +91,7 @@ export default {
     global() {
       const { totalList } = this;
       return totalList.slice(4, totalList.length);
-    }
+    },
   },
   watch: {
     async soarId(id) {
@@ -103,7 +109,7 @@ export default {
     async hotId(id) {
       const { playlist } = await getPlayListDetail({ id });
       this.hot = playlist;
-    }
+    },
   },
   methods: {
     formatNumber,
@@ -116,17 +122,29 @@ export default {
     async initSingerList() {
       const { artists } = await getTopArtists();
       this.$set(this.singer, "tracks", artists);
-    }
+    },
   },
   created() {
     this.initTopList();
     this.initSingerList();
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.song-sheet-wrapper {
-  margin: 12px 12px 12px 0;
+.song-sheet-list-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+  .song-sheet-wrapper {
+    margin: 12px 10px;
+  }
+}
+.rank-list-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  flex-wrap: wrap;
 }
 </style>

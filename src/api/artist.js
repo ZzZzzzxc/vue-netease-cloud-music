@@ -9,3 +9,5 @@ import { request } from "@/plugins/axios";
  * @param {String} initial a b c ... z
  */
 export const getArtistList = params => request.get(`/artist/list`, { params });
+
+export const getArtistDetail = params => request.get("/artist/desc", params);
