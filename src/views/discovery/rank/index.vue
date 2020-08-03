@@ -46,7 +46,8 @@
 
 <script>
 import { getTopList, getPlayListDetail, getTopArtists } from "@/api";
-import { FlexCard, RankList, SongSheetCard } from "@/components";
+import { FlexCard, SongSheetCard } from "@/components";
+import RankList from "./list";
 import { flattenDeep, formatNumber } from "@/utils";
 export default {
   name: "Rank",

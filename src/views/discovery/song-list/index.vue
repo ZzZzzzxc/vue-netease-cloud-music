@@ -161,7 +161,7 @@ export default {
 .tag-selection {
   height: 300px;
   overflow-y: scroll;
-
+  padding: 0 20px;
   .tag-all {
     width: 100%;
     border: solid 1px $grey;
