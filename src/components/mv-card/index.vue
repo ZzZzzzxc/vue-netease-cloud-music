@@ -61,13 +61,8 @@ export default {
       if (this.count) {
         this.show = true;
       }
-<<<<<<< HEAD
     }
   }
-=======
-    },
-  },
->>>>>>> 034e646e5b85a323b414c3bd71a0fa93b5a40f0f
 };
 </script>
 

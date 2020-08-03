@@ -33,27 +33,16 @@ const routes = [
       {
         name: "Fm",
         path: "/fm",
-<<<<<<< HEAD
         component: fm,
-=======
-        component: fm
->>>>>>> 034e646e5b85a323b414c3bd71a0fa93b5a40f0f
       },
       {
         name: "Singer",
         path: "/singer/:id",
-<<<<<<< HEAD
         component: singer,
         props: true,
       },
     ],
   },
-=======
-        component: singer
-      }
-    ]
-  }
->>>>>>> 034e646e5b85a323b414c3bd71a0fa93b5a40f0f
 ];
 
 const router = new VueRouter({
