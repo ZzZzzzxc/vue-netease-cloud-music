@@ -6,7 +6,7 @@
         {{ briefDesc }}
       </div>
     </div>
-    <div class="section" v-for="intro in introduction" :key="intro.ti">
+    <div class="section" v-for="(intro, idx) in introduction" :key="idx">
       <h2 class="title">{{ intro.ti }}</h2>
       <div class="content">
         <p v-for="txt in intro.txt.split('\n')" :key="txt">{{ txt }}</p>
