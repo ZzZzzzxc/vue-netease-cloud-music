@@ -66,8 +66,8 @@ export default {
       hot: {}, // 热歌榜,
       singer: {}, // 歌手榜
       listStyle: {
-        margin: "32px 32px 32px 0",
-      },
+        margin: "32px 32px 32px 0"
+      }
     };
   },
   computed: {
@@ -91,7 +91,7 @@ export default {
     global() {
       const { totalList } = this;
       return totalList.slice(4, totalList.length);
-    },
+    }
   },
   watch: {
     async soarId(id) {
@@ -109,7 +109,7 @@ export default {
     async hotId(id) {
       const { playlist } = await getPlayListDetail({ id });
       this.hot = playlist;
-    },
+    }
   },
   methods: {
     formatNumber,
@@ -122,12 +122,12 @@ export default {
     async initSingerList() {
       const { artists } = await getTopArtists();
       this.$set(this.singer, "tracks", artists);
-    },
+    }
   },
   created() {
     this.initTopList();
     this.initSingerList();
-  },
+  }
 };
 </script>
 

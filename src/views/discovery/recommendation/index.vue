@@ -118,7 +118,7 @@ import {
   getPersonalPrivatecontent,
   getPersonalNewSong,
   getPersonalSheet,
-  getPersonalMv,
+  getPersonalMv
 } from "@/api";
 import { Swiper, SwiperItem, Card } from "@/base/index";
 import { RadioStationCard, MvCard } from "@/components";
@@ -129,14 +129,14 @@ export default {
   data() {
     return {
       customStyle: {
-        margin: "60px 0",
+        margin: "60px 0"
       },
       banners: [],
       djProgram: [],
       privatecontent: [],
       newSong: [],
       sheet: [],
-      mvs: [],
+      mvs: []
     };
   },
   components: {
@@ -145,7 +145,7 @@ export default {
     Card,
     SongList,
     RadioStationCard,
-    MvCard,
+    MvCard
   },
   methods: {
     formatNumber,
@@ -172,7 +172,7 @@ export default {
     async initMv() {
       const { result } = await getPersonalMv(10);
       this.mvs = result;
-    },
+    }
   },
   created() {
     this.initBanner();
@@ -181,7 +181,7 @@ export default {
     this.initNewSong();
     this.initSheet();
     this.initMv();
-  },
+  }
 };
 </script>
 

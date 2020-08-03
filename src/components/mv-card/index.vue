@@ -24,31 +24,31 @@ export default {
   props: {
     height: {
       default: 167,
-      type: Number,
+      type: Number
     },
     width: {
       default: 310,
-      type: Number,
+      type: Number
     },
     imgUrl: {
       default: "",
-      type: String,
+      type: String
     },
     count: {
-      type: String,
+      type: String
     },
     title: {
       default: "",
-      type: String,
+      type: String
     },
     footer: {
       default: "",
-      type: String,
-    },
+      type: String
+    }
   },
   data() {
     return {
-      show: false,
+      show: false
     };
   },
   methods: {
@@ -61,8 +61,8 @@ export default {
       if (this.count) {
         this.show = true;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -19,5 +19,5 @@ export {
   TagList,
   AlbumCard,
   RadioStationCard,
-  MvCard,
+  MvCard
 };

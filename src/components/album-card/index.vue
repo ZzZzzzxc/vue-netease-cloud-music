@@ -10,6 +10,9 @@
     <div v-if="artist" class="artist">
       {{ artist.name }}
     </div>
+    <div v-if="time" class="time">
+      {{ time }}
+    </div>
   </div>
 </template>
 
@@ -20,8 +23,9 @@ export default {
     alias: Array,
     img: String,
     name: String,
-    artist: Object
-  }
+    time: String,
+    artist: Object,
+  },
 };
 </script>
 
@@ -44,6 +48,10 @@ export default {
     }
   }
   .artist {
+    color: $grey-dark;
+    @include text-ellipsis();
+  }
+  .time {
     color: $grey-dark;
     @include text-ellipsis();
   }

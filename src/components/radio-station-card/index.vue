@@ -14,25 +14,25 @@ export default {
   props: {
     height: {
       default: 140,
-      type: Number,
+      type: Number
     },
     width: {
       default: 140,
-      type: Number,
+      type: Number
     },
     imgUrl: {
       default: "",
-      type: String,
+      type: String
     },
     title: {
       default: "",
-      type: String,
+      type: String
     },
     footer: {
       default: "",
-      type: String,
-    },
-  },
+      type: String
+    }
+  }
 };
 </script>
 

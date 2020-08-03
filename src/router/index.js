@@ -17,7 +17,7 @@ const discovery = () =>
   import(/* webpackChunkName: "discovery" */ "../views/discovery/index.vue");
 const fm = () => import(/* webpackChunkName: "fm" */ "../views/fm/index.vue");
 const singer = () =>
-  import(/* webpackChunkName: "fm" */ "../views/detail/singer.vue");
+  import(/* webpackChunkName: "fm" */ "../views/detail/singer/index.vue");
 const routes = [
   {
     name: "Layout",
@@ -28,26 +28,27 @@ const routes = [
       {
         name: "Discovery",
         path: "/discovery",
-        component: discovery
+        component: discovery,
       },
       {
         name: "Fm",
         path: "/fm",
-        component: fm
+        component: fm,
       },
       {
         name: "Singer",
         path: "/singer/:id",
-        component: singer
-      }
-    ]
-  }
+        component: singer,
+        props: true,
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;

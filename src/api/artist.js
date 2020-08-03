@@ -10,4 +10,24 @@ import { request } from "@/plugins/axios";
  */
 export const getArtistList = params => request.get(`/artist/list`, { params });
 
-export const getArtistDetail = params => request.get("/artist/desc", params);
+/**
+ * 获取歌手描述
+ * @param {String} id
+ */
+export const getArtistDesc = params =>
+  request.get("/artist/desc", { params });
+
+/**
+ * 获取歌手专辑
+ * @param {String} id
+ * @param {Number} offset
+ * @param {Number} limit
+ */
+export const getArtistAlbum = params =>
+  request.get("/artist/album", { params });
+
+/**
+ * 获取歌手MV
+ * @param {String} id
+ */
+export const getArtistMv = params => request.get("/artist/mv", { params });

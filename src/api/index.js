@@ -6,3 +6,4 @@ export * from "./toplist";
 export * from "./top";
 export * from "./artist";
 export * from "./album";
+export * from "./simi";

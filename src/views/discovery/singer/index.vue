@@ -28,6 +28,7 @@
         class="card-wrapper"
         v-for="(singer, index) in singerList"
         :key="index"
+        @click="toDetail(singer)"
       >
         <SongSheetCard :imgUrl="singer.picUrl" :footer="singer.name" />
       </div>
@@ -109,6 +110,9 @@ export default {
       let clientHeight = this.contentRef.clientHeight;
       // 滚动条距离底部的距离
       this.scrollToBottom = scrollHeight - scrollTop - clientHeight;
+    },
+    toDetail(data) {
+      this.$router.push({ name: "Singer", params: { id: data.id } });
     }
   },
   created() {
