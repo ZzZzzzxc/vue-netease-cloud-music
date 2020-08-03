@@ -118,7 +118,11 @@ import {
   getPersonalPrivatecontent,
   getPersonalNewSong,
   getPersonalSheet,
+<<<<<<< HEAD
   getPersonalMv
+=======
+  getPersonalMv,
+>>>>>>> 034e646e5b85a323b414c3bd71a0fa93b5a40f0f
 } from "@/api";
 import { Swiper, SwiperItem, Card } from "@/base/index";
 import { RadioStationCard, MvCard } from "@/components";
@@ -129,14 +133,22 @@ export default {
   data() {
     return {
       customStyle: {
+<<<<<<< HEAD
         margin: "60px 0"
+=======
+        margin: "60px 0",
+>>>>>>> 034e646e5b85a323b414c3bd71a0fa93b5a40f0f
       },
       banners: [],
       djProgram: [],
       privatecontent: [],
       newSong: [],
       sheet: [],
+<<<<<<< HEAD
       mvs: []
+=======
+      mvs: [],
+>>>>>>> 034e646e5b85a323b414c3bd71a0fa93b5a40f0f
     };
   },
   components: {
@@ -145,7 +157,11 @@ export default {
     Card,
     SongList,
     RadioStationCard,
+<<<<<<< HEAD
     MvCard
+=======
+    MvCard,
+>>>>>>> 034e646e5b85a323b414c3bd71a0fa93b5a40f0f
   },
   methods: {
     formatNumber,
@@ -181,7 +197,11 @@ export default {
     this.initNewSong();
     this.initSheet();
     this.initMv();
+<<<<<<< HEAD
   }
+=======
+  },
+>>>>>>> 034e646e5b85a323b414c3bd71a0fa93b5a40f0f
 };
 </script>
 
