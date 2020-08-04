@@ -12,9 +12,31 @@
   -webkit-box-orient: vertical;
 }
 
-@mixin absolute-center {
+@mixin abs-stretch {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+}
+
+@mixin abs-center {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+@mixin list($item-width) {
+  .list-wrap {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 0 -12px;
+    .list-item {
+      width: $item-width;
+      margin-bottom: 36px;
+      padding: 0 12px;
+    }
+  }
 }

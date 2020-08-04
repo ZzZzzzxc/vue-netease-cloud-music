@@ -1,6 +1,6 @@
 <template>
   <div class="song-list">
-    <div class="item" v-for="(item, index) in songList" :key="item.id">
+    <div class="item" v-for="(item, index) in newSongList" :key="item.id">
       <div class="content">
         <div class="order">{{ index + 1 }}</div>
         <img class="img" v-lazy="item.picUrl" />
@@ -18,18 +18,23 @@
 </template>
 
 <script>
+import { getPersonalNewSong } from "@/api";
 export default {
   name: "SongList",
-  props: {
-    songList: {
-      default: () => [],
-      type: Array
+  data() {
+    return {
+      newSongList: []
+    };
+  },
+  methods: {
+    async initNewSong() {
+      const { result } = await getPersonalNewSong();
+      this.newSongList = result;
     }
   },
-  data() {
-    return {};
-  },
-  methods: {}
+  created() {
+    this.initNewSong();
+  }
 };
 </script>
 

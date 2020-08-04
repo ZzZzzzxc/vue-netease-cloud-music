@@ -28,27 +28,27 @@ const routes = [
       {
         name: "Discovery",
         path: "/discovery",
-        component: discovery,
+        component: discovery
       },
       {
         name: "Fm",
         path: "/fm",
-        component: fm,
+        component: fm
       },
       {
         name: "Singer",
         path: "/singer/:id",
         component: singer,
-        props: true,
-      },
-    ],
-  },
+        props: true
+      }
+    ]
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes,
+  routes
 });
 
 export default router;

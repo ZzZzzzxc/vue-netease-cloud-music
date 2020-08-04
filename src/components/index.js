@@ -8,6 +8,9 @@ import TagList from "./tag-list";
 import AlbumCard from "./album-card";
 import RadioStationCard from "./radio-station-card";
 import MvCard from "./mv-card";
+import PrivateContentCard from "./private-content-card";
+import PlaylistCard from "./playlist-card";
+import SingerCard from "./singer-card";
 
 export {
   HistoryControll,
@@ -19,5 +22,8 @@ export {
   TagList,
   AlbumCard,
   RadioStationCard,
-  MvCard
+  MvCard,
+  PrivateContentCard,
+  PlaylistCard,
+  SingerCard
 };

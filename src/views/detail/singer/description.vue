@@ -22,8 +22,8 @@ export default {
     name: String,
     briefDesc: String,
     introduction: Array,
-    topicData: Array,
-  },
+    topicData: Array
+  }
 };
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <div ref="playlist">
+  <div ref="playlist" class="page-wrap">
     <Popover trigger="click" placement="bottom">
       <template slot="content">
         <div class="tag-selection">
@@ -29,16 +29,16 @@
       <div class="current-tag">{{ currentTag.name }}</div>
     </Popover>
     <TagList :title="`热门标签：`" :tags="tags" @tagChange="selectTag" />
-    <div class="card-list">
-      <div class="item" v-for="card in playlists" :key="card.id">
+    <ul class="list-wrap">
+      <li class="list-item" v-for="sheet in playlists" :key="sheet.id">
         <SongSheetCard
-          :count="formatNumber(card.playCount).toString()"
-          :imgUrl="card.coverImgUrl"
-          :author="card.creator.nickname"
-          :footer="card.name"
+          :count="formatNumber(sheet.playCount).toString()"
+          :imgUrl="sheet.coverImgUrl"
+          :artistName="sheet.creator.nickname"
+          :name="sheet.name"
         />
-      </div>
-    </div>
+      </li>
+    </ul>
     <div class="pagination-wrapper">
       <Pagination
         v-model="pagination.currentPage"
@@ -158,6 +158,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.page-wrap {
+  @include list(20%);
+  .current-tag {
+    border: $grey 1px solid;
+    padding: 12px 16px;
+    font-size: $font-size-sm;
+  }
+  .pagination-wrapper {
+    margin-top: 32px;
+    float: right;
+  }
+}
 .tag-selection {
   height: 300px;
   overflow-y: scroll;
@@ -199,23 +211,5 @@ export default {
       }
     }
   }
-}
-.current-tag {
-  border: $grey 1px solid;
-  padding: 12px 16px;
-  font-size: $font-size-sm;
-}
-.card-list {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  .item {
-    flex-grow: 1;
-    margin: 0 20px 20px 0;
-  }
-}
-.pagination-wrapper {
-  margin-top: 32px;
-  float: right;
 }
 </style>

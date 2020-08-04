@@ -1,5 +1,6 @@
 <template>
   <div class="z-swiper__item" :style="itemStyle" v-show="ready">
+    <div class="z-swiper__item__mask" v-show="!active" />
     <slot />
   </div>
 </template>
@@ -86,7 +87,6 @@ export default {
   transition: 0.3s;
   text-align: center;
   width: 50%;
-  background-color: $grey;
   position: absolute;
   top: 0;
   left: 0;
@@ -94,5 +94,13 @@ export default {
   display: inline-block;
   overflow: hidden;
   z-index: 0;
+  &__mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: $white;
+    opacity: 0.24;
+    transition: 0.3s;
+  }
 }
 </style>

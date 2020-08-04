@@ -1,9 +1,9 @@
 <template>
-  <div class="song-sheet-card">
+  <div class="playlist-card">
     <div class="img-wrap">
       <img v-lazy="getImgUrl(imgUrl, 300, 300)" />
-      <div class="img-wrap__top txt">{{ count }}</div>
-      <div class="img-wrap__bottom txt">{{ artistName }}</div>
+      <div class="desc txt">{{ desc }}</div>
+      <div class="count txt">{{ count }}</div>
     </div>
     <p>{{ name }}</p>
   </div>
@@ -12,8 +12,8 @@
 <script>
 import { getImgUrl } from "@/utils";
 export default {
-  name: "SongSheetCard",
-  props: [`imgUrl`, `count`, `name`, `artistName`],
+  name: "PlaylistCard",
+  props: [`imgUrl`, `desc`, `name`, `count`],
   methods: {
     getImgUrl
   }
@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.song-sheet-card {
+.playlist-card {
   font-size: $font-size-sm;
   width: 100%;
   cursor: pointer;
@@ -42,14 +42,23 @@ export default {
       line-height: 1.4;
       position: absolute;
       padding: 6px;
-      transition: all 0.3s;
-    }
-    &__top {
       top: 0;
+      transition: all 0.3s;
       background-color: rgba(0, 0, 0, 0.4);
     }
-    &__bottom {
-      bottom: 0;
+    .desc {
+      transform: translateY(-100%);
+    }
+    .count {
+      transform: translateY(0);
+    }
+    &:hover {
+      .desc {
+        transform: translateY(0);
+      }
+      .count {
+        transform: translateY(-100%);
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="header">
-      <div class="avatar" v-lazy:background-image="info.picUrl" />
+      <img class="avatar" v-lazy="getImgUrl(info.picUrl, 200, 200)" />
       <div class="info">
         <div class="name">{{ info.name }}</div>
         <div class="alias">
@@ -39,8 +39,9 @@ import {
   getArtistDesc,
   getArtistAlbum,
   getArtistMv,
-  getSimiArtist,
+  getSimiArtist
 } from "@/api";
+import { getImgUrl } from "@/utils";
 import Mvs from "./mvs";
 import Description from "./description";
 import Albums from "./albums";
@@ -52,7 +53,7 @@ export default {
     TabsPane,
     Albums,
     Description,
-    Mvs,
+    Mvs
   },
   props: ["id"],
   data() {
@@ -61,10 +62,11 @@ export default {
       info: {},
       desc: {},
       albums: [],
-      mvs: [],
+      mvs: []
     };
   },
   methods: {
+    getImgUrl,
     async initDesc() {
       const id = this.id;
       this.desc = await getArtistDesc({ id });
@@ -83,13 +85,13 @@ export default {
     async initSimiArtist() {
       const id = this.id;
       await getSimiArtist({ id });
-    },
+    }
   },
   created() {
     this.initDesc();
     this.initAlbum();
     this.initMv();
-  },
+  }
 };
 </script>
 
@@ -99,10 +101,8 @@ export default {
   .header {
     display: flex;
     justify-content: flex-start;
-    padding: 0 18px;
+    padding: 0 34px;
     .avatar {
-      width: 250px;
-      height: 250px;
       background-size: cover;
       background-repeat: no-repeat;
       margin-right: 24px;

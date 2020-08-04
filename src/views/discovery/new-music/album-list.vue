@@ -1,8 +1,10 @@
 <template>
-  <div class="album-list">
-    <div class="album-wrap" v-for="(item, index) in list" :key="index">
-      <AlbumCard v-bind="formatData(item)" />
-    </div>
+  <div class="album-list-wrap">
+    <ul class="list-wrap">
+      <li class="list-item" v-for="(item, index) in list" :key="index">
+        <AlbumCard v-bind="formatData(item)" />
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -56,9 +58,9 @@ export default {
     formatData(item) {
       return {
         alias: item.alias,
-        img: item.picUrl,
+        imgUrl: item.picUrl,
         name: item.name,
-        artist: item.artists[0]
+        artistName: item.artists[0].name
       };
     },
     async getList(params) {
@@ -97,11 +99,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.album-list {
-  display: flex;
-  flex-wrap: wrap;
-  .album-wrap {
-    margin: 32px;
-  }
+.album-list-wrap {
+  @include list(20%);
 }
 </style>

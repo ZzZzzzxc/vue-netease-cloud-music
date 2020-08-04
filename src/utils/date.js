@@ -1,3 +1,4 @@
+// 时间戳转时间
 export function timestampToTime(timestamp) {
   const time =
     timestamp.toString().length === 10 ? timestamp * 1000 : timestamp;
@@ -11,5 +12,5 @@ export function timestampToTime(timestamp) {
   //   let h = date.getHours();
   //   let m = date.getMinutes();
   //   let s = date.getSeconds(;
-  return Y + M + D ;
+  return Y + M + D;
 }

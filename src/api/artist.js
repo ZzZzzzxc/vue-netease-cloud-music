@@ -14,8 +14,7 @@ export const getArtistList = params => request.get(`/artist/list`, { params });
  * 获取歌手描述
  * @param {String} id
  */
-export const getArtistDesc = params =>
-  request.get("/artist/desc", { params });
+export const getArtistDesc = params => request.get("/artist/desc", { params });
 
 /**
  * 获取歌手专辑

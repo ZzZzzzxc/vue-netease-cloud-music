@@ -1,17 +1,15 @@
 <template>
   <div class="mvs-wrapper">
-    <Card :shadow="`hover`">
-      <div class="card-content">
-        <div class="wrapper" v-for="mv in mvs" :key="mv.id">
+    <Card :shadow="`never`">
+      <ul class="list-wrap">
+        <li class="list-item" v-for="mv in mvs" :key="mv.id">
           <MvCard
-            :width="240"
-            :height="120"
             :imgUrl="mv.imgurl"
-            :footer="mv.name"
+            :name="mv.name"
             :count="formatNumber(mv.playCount).toString()"
           />
-        </div>
-      </div>
+        </li>
+      </ul>
     </Card>
   </div>
 </template>
@@ -24,19 +22,12 @@ export default {
   name: "SingerMvs",
   components: { MvCard, Card },
   props: ["mvs"],
-  methods: { formatNumber },
+  methods: { formatNumber }
 };
 </script>
 
 <style lang="scss" scoped>
 .mvs-wrapper {
-  .card-content {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    .wrapper {
-      margin: 12px 16px;
-    }
-  }
+  @include list(25%);
 }
 </style>

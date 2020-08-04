@@ -43,7 +43,7 @@ export default {
   props: {
     height: {
       type: Number,
-      default: 240
+      default: 200
     }
   },
   data() {
@@ -117,7 +117,6 @@ export default {
   }
   .z-swiper {
     position: relative;
-    min-height: 240px;
     overflow: hidden;
   }
   .z-swiper-control {

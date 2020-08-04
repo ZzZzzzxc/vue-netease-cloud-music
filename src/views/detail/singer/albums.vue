@@ -1,17 +1,15 @@
 <template>
   <div class="albums-wrapper">
-    <Card :shadow="`hover`">
-      <div class="card-content">
-        <div class="wrapper" v-for="alb in albums" :key="alb.id">
+    <Card :shadow="`never`">
+      <ul class="list-wrap">
+        <li class="list-item" v-for="alb in albums" :key="alb.id">
           <AlbumCard
-            :width="120"
-            :height="120"
-            :img="alb.picUrl"
+            :imgUrl="alb.picUrl"
             :name="alb.name"
-            :time="timestampToTime(alb.publishTime)"
+            :artistName="timestampToTime(alb.publishTime)"
           />
-        </div>
-      </div>
+        </li>
+      </ul>
     </Card>
   </div>
 </template>
@@ -25,20 +23,13 @@ export default {
   components: { AlbumCard, Card },
   props: ["albums"],
   methods: {
-    timestampToTime,
-  },
+    timestampToTime
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .albums-wrapper {
-  .card-content {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    .wrapper {
-      margin: 12px 16px;
-    }
-  }
+  @include list(14.2%);
 }
 </style>

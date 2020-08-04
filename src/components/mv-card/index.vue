@@ -1,67 +1,27 @@
 <template>
-  <div class="mv-card" :style="{ width: `${width}px` }">
-    <div
-      class="content"
-      :style="{ height: `${height}px` }"
-      @mouseenter="showCount"
-      @mouseleave="hideCount"
-    >
-      <div class="img" v-lazy:background-image="imgUrl"></div>
-      <div class="title txt" :class="!show ? `txt__show` : `txt__hide`">
-        {{ title }}
-      </div>
-      <div class="count txt" :class="show ? `txt__show` : `txt__hide`">
-        {{ count }}
-      </div>
+  <div class="mv-card">
+    <div class="img-wrap">
+      <img v-lazy="getImgUrl(imgUrl, 600, 320)" />
+      <template v-if="count && desc">
+        <div class="desc txt">{{ desc }}</div>
+        <div class="count txt">{{ count }}</div>
+      </template>
+      <template v-else>
+        <div class="txt">{{ desc || count }}</div>
+      </template>
     </div>
-    <div class="footer">{{ footer }}</div>
+    <p>{{ name }}</p>
+    <p class="artistName">{{ artistName }}</p>
   </div>
 </template>
 
 <script>
+import { getImgUrl } from "@/utils";
 export default {
   name: "MvCard",
-  props: {
-    height: {
-      default: 167,
-      type: Number
-    },
-    width: {
-      default: 310,
-      type: Number
-    },
-    imgUrl: {
-      default: "",
-      type: String
-    },
-    count: {
-      type: String
-    },
-    title: {
-      default: "",
-      type: String
-    },
-    footer: {
-      default: "",
-      type: String
-    }
-  },
-  data() {
-    return {
-      show: false
-    };
-  },
+  props: [`imgUrl`, `desc`, `name`, `count`, `artistName`],
   methods: {
-    hideCount() {
-      if (this.count) {
-        this.show = false;
-      }
-    },
-    showCount() {
-      if (this.count) {
-        this.show = true;
-      }
-    }
+    getImgUrl
   }
 };
 </script>
@@ -69,45 +29,46 @@ export default {
 <style lang="scss" scoped>
 .mv-card {
   font-size: $font-size-sm;
-  .content {
+  width: 100%;
+  cursor: pointer;
+  .img-wrap {
     position: relative;
     overflow: hidden;
-    margin-bottom: 12px;
     border-radius: 8px;
-    .img {
-      position: absolute;
+    padding-top: 53.3%;
+    margin-bottom: 8px;
+    img {
+      @include abs-stretch;
       width: 100%;
       height: 100%;
-      background-size: cover;
-      background-repeat: no-repeat;
     }
     .txt {
-      transition: 0.3s;
       color: $white;
       width: 100%;
-      @include text-ellipsis();
-      padding: 0 6px;
+      line-height: 1.4;
       position: absolute;
-      background-color: rgba($color: #000000, $alpha: 0.4);
-      &__show {
-        top: 0;
-      }
-      &__hide {
-        top: -40px;
-      }
+      padding: 6px;
+      top: 0;
+      transition: all 0.3s;
+      background-color: rgba(0, 0, 0, 0.4);
     }
-    .title {
-      font-size: $font-size-lg;
-      line-height: 2.1;
+    .desc {
+      transform: translateY(-100%);
     }
     .count {
-      text-align: right;
-      font-size: $font-size;
-      line-height: 1.8;
+      transform: translateY(0);
+    }
+    &:hover {
+      .desc {
+        transform: translateY(0);
+      }
+      .count {
+        transform: translateY(-100%);
+      }
     }
   }
-  .footer {
-    width: 100%;
+  .artistName {
+    color: $grey-dark;
   }
 }
 </style>

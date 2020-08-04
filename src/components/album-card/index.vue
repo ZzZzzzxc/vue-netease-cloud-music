@@ -1,59 +1,63 @@
 <template>
   <div class="album-card">
-    <div class="img" v-lazy:background-image="img"></div>
-    <div class="name">
+    <div class="img-wrap">
+      <img v-lazy="getImgUrl(imgUrl, 340, 340)" />
+    </div>
+    <p>
       {{ name }}
-      <span class="alias" v-for="(item, idx) in alias" :key="idx">
-        [{{ item }}]
-      </span>
-    </div>
-    <div v-if="artist" class="artist">
-      {{ artist.name }}
-    </div>
-    <div v-if="time" class="time">
-      {{ time }}
-    </div>
+      <span v-for="(alia, idx) in alias" :key="idx">{{ alia.name }}</span>
+    </p>
+    <p class="artistName">{{ artistName }}</p>
   </div>
 </template>
 
 <script>
+import { getImgUrl } from "@/utils";
 export default {
   name: "AlbumCard",
   props: {
-    alias: Array,
-    img: String,
-    name: String,
-    time: String,
-    artist: Object,
+    alias: {
+      type: Array
+    },
+    imgUrl: {
+      default: "",
+      type: String
+    },
+    name: {
+      default: "",
+      type: String
+    },
+    artistName: {
+      default: "",
+      type: String
+    }
   },
+  methods: {
+    getImgUrl
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .album-card {
-  width: 120px;
   font-size: $font-size-sm;
-  .img {
-    width: 120px;
-    height: 120px;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-  .name {
-    margin: 6px 0;
-    line-height: 1.4;
-    @include text-ellipsis-multi(2);
-    .alias {
-      color: $grey-dark;
+  width: 100%;
+  cursor: pointer;
+  .img-wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    padding-top: 100%;
+    margin-bottom: 8px;
+    img {
+      @include abs-stretch;
+      width: 100%;
+      height: 100%;
     }
   }
-  .artist {
+  .artistName {
+    margin-top: 4px;
     color: $grey-dark;
-    @include text-ellipsis();
-  }
-  .time {
-    color: $grey-dark;
-    @include text-ellipsis();
   }
 }
 </style>

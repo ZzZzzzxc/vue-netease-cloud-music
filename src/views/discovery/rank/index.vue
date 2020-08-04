@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="rank-page-wrap">
     <Card :title="`官方榜`" :shadow="`never`">
       <div class="rank-list-wrapper">
         <RankList
@@ -35,15 +35,15 @@
       </div>
     </Card>
     <Card :title="`全球榜`" :shadow="`never`">
-      <div class="song-sheet-list-wrapper">
-        <div v-for="sheet in global" :key="sheet.id" class="song-sheet-wrapper">
+      <ul class="list-wrap">
+        <li class="list-item" v-for="sheet in global" :key="sheet.id">
           <SongSheetCard
             :count="formatNumber(sheet.playCount).toString()"
             :imgUrl="sheet.coverImgUrl"
-            :footer="sheet.name"
+            :name="sheet.name"
           />
-        </div>
-      </div>
+        </li>
+      </ul>
     </Card>
   </div>
 </template>
@@ -132,19 +132,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.song-sheet-list-wrapper {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  flex-wrap: wrap;
-  .song-sheet-wrapper {
-    margin: 12px 10px;
+.rank-page-wrap {
+  @include list(20%);
+  .rank-list-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    flex-wrap: wrap;
   }
-}
-.rank-list-wrapper {
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-  flex-wrap: wrap;
 }
 </style>

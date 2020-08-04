@@ -1,25 +1,18 @@
 <template>
-  <div class="radio-station-card" :style="{ width: `${width}px` }">
-    <div class="content" :style="{ height: `${height}px` }">
-      <div class="img" v-lazy:background-image="imgUrl"></div>
-      <div class="bottom">{{ title }}</div>
+  <div class="radio-station-card">
+    <div class="img-wrap">
+      <img v-lazy="getImgUrl(imgUrl, 170, 170)" />
+      <div class="img-wrap__bottom">{{ title }}</div>
     </div>
-    <div class="footer">{{ footer }}</div>
+    <p>{{ footer }}</p>
   </div>
 </template>
 
 <script>
+import { getImgUrl } from "@/utils";
 export default {
   name: "RadioStationCard",
   props: {
-    height: {
-      default: 140,
-      type: Number
-    },
-    width: {
-      default: 140,
-      type: Number
-    },
     imgUrl: {
       default: "",
       type: String
@@ -32,6 +25,9 @@ export default {
       default: "",
       type: String
     }
+  },
+  methods: {
+    getImgUrl
   }
 };
 </script>
@@ -39,38 +35,28 @@ export default {
 <style lang="scss" scoped>
 .radio-station-card {
   font-size: $font-size-sm;
-  .content {
+  width: 100%;
+  cursor: pointer;
+  .img-wrap {
     position: relative;
     overflow: hidden;
-    margin-bottom: 12px;
     border-radius: 8px;
-    .header {
-      position: absolute;
-      top: 0;
-      right: 0;
-      text-align: right;
-      background-color: rgba($color: #000000, $alpha: 0.4);
-      z-index: 100;
-    }
-    .img {
-      position: absolute;
+    padding-top: 100%;
+    margin-bottom: 8px;
+    img {
+      @include abs-stretch;
       width: 100%;
       height: 100%;
-      background-size: cover;
-      background-repeat: no-repeat;
     }
-    .bottom {
+    &__bottom {
       color: $white;
       width: 100%;
       line-height: 1.8;
-      @include text-ellipsis();
+      @include text-ellipsis;
       padding: 0 6px;
       position: absolute;
       bottom: 0;
     }
-  }
-  .footer {
-    width: 100%;
   }
 }
 </style>

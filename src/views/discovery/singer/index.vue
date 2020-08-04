@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="singer-page-wrap">
     <div>
       <TagList
         :active="true"
@@ -23,27 +23,26 @@
         @tagChange="onInitialsTagChange"
       />
     </div>
-    <div class="list-wrapper">
-      <div
-        class="card-wrapper"
-        v-for="(singer, index) in singerList"
-        :key="index"
-        @click="toDetail(singer)"
-      >
-        <SongSheetCard :imgUrl="singer.picUrl" :footer="singer.name" />
-      </div>
-    </div>
+    <ul class="list-wrap">
+      <li class="list-item" v-for="(singer, index) in singerList" :key="index">
+        <SingerCard
+          :id="singer.id"
+          :imgUrl="singer.picUrl"
+          :name="singer.name"
+        />
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 import { getArtistList } from "@/api";
 import { INITIALS, SINGERTYPE, LANGUAGES } from "@/config";
-import { TagList, SongSheetCard } from "@/components";
+import { TagList, SingerCard } from "@/components";
 const OFFSET_VAL = 0;
 export default {
   name: "Singer",
-  components: { TagList, SongSheetCard },
+  components: { TagList, SingerCard },
   data() {
     return {
       INITIALS,
@@ -110,9 +109,6 @@ export default {
       let clientHeight = this.contentRef.clientHeight;
       // 滚动条距离底部的距离
       this.scrollToBottom = scrollHeight - scrollTop - clientHeight;
-    },
-    toDetail(data) {
-      this.$router.push({ name: "Singer", params: { id: data.id } });
     }
   },
   created() {
@@ -129,12 +125,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.list-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  .card-wrapper {
-    margin: 18px;
-  }
+.singer-page-wrap {
+  @include list(20%);
 }
 </style>
