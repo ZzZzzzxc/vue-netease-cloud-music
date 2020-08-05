@@ -147,7 +147,9 @@ export default {
       this.pagers = array;
     }
   },
-  mounted() {}
+  mounted() {
+    this.initPagers()
+  }
 };
 </script>
 
