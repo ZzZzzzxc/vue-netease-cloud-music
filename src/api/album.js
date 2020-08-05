@@ -1,7 +1,7 @@
 import { request } from "@/plugins/axios";
 
 /**
- * 根据分类获取歌手列表
+ * 新碟上架
  * @param {Number} limit
  * @param {Number} offset
  * @param {Number} area ALL:全部,ZH:华语,EA:欧美,KR:韩国,JP:日本
