@@ -17,8 +17,8 @@ export default {
     getImgUrl,
     toDetail() {
       this.$router.push({ name: "Dj", params: { id: this.id } });
-    },
-  },
+    }
+  }
 };
 </script>
 

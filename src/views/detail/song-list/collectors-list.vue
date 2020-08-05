@@ -38,35 +38,35 @@ export default {
       pagination: {
         currentPage: 1,
         pagerCount: 7,
-        limit: 60,
+        limit: 60
       },
-      list: [],
+      list: []
     };
   },
   computed: {
     offset() {
       return (this.pagination.currentPage - 1) * this.pagination.limit;
-    },
+    }
   },
   watch: {
     offset() {
       if (this.list.length < this.total) this.init();
-    },
+    }
   },
   methods: {
     async init() {
       const params = {
         id: this.id,
         offset: this.offset,
-        limit: this.pagination.limit,
+        limit: this.pagination.limit
       };
       const { subscribers } = await getPlayListSubscribers(params);
       this.list = subscribers;
-    },
+    }
   },
   created() {
     this.init();
-  },
+  }
 };
 </script>
 

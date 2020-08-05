@@ -27,5 +27,5 @@ export {
   PrivateContentCard,
   PlaylistCard,
   SingerCard,
-  CollectorCard,
+  CollectorCard
 };

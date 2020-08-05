@@ -37,13 +37,13 @@ export default {
   props: ["ids"],
   data() {
     return {
-      list: [],
+      list: []
     };
   },
   watch: {
     ids() {
       this.initList();
-    },
+    }
   },
   methods: {
     pad,
@@ -54,11 +54,11 @@ export default {
         const { songs } = await getSongDetail({ ids });
         this.list = songs;
       }
-    },
+    }
   },
   created() {
     this.initList();
-  },
+  }
 };
 </script>
 

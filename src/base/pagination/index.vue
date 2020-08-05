@@ -148,7 +148,7 @@ export default {
     }
   },
   mounted() {
-    this.initPagers()
+    this.initPagers();
   }
 };
 </script>

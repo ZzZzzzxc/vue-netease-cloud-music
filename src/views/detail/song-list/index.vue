@@ -74,7 +74,7 @@ export default {
     return {
       activeName: "1",
       list: {},
-      ids: "",
+      ids: ""
     };
   },
   methods: {
@@ -86,12 +86,12 @@ export default {
       const id = this.id;
       const { playlist } = await getPlayListDetail({ id });
       this.list = playlist;
-      this.ids = ObjArr2Arr(this.list.trackIds, "id").join(",")
-    },
+      this.ids = ObjArr2Arr(this.list.trackIds, "id").join(",");
+    }
   },
   created() {
     this.initPlayListDetail();
-  },
+  }
 };
 </script>
 

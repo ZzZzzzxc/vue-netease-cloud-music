@@ -53,14 +53,14 @@ export default {
         offset: OFFSET_VAL,
         area: -1,
         type: -1,
-        initial: "A",
+        initial: "A"
       },
       page: OFFSET_VAL + 1,
       singerList: [],
       scrollToBottom: 0,
       more: true,
       loading: false,
-      contentRef: null,
+      contentRef: null
     };
   },
   computed: {},
@@ -69,14 +69,14 @@ export default {
       handler(params) {
         this.initArtistList(params);
       },
-      deep: true,
+      deep: true
     },
     scrollToBottom(val) {
       if (val < 500 && !this.loading) {
         this.page++;
         this.params.offset = (this.page - 1) * this.params.limit;
       }
-    },
+    }
   },
   methods: {
     onLanguageTagChange(tag) {
@@ -111,7 +111,7 @@ export default {
       let clientHeight = this.contentRef.clientHeight;
       // 滚动条距离底部的距离
       this.scrollToBottom = scrollHeight - scrollTop - clientHeight;
-    },
+    }
   },
   created() {
     this.initArtistList(this.params);
@@ -122,7 +122,7 @@ export default {
   },
   destroyed() {
     this.contentRef.removeEventListener("scroll", this.scrollAction);
-  },
+  }
 };
 </script>
 

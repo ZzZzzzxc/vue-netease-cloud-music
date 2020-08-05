@@ -18,7 +18,7 @@ export default {
   mounted() {},
   methods: { getImgUrl },
   computed: {},
-  watch: {},
+  watch: {}
 };
 </script>
 
