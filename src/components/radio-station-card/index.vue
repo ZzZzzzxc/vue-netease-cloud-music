@@ -1,5 +1,5 @@
 <template>
-  <div class="radio-station-card">
+  <div class="radio-station-card" @click="toDetail">
     <div class="img-wrap">
       <img v-lazy="getImgUrl(imgUrl, 170, 170)" />
       <div class="img-wrap__bottom">{{ title }}</div>
@@ -12,23 +12,13 @@
 import { getImgUrl } from "@/utils";
 export default {
   name: "RadioStationCard",
-  props: {
-    imgUrl: {
-      default: "",
-      type: String
-    },
-    title: {
-      default: "",
-      type: String
-    },
-    footer: {
-      default: "",
-      type: String
-    }
-  },
+  props: [`id`, `imgUrl`, `title`, `footer`],
   methods: {
-    getImgUrl
-  }
+    getImgUrl,
+    toDetail() {
+      this.$router.push({ name: "Dj", params: { id: this.id } });
+    },
+  },
 };
 </script>
 

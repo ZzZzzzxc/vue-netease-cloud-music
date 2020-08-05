@@ -2,6 +2,7 @@
   <ul class="list-wrap">
     <li class="list-item" v-for="sheet in sheetList" :key="sheet.id">
       <PlaylistCard
+        :id="sheet.id"
         :imgUrl="sheet.picUrl"
         :desc="sheet.copywriter"
         :name="sheet.name"

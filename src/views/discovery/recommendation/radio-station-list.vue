@@ -5,6 +5,7 @@
         :imgUrl="program.picUrl"
         :title="program.copywriter"
         :footer="program.name"
+        :id="program.id"
       />
     </li>
   </ul>

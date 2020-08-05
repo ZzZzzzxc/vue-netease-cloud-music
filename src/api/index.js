@@ -7,3 +7,5 @@ export * from "./top";
 export * from "./artist";
 export * from "./album";
 export * from "./simi";
+export * from "./dj";
+export * from "./comment";

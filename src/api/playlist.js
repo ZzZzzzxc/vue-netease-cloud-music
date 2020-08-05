@@ -12,3 +12,12 @@ export const getHotCatList = () => request.get("/playlist/hot");
  */
 export const getPlayListDetail = params =>
   request.get(`/playlist/detail`, { params });
+
+/**
+ * 获取歌单收藏者
+ * @param {String} id
+ * @param {Number} limit
+ * @param {Number} offset
+ */
+export const getPlayListSubscribers = params =>
+  request.get(`/playlist/subscribers`, { params });

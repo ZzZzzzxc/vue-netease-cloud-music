@@ -1,5 +1,5 @@
 <template>
-  <div class="song-sheet-card">
+  <div class="song-sheet-card" @click="toDetail">
     <div class="img-wrap">
       <img v-lazy="getImgUrl(imgUrl, 300, 300)" />
       <div class="img-wrap__top txt">{{ count }}</div>
@@ -13,9 +13,12 @@
 import { getImgUrl } from "@/utils";
 export default {
   name: "SongSheetCard",
-  props: [`imgUrl`, `count`, `name`, `artistName`],
+  props: [`imgUrl`, `count`, `name`, `artistName`, `id`],
   methods: {
-    getImgUrl
+    getImgUrl,
+    toDetail() {
+      this.$router.push({ name: "SongList", params: { id: this.id } });
+    }
   }
 };
 </script>

@@ -11,6 +11,7 @@ import MvCard from "./mv-card";
 import PrivateContentCard from "./private-content-card";
 import PlaylistCard from "./playlist-card";
 import SingerCard from "./singer-card";
+import CollectorCard from "./collector-card";
 
 export {
   HistoryControll,
@@ -25,5 +26,6 @@ export {
   MvCard,
   PrivateContentCard,
   PlaylistCard,
-  SingerCard
+  SingerCard,
+  CollectorCard,
 };

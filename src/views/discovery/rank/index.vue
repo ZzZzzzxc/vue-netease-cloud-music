@@ -38,6 +38,7 @@
       <ul class="list-wrap">
         <li class="list-item" v-for="sheet in global" :key="sheet.id">
           <SongSheetCard
+            :id="sheet.id"
             :count="formatNumber(sheet.playCount).toString()"
             :imgUrl="sheet.coverImgUrl"
             :name="sheet.name"
