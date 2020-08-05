@@ -44,9 +44,9 @@
       </div>
     </div>
     <div class="content">
-      <Tabs v-model="activeName" :center="false" :lazy="false">
+      <Tabs v-model="activeName" :center="false">
         <TabsPane label="歌曲列表" name="1">
-          <SongList />
+          <SongList :ids="ids" />
         </TabsPane>
         <TabsPane label="评论" name="2">
           <CommentsList />
@@ -62,7 +62,7 @@
 <script>
 import { Tabs, TabsPane } from "@/base";
 import { getPlayListDetail } from "@/api";
-import { getImgUrl, timestampToTime, formatNumber } from "@/utils";
+import { getImgUrl, timestampToTime, formatNumber, ObjArr2Arr } from "@/utils";
 import CollectorsList from "./collectors-list";
 import SongList from "./song-list";
 import CommentsList from "./comments-list";
@@ -72,11 +72,13 @@ export default {
   props: ["id"],
   data() {
     return {
-      activeName: "3",
+      activeName: "1",
       list: {},
+      ids: "",
     };
   },
   methods: {
+    ObjArr2Arr,
     getImgUrl,
     timestampToTime,
     formatNumber,
@@ -84,6 +86,7 @@ export default {
       const id = this.id;
       const { playlist } = await getPlayListDetail({ id });
       this.list = playlist;
+      this.ids = ObjArr2Arr(this.list.trackIds, "id").join(",")
     },
   },
   created() {

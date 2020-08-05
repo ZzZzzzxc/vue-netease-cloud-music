@@ -9,3 +9,4 @@ export * from "./album";
 export * from "./simi";
 export * from "./dj";
 export * from "./comment";
+export * from "./song";
