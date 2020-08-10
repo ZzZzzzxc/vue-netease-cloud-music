@@ -1,54 +1,65 @@
 <template>
-  <table class="music-list">
-    <tr class="album-card" v-for="(data, index) in list" :key="index">
-      <td class=" index-wrap">{{ pad(index + 1) }}</td>
-      <td class="img-wrap">
-        <img class="img" v-lazy="data.album.picUrl" alt="" />
-      </td>
-      <td class="song">{{ data.name }}</td>
-      <td class="artists-wrap ">
-        <span class="artist" v-for="(art, index) in data.artists" :key="index">
-          {{ art.name }}
-        </span>
-      </td>
-      <td class="">
-        {{ data.album.name }}
-      </td>
-      <td class="duration-wrapper">
-        {{ formatTime(data.duration / 1000) }}
-      </td>
-    </tr>
-  </table>
+  <Loading :loading="loading">
+    <table class="music-list">
+      <tr class="album-card" v-for="(data, index) in list" :key="index">
+        <td class=" index-wrap">{{ pad(index + 1) }}</td>
+        <td class="img-wrap">
+          <img class="img" v-lazy="data.album.picUrl" alt="" />
+        </td>
+        <td class="song">{{ data.name }}</td>
+        <td class="artists-wrap ">
+          <span
+            class="artist"
+            v-for="(art, index) in data.artists"
+            :key="index"
+          >
+            {{ art.name }}
+          </span>
+        </td>
+        <td class="">
+          {{ data.album.name }}
+        </td>
+        <td class="duration-wrapper">
+          {{ formatTime(data.duration / 1000) }}
+        </td>
+      </tr>
+    </table></Loading
+  >
 </template>
 
 <script>
 import { getTopSong } from "@/api";
 import { formatTime, pad } from "@/utils";
+import { Loading } from "@/base";
 export default {
   name: "music-list",
+  components:{Loading},
   props: {
     type: {
       // 0:全部 7:华语 96: 欧美 8:日本 16:韩国
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   data() {
     return {
-      list: []
+      list: [],
+      loading: false,
     };
   },
   methods: {
     pad,
     formatTime,
     async initList() {
+      this.loading = true;
       const { data } = await getTopSong({ type: this.type });
       this.list = data;
-    }
+      this.loading = false;
+    },
   },
   created() {
     this.initList();
-  }
+  },
 };
 </script>
 

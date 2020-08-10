@@ -27,12 +27,13 @@
   transform: translate(-50%, -50%);
 }
 
-@mixin list($item-width) {
+@mixin list($item-width, $min-height: 200px) {
   .list-wrap {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
     margin: 0 -12px;
+    min-height: $min-height;
     .list-item {
       width: $item-width;
       margin-bottom: 36px;

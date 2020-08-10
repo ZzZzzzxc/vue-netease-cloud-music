@@ -1,38 +1,45 @@
 <template>
-  <ul class="list-wrap">
-    <li class="list-item" v-for="program in djProgram" :key="program.id">
-      <RadioStationCard
-        :imgUrl="program.picUrl"
-        :title="program.copywriter"
-        :footer="program.name"
-        :id="program.id"
-      />
-    </li>
-  </ul>
+  <Loading :loading="loading">
+    <ul class="list-wrap">
+      <li class="list-item" v-for="program in djProgram" :key="program.id">
+        <RadioStationCard
+          :imgUrl="program.picUrl"
+          :title="program.copywriter"
+          :footer="program.name"
+          :id="program.id"
+        />
+      </li>
+    </ul>
+  </Loading>
 </template>
 
 <script>
 import { getPersonalDjProgram } from "@/api";
 import { RadioStationCard } from "@/components";
+import { Loading } from "@/base";
 export default {
   name: "RadioStationList",
   components: {
-    RadioStationCard
+    RadioStationCard,
+    Loading,
   },
   data() {
     return {
-      djProgram: []
+      loading: false,
+      djProgram: [],
     };
   },
   methods: {
     async initDjProgram() {
+      this.loading = true;
       const { result } = await getPersonalDjProgram();
       this.djProgram = result;
-    }
+      this.loading = false;
+    },
   },
   created() {
     this.initDjProgram();
-  }
+  },
 };
 </script>
 

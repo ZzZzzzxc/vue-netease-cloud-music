@@ -1,64 +1,71 @@
 <template>
-  <table class="music-list">
-    <tr class="list-header">
-      <th>编号</th>
-      <th>封面</th>
-      <th>歌名</th>
-      <th>作者</th>
-      <th>专辑</th>
-      <th>时长</th>
-    </tr>
-    <tr class="album-card" v-for="(data, index) in list" :key="index">
-      <td class=" index-wrap">{{ pad(index + 1) }}</td>
-      <td class="img-wrap">
-        <img class="img" v-lazy="data.al.picUrl" alt="" />
-      </td>
-      <td class="song">{{ data.name }}</td>
-      <td class="artists-wrap ">
-        <span class="artist" v-for="(art, index) in data.ar" :key="index">
-          {{ art.name }}
-        </span>
-      </td>
-      <td class="">
-        {{ data.name }}
-      </td>
-      <td class="duration-wrapper">
-        {{ formatTime(data.dt / 1000) }}
-      </td>
-    </tr>
-  </table>
+  <Loading :loading="loading">
+    <table class="music-list">
+      <tr class="list-header">
+        <th>编号</th>
+        <th>封面</th>
+        <th>歌名</th>
+        <th>作者</th>
+        <th>专辑</th>
+        <th>时长</th>
+      </tr>
+      <tr class="album-card" v-for="(data, index) in list" :key="index">
+        <td class=" index-wrap">{{ pad(index + 1) }}</td>
+        <td class="img-wrap">
+          <img class="img" v-lazy="data.al.picUrl" alt="" />
+        </td>
+        <td class="song">{{ data.name }}</td>
+        <td class="artists-wrap ">
+          <span class="artist" v-for="(art, index) in data.ar" :key="index">
+            {{ art.name }}
+          </span>
+        </td>
+        <td class="">
+          {{ data.name }}
+        </td>
+        <td class="duration-wrapper">
+          {{ formatTime(data.dt / 1000) }}
+        </td>
+      </tr>
+    </table>
+  </Loading>
 </template>
 
 <script>
 import { getSongDetail } from "@/api";
 import { formatTime, pad } from "@/utils";
+import { Loading } from "@/base";
 export default {
   name: "music-list",
   props: ["ids"],
+  components: { Loading },
   data() {
     return {
-      list: []
+      list: [],
+      loading: false,
     };
   },
   watch: {
     ids() {
       this.initList();
-    }
+    },
   },
   methods: {
     pad,
     formatTime,
     async initList() {
+      this.loading = true;
       const { ids } = this;
       if (ids) {
         const { songs } = await getSongDetail({ ids });
         this.list = songs;
       }
-    }
+      this.loading = false;
+    },
   },
   created() {
     this.initList();
-  }
+  },
 };
 </script>
 

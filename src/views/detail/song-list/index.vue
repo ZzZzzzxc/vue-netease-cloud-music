@@ -173,6 +173,7 @@ export default {
       align-items: flex-start;
       justify-content: flex-start;
       text-align: right;
+      font-size: $font-size-sm;
       .count {
         position: relative;
         &:first-child::after {

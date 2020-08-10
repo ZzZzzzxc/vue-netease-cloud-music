@@ -1,6 +1,6 @@
 <template>
   <div ref="playlist" class="page-wrap">
-    <Popover trigger="click" placement="bottom">
+    <Popover trigger="click" placement="bottom" v-if="catSelectionList.length">
       <template slot="content">
         <div class="tag-selection">
           <div
@@ -29,17 +29,18 @@
       <div class="current-tag">{{ currentTag.name }}</div>
     </Popover>
     <TagList :title="`热门标签：`" :tags="tags" @tagChange="selectTag" />
-    <ul class="list-wrap">
-      <li class="list-item" v-for="sheet in playlists" :key="sheet.id">
-        <SongSheetCard
-          :count="formatNumber(sheet.playCount).toString()"
-          :imgUrl="sheet.coverImgUrl"
-          :artistName="sheet.creator.nickname"
-          :name="sheet.name"
-          :id="sheet.id"
-        />
-      </li>
-    </ul>
+    <Loading :loading="listLoading">
+      <ul class="list-wrap">
+        <li class="list-item" v-for="sheet in playlists" :key="sheet.id">
+          <SongSheetCard
+            :count="formatNumber(sheet.playCount).toString()"
+            :imgUrl="sheet.coverImgUrl"
+            :artistName="sheet.creator.nickname"
+            :name="sheet.name"
+            :id="sheet.id"
+          />
+        </li></ul
+    ></Loading>
     <div class="pagination-wrapper">
       <Pagination
         v-model="pagination.currentPage"
@@ -55,13 +56,15 @@
 import { getCatList, getHotCatList, getTopPlayList } from "@/api";
 import { SongSheetCard, TagList } from "@/components";
 import { formatNumber } from "@/utils";
-import { Popover, Pagination } from "@/base";
+import { Popover, Pagination, Loading } from "@/base";
 const OFFSET_VAL = 0;
 export default {
   name: "sheet",
-  components: { SongSheetCard, Popover, Pagination, TagList },
+  components: { SongSheetCard, Popover, Pagination, TagList, Loading },
   data() {
     return {
+      listLoading: false,
+      catLoading: false,
       currentTag: {},
       all: {},
       /**
@@ -77,16 +80,16 @@ export default {
       playlists: [],
       pagination: {
         currentPage: 1,
-        pagerCount: 7
+        pagerCount: 7,
       },
       total: 0,
       params: {
         order: "hot",
         limit: 50,
         offset: OFFSET_VAL,
-        cat: ""
+        cat: "",
       },
-      contentRef: null
+      contentRef: null,
     };
   },
   computed: {
@@ -96,18 +99,18 @@ export default {
       for (let i = 0; i < categories.length; i++) {
         catSelectionList.push({
           title: categories[i],
-          list: this.filterCatList(i)
+          list: this.filterCatList(i),
         });
       }
       return catSelectionList;
-    }
+    },
   },
   watch: {
     params: {
       handler() {
         this.initPlayList();
       },
-      deep: true
+      deep: true,
     },
     "pagination.currentPage": function(page) {
       this.params.offset = (page - 1) * this.params.limit;
@@ -117,7 +120,7 @@ export default {
       params.offset = OFFSET_VAL;
       params.cat = tag.name;
       this.params = params;
-    }
+    },
   },
   methods: {
     formatNumber,
@@ -128,17 +131,20 @@ export default {
       this.currentTag = tag;
     },
     async initCatList() {
+      this.catLoading = true;
       const { sub, categories, all } = await getCatList();
       this.sub = sub;
       this.categories = categories;
       this.all = all;
       this.currentTag = all;
+      this.catLoading = false;
     },
     async initHotCatList() {
       const { tags } = await getHotCatList();
       this.tags = tags;
     },
     async initPlayList() {
+      this.listLoading = true;
       const { params } = this;
       const { playlists, total } = await getTopPlayList(params);
       this.total = total;
@@ -146,15 +152,16 @@ export default {
       this.contentRef.scrollTo({
         left: 0,
         top: 0,
-        behavior: "smooth"
+        behavior: "smooth",
       });
-    }
+      this.listLoading = false;
+    },
   },
   created() {
     this.contentRef = document.getElementById(`content_ref`);
     this.initCatList();
     this.initHotCatList();
-  }
+  },
 };
 </script>
 

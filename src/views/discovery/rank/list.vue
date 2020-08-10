@@ -1,37 +1,40 @@
 <template>
   <transition name="fade">
-    <ul class="rank-list" :style="customStyle" v-if="list.length">
-      <li class="banner" v-lazy:background-image="banner"></li>
-      <li class="item-wrapper" v-for="(item, index) in _list" :key="index">
-        <div class="item">
-          <div class="left">
-            <span class="index" :class="[index < 3 ? `active` : ``]">{{
-              index + 1
-            }}</span>
-            <span class="name">{{ item.name }}</span>
-          </div>
-          <template v-if="item.ar">
-            <div class="right">
-              <span v-for="artist in item.ar" :key="artist.id">
-                {{ artist.name }}
-              </span>
+    <Loading :loading="!list.length">
+      <ul class="rank-list" v-if="list.length">
+        <li class="banner" v-lazy:background-image="banner"></li>
+        <li class="item-wrapper" v-for="(item, index) in _list" :key="index">
+          <div class="item">
+            <div class="left">
+              <span class="index" :class="[index < 3 ? `active` : ``]">{{
+                index + 1
+              }}</span>
+              <span class="name">{{ item.name }}</span>
             </div>
-          </template>
-        </div>
-      </li>
-      <li class="bottom">查看全部</li>
-    </ul>
+            <template v-if="item.ar">
+              <div class="right">
+                <span v-for="artist in item.ar" :key="artist.id">
+                  {{ artist.name }}
+                </span>
+              </div>
+            </template>
+          </div>
+        </li>
+        <li class="bottom">查看全部</li>
+      </ul>
+    </Loading>
   </transition>
 </template>
 
 <script>
+import { Loading } from "@/base";
 export default {
   name: "RankList",
+  components: { Loading },
   props: {
     list: Array,
     banner: String, // 图片 url
     len: Number, // 长度
-    customStyle: Object
   },
   data() {
     return {};
@@ -39,8 +42,8 @@ export default {
   computed: {
     _list() {
       return this.list.slice(0, this.len);
-    }
-  }
+    },
+  },
 };
 </script>
 

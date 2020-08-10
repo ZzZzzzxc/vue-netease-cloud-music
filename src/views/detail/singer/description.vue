@@ -1,29 +1,49 @@
 <template>
-  <div class="desc-wrapper">
-    <div class="section">
-      <h2 class="title">{{ name }}简介</h2>
-      <div class="content">
-        {{ briefDesc }}
+  <Loading :loading="loading">
+    <div class="desc-wrapper">
+      <div class="section">
+        <h2 class="title">{{ name }}简介</h2>
+        <div class="content">
+          {{ desc.briefDesc }}
+        </div>
       </div>
-    </div>
-    <div class="section" v-for="(intro, idx) in introduction" :key="idx">
-      <h2 class="title">{{ intro.ti }}</h2>
-      <div class="content">
-        <p v-for="txt in intro.txt.split('\n')" :key="txt">{{ txt }}</p>
+      <div class="section" v-for="(intro, idx) in desc.introduction" :key="idx">
+        <h2 class="title">{{ intro.ti }}</h2>
+        <div class="content">
+          <p v-for="txt in intro.txt.split('\n')" :key="txt">{{ txt }}</p>
+        </div>
       </div>
-    </div>
-  </div>
+    </div></Loading
+  >
 </template>
 
 <script>
+import { getArtistDesc } from "@/api";
+import { Loading } from "@/base";
 export default {
   name: "SingerDesc",
   props: {
     name: String,
-    briefDesc: String,
-    introduction: Array,
-    topicData: Array
-  }
+    id: String,
+  },
+  components: { Loading },
+  data() {
+    return {
+      desc: {},
+      loading: false,
+    };
+  },
+  methods: {
+    async initDesc() {
+      this.loading = true;
+      const { id } = this;
+      this.desc = await getArtistDesc({ id });
+      this.loading = false;
+    },
+  },
+  created() {
+    this.initDesc();
+  },
 };
 </script>
 

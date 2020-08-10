@@ -1,18 +1,20 @@
 <template>
   <div class="collectors-list-wrap">
     <div class="content">
-      <div class="list-wrap wrapper">
-        <div
-          class="list-item"
-          v-for="collector in list"
-          :key="collector.userId"
-        >
-          <CollectorCard
-            :name="collector.nickname"
-            :imgUrl="collector.avatarUrl"
-          />
+      <Loading :loading="loading">
+        <div class="list-wrap wrapper">
+          <div
+            class="list-item"
+            v-for="collector in list"
+            :key="collector.userId"
+          >
+            <CollectorCard
+              :name="collector.nickname"
+              :imgUrl="collector.avatarUrl"
+            />
+          </div>
         </div>
-      </div>
+      </Loading>
     </div>
     <div class="pagination-wrapper">
       <Pagination
@@ -27,46 +29,57 @@
 
 <script>
 import { getPlayListSubscribers } from "@/api";
-import { Pagination } from "@/base";
+import { Pagination, Loading } from "@/base";
 import { CollectorCard } from "@/components";
 export default {
   name: "CollectorsList",
   props: ["id", "total"],
-  components: { Pagination, CollectorCard },
+  components: { Pagination, CollectorCard, Loading },
   data() {
     return {
       pagination: {
         currentPage: 1,
         pagerCount: 7,
-        limit: 60
+        limit: 60,
       },
-      list: []
+      list: [],
+      loading: false,
+      contentRef: null,
     };
   },
   computed: {
     offset() {
       return (this.pagination.currentPage - 1) * this.pagination.limit;
-    }
+    },
   },
   watch: {
     offset() {
       if (this.list.length < this.total) this.init();
-    }
+    },
   },
   methods: {
     async init() {
+      this.contentRef &&
+        this.contentRef.scrollTo({
+          left: 0,
+          top: 0,
+          behavior: "smooth",
+        });
+      this.loading = true;
       const params = {
         id: this.id,
         offset: this.offset,
-        limit: this.pagination.limit
+        limit: this.pagination.limit,
       };
       const { subscribers } = await getPlayListSubscribers(params);
       this.list = subscribers;
-    }
+      this.loading = false;
+    },
   },
   created() {
+    this.contentRef = document.getElementById(`content_ref`);
     this.init();
-  }
+  },
 };
 </script>
 

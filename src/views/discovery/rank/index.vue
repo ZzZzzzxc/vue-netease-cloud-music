@@ -2,49 +2,58 @@
   <div class="rank-page-wrap">
     <Card :title="`官方榜`" :shadow="`never`">
       <div class="rank-list-wrapper">
-        <RankList
-          :list="flattenDeep(soar.tracks)"
-          :banner="soar.coverImgUrl"
-          :len="8"
-          :customStyle="listStyle"
-        />
-        <RankList
-          :list="flattenDeep(news.tracks)"
-          :banner="news.coverImgUrl"
-          :len="8"
-          :customStyle="listStyle"
-        />
-        <RankList
-          :list="flattenDeep(original.tracks)"
-          :banner="original.coverImgUrl"
-          :len="8"
-          :customStyle="listStyle"
-        />
-        <RankList
-          :list="flattenDeep(hot.tracks)"
-          :banner="hot.coverImgUrl"
-          :len="8"
-          :customStyle="listStyle"
-        />
-        <RankList
-          :list="flattenDeep(singer.tracks)"
-          :banner="singer.coverUrl"
-          :len="8"
-          :customStyle="listStyle"
-        />
+        <div class="list-wrap">
+          <div class="list-item">
+            <RankList
+              :list="flattenDeep(soar.tracks)"
+              :banner="soar.coverImgUrl"
+              :len="8"
+            />
+          </div>
+          <div class="list-item">
+            <RankList
+              :list="flattenDeep(news.tracks)"
+              :banner="news.coverImgUrl"
+              :len="8"
+            />
+          </div>
+          <div class="list-item">
+            <RankList
+              :list="flattenDeep(original.tracks)"
+              :banner="original.coverImgUrl"
+              :len="8"
+            />
+          </div>
+          <div class="list-item">
+            <RankList
+              :list="flattenDeep(hot.tracks)"
+              :banner="hot.coverImgUrl"
+              :len="8"
+            />
+          </div>
+          <div class="list-item">
+            <RankList
+              :list="flattenDeep(singer.tracks)"
+              :banner="singer.coverUrl"
+              :len="8"
+            />
+          </div>
+        </div>
       </div>
     </Card>
     <Card :title="`全球榜`" :shadow="`never`">
-      <ul class="list-wrap">
-        <li class="list-item" v-for="sheet in global" :key="sheet.id">
-          <SongSheetCard
-            :id="sheet.id"
-            :count="formatNumber(sheet.playCount).toString()"
-            :imgUrl="sheet.coverImgUrl"
-            :name="sheet.name"
-          />
-        </li>
-      </ul>
+      <Loading :loading="songListLoading">
+        <ul class="list-wrap">
+          <li class="list-item" v-for="sheet in global" :key="sheet.id">
+            <SongSheetCard
+              :id="sheet.id"
+              :count="formatNumber(sheet.playCount).toString()"
+              :imgUrl="sheet.coverImgUrl"
+              :name="sheet.name"
+            />
+          </li>
+        </ul>
+      </Loading>
     </Card>
   </div>
 </template>
@@ -52,12 +61,12 @@
 <script>
 import { getTopList, getPlayListDetail, getTopArtists } from "@/api";
 import { SongSheetCard } from "@/components";
-import { Card } from "@/base";
+import { Card, Loading } from "@/base";
 import RankList from "./list";
 import { flattenDeep, formatNumber } from "@/utils";
 export default {
   name: "Rank",
-  components: { Card, RankList, SongSheetCard },
+  components: { Card, RankList, SongSheetCard, Loading },
   data() {
     return {
       totalList: [], // 榜单集合
@@ -66,9 +75,7 @@ export default {
       original: {}, // 原创榜
       hot: {}, // 热歌榜,
       singer: {}, // 歌手榜
-      listStyle: {
-        margin: "32px 32px 32px 0"
-      }
+      songListLoading: false,
     };
   },
   computed: {
@@ -92,7 +99,7 @@ export default {
     global() {
       const { totalList } = this;
       return totalList.slice(4, totalList.length);
-    }
+    },
   },
   watch: {
     async soarId(id) {
@@ -110,7 +117,7 @@ export default {
     async hotId(id) {
       const { playlist } = await getPlayListDetail({ id });
       this.hot = playlist;
-    }
+    },
   },
   methods: {
     formatNumber,
@@ -121,14 +128,16 @@ export default {
       this.singer = { ...this.singer, ...artistToplist };
     },
     async initSingerList() {
+      this.songListLoading = true;
       const { artists } = await getTopArtists();
       this.$set(this.singer, "tracks", artists);
-    }
+      this.songListLoading = false;
+    },
   },
   created() {
     this.initTopList();
     this.initSingerList();
-  }
+  },
 };
 </script>
 
@@ -136,10 +145,8 @@ export default {
 .rank-page-wrap {
   @include list(20%);
   .rank-list-wrapper {
-    display: flex;
-    justify-content: flex-start;
     width: 100%;
-    flex-wrap: wrap;
+    @include list(33%);
   }
 }
 </style>

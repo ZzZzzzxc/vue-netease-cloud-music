@@ -1,40 +1,47 @@
 <template>
-  <div class="song-list">
-    <div class="item" v-for="(item, index) in newSongList" :key="item.id">
-      <div class="content">
-        <div class="order">{{ index + 1 }}</div>
-        <img class="img" v-lazy="item.picUrl" />
-        <div class="detail">
-          <div class="song">{{ item.song.name }}</div>
-          <div class="singer">
-            <span v-for="artist in item.song.artists" :key="artist.id">
-              {{ artist.name }}</span
-            >
+  <Loading :loading="loading" :customStyle="{ width: `100%` }">
+    <div class="song-list">
+      <div class="item" v-for="(item, index) in newSongList" :key="item.id">
+        <div class="content">
+          <div class="order">{{ index + 1 }}</div>
+          <img class="img" v-lazy="item.picUrl" />
+          <div class="detail">
+            <div class="song">{{ item.song.name }}</div>
+            <div class="singer">
+              <span v-for="artist in item.song.artists" :key="artist.id">
+                {{ artist.name }}</span
+              >
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </Loading>
 </template>
 
 <script>
 import { getPersonalNewSong } from "@/api";
+import { Loading } from "@/base";
 export default {
   name: "SongList",
+  components: { Loading },
   data() {
     return {
-      newSongList: []
+      newSongList: [],
+      loading: false,
     };
   },
   methods: {
     async initNewSong() {
+      this.loading = true;
       const { result } = await getPersonalNewSong();
       this.newSongList = result;
-    }
+      this.loading = false;
+    },
   },
   created() {
     this.initNewSong();
-  }
+  },
 };
 </script>
 

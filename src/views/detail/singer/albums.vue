@@ -1,30 +1,32 @@
 <template>
   <div class="albums-wrapper">
     <Card :shadow="`never`">
-      <ul class="list-wrap">
-        <li class="list-item" v-for="alb in albums" :key="alb.id">
-          <AlbumCard
-            :imgUrl="alb.picUrl"
-            :name="alb.name"
-            :artistName="timestampToTime(alb.publishTime)"
-          />
-        </li>
-      </ul>
+      <Loading :loading="loading">
+        <ul class="list-wrap">
+          <li class="list-item" v-for="alb in albums" :key="alb.id">
+            <AlbumCard
+              :imgUrl="alb.picUrl"
+              :name="alb.name"
+              :artistName="timestampToTime(alb.publishTime)"
+            />
+          </li>
+        </ul>
+      </Loading>
     </Card>
   </div>
 </template>
 
 <script>
-import { Card } from "@/base";
+import { Card, Loading } from "@/base";
 import { AlbumCard } from "@/components";
 import { timestampToTime } from "@/utils";
 export default {
   name: "SingerAlbums",
-  components: { AlbumCard, Card },
-  props: ["albums"],
+  components: { AlbumCard, Card, Loading },
+  props: ["albums","loading"],
   methods: {
-    timestampToTime
-  }
+    timestampToTime,
+  },
 };
 </script>
 

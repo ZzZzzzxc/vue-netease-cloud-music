@@ -1,33 +1,34 @@
 <template>
   <div class="wrapper">
-    <div class="header">
-      <img class="avatar" v-lazy="getImgUrl(info.picUrl, 200, 200)" />
-      <div class="info">
-        <div class="name">{{ info.name }}</div>
-        <div class="alias">
-          <span v-for="alia in info.alias" :key="alia">
-            {{ alia }}
-          </span>
+    <Loading :loading="loading">
+      <div class="header">
+        <img class="avatar" v-lazy="getImgUrl(info.picUrl, 200, 200)" />
+        <div class="info">
+          <div class="name">{{ info.name }}</div>
+          <div class="alias">
+            <span v-for="alia in info.alias" :key="alia">
+              {{ alia }}
+            </span>
+          </div>
+          <div class="music" v-if="info.musicSize">
+            专辑数：{{ info.musicSize }}
+          </div>
+          <div class="album" v-if="info.albumSize">
+            单曲数：{{ info.albumSize }}
+          </div>
         </div>
-        <div class="music">专辑数：{{ info.musicSize }}</div>
-        <div class="album">单曲数：{{ info.albumSize }}</div>
       </div>
-    </div>
+    </Loading>
     <div class="content">
       <Tabs v-model="activeName">
         <TabsPane label="专辑" name="1">
-          <Albums :albums="albums" />
+          <Albums :albums="albums" :loading="loading" />
         </TabsPane>
         <TabsPane label="MV" name="2">
-          <Mvs :mvs="mvs" />
+          <Mvs :id="id" />
         </TabsPane>
         <TabsPane label="歌手详情" name="3">
-          <Description
-            :name="info.name"
-            :briefDesc="desc.briefDesc"
-            :introduction="desc.introduction"
-            :topicData="desc.topicData"
-          />
+          <Description :name="info.name" :id="id" />
         </TabsPane>
       </Tabs>
     </div>
@@ -35,17 +36,12 @@
 </template>
 
 <script>
-import {
-  getArtistDesc,
-  getArtistAlbum,
-  getArtistMv,
-  getSimiArtist
-} from "@/api";
+import { getArtistAlbum } from "@/api";
 import { getImgUrl } from "@/utils";
 import Mvs from "./mvs";
 import Description from "./description";
 import Albums from "./albums";
-import { Tabs, TabsPane } from "@/base/index";
+import { Tabs, TabsPane, Loading } from "@/base";
 export default {
   name: "Singer",
   components: {
@@ -53,45 +49,32 @@ export default {
     TabsPane,
     Albums,
     Description,
-    Mvs
+    Mvs,
+    Loading,
   },
   props: ["id"],
   data() {
     return {
       activeName: "1",
       info: {},
-      desc: {},
       albums: [],
-      mvs: []
+      loading: false,
     };
   },
   methods: {
     getImgUrl,
-    async initDesc() {
-      const id = this.id;
-      this.desc = await getArtistDesc({ id });
-    },
     async initAlbum() {
-      const id = this.id;
+      this.loading = true;
+      const { id } = this;
       const { hotAlbums, artist } = await getArtistAlbum({ id, limit: 1000 });
       this.albums = hotAlbums;
       this.info = artist;
+      this.loading = false;
     },
-    async initMv() {
-      const id = this.id;
-      const { mvs } = await getArtistMv({ id, limit: 1000 });
-      this.mvs = mvs;
-    },
-    async initSimiArtist() {
-      const id = this.id;
-      await getSimiArtist({ id });
-    }
   },
   created() {
-    this.initDesc();
     this.initAlbum();
-    this.initMv();
-  }
+  },
 };
 </script>
 
@@ -102,6 +85,8 @@ export default {
     display: flex;
     justify-content: flex-start;
     padding: 0 34px;
+    width: 100%;
+    min-height: 200px;
     .avatar {
       background-size: cover;
       background-repeat: no-repeat;
