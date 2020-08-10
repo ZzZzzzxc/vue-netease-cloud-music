@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       newSongList: [],
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -37,11 +37,11 @@ export default {
       const { result } = await getPersonalNewSong();
       this.newSongList = result;
       this.loading = false;
-    },
+    }
   },
   created() {
     this.initNewSong();
-  },
+  }
 };
 </script>
 

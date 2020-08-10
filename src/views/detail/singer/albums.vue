@@ -7,7 +7,7 @@
             <AlbumCard
               :imgUrl="alb.picUrl"
               :name="alb.name"
-              :artistName="timestampToTime(alb.publishTime)"
+              :artistName="formatDate(alb.publishTime)"
             />
           </li>
         </ul>
@@ -19,14 +19,14 @@
 <script>
 import { Card, Loading } from "@/base";
 import { AlbumCard } from "@/components";
-import { timestampToTime } from "@/utils";
+import { formatDate } from "@/utils";
 export default {
   name: "SingerAlbums",
   components: { AlbumCard, Card, Loading },
-  props: ["albums","loading"],
+  props: ["albums", "loading"],
   methods: {
-    timestampToTime,
-  },
+    formatDate
+  }
 };
 </script>
 

@@ -34,7 +34,7 @@ export default {
   props: {
     list: Array,
     banner: String, // 图片 url
-    len: Number, // 长度
+    len: Number // 长度
   },
   data() {
     return {};
@@ -42,8 +42,8 @@ export default {
   computed: {
     _list() {
       return this.list.slice(0, this.len);
-    },
-  },
+    }
+  }
 };
 </script>
 

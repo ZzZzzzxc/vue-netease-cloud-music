@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       mvs: [],
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -38,11 +38,11 @@ export default {
       const { mvs } = await getArtistMv({ id, limit: 1000 });
       this.mvs = mvs;
       this.loading = false;
-    },
+    }
   },
   created() {
     this.initMv();
-  },
+  }
 };
 </script>
 

@@ -9,7 +9,7 @@ import Swiper from "./swiper/swiper.vue";
 import SwiperItem from "./swiper/swiperItem.vue";
 import Pagination from "./pagination";
 import Card from "./card";
-import Loading from './loading'
+import Loading from "./loading";
 
 export {
   Popover,

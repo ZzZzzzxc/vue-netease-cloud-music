@@ -22,12 +22,12 @@ export default {
   name: "SongSheetList",
   components: {
     PlaylistCard,
-    Loading,
+    Loading
   },
   data() {
     return {
       sheetList: [],
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -37,11 +37,11 @@ export default {
       const { result } = await getPersonalSheet();
       this.sheetList = result;
       this.loading = false;
-    },
+    }
   },
   created() {
     this.initSheetList();
-  },
+  }
 };
 </script>
 

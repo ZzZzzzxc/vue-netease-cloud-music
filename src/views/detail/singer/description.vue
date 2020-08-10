@@ -24,13 +24,13 @@ export default {
   name: "SingerDesc",
   props: {
     name: String,
-    id: String,
+    id: String
   },
   components: { Loading },
   data() {
     return {
       desc: {},
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -39,11 +39,11 @@ export default {
       const { id } = this;
       this.desc = await getArtistDesc({ id });
       this.loading = false;
-    },
+    }
   },
   created() {
     this.initDesc();
-  },
+  }
 };
 </script>
 

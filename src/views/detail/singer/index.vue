@@ -50,7 +50,7 @@ export default {
     Albums,
     Description,
     Mvs,
-    Loading,
+    Loading
   },
   props: ["id"],
   data() {
@@ -58,7 +58,7 @@ export default {
       activeName: "1",
       info: {},
       albums: [],
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -70,11 +70,11 @@ export default {
       this.albums = hotAlbums;
       this.info = artist;
       this.loading = false;
-    },
+    }
   },
   created() {
     this.initAlbum();
-  },
+  }
 };
 </script>
 

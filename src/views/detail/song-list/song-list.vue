@@ -42,13 +42,13 @@ export default {
   data() {
     return {
       list: [],
-      loading: false,
+      loading: false
     };
   },
   watch: {
     ids() {
       this.initList();
-    },
+    }
   },
   methods: {
     pad,
@@ -61,11 +61,11 @@ export default {
         this.list = songs;
       }
       this.loading = false;
-    },
+    }
   },
   created() {
     this.initList();
-  },
+  }
 };
 </script>
 

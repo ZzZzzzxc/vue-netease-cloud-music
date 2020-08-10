@@ -40,22 +40,22 @@ export default {
       pagination: {
         currentPage: 1,
         pagerCount: 7,
-        limit: 60,
+        limit: 60
       },
       list: [],
       loading: false,
-      contentRef: null,
+      contentRef: null
     };
   },
   computed: {
     offset() {
       return (this.pagination.currentPage - 1) * this.pagination.limit;
-    },
+    }
   },
   watch: {
     offset() {
       if (this.list.length < this.total) this.init();
-    },
+    }
   },
   methods: {
     async init() {
@@ -63,23 +63,23 @@ export default {
         this.contentRef.scrollTo({
           left: 0,
           top: 0,
-          behavior: "smooth",
+          behavior: "smooth"
         });
       this.loading = true;
       const params = {
         id: this.id,
         offset: this.offset,
-        limit: this.pagination.limit,
+        limit: this.pagination.limit
       };
       const { subscribers } = await getPlayListSubscribers(params);
       this.list = subscribers;
       this.loading = false;
-    },
+    }
   },
   created() {
     this.contentRef = document.getElementById(`content_ref`);
     this.init();
-  },
+  }
 };
 </script>
 

@@ -22,12 +22,12 @@ export default {
   name: "MvList",
   components: {
     MvCard,
-    Loading,
+    Loading
   },
   data() {
     return {
       mvs: [],
-      Loading,
+      Loading
     };
   },
   methods: {
@@ -37,11 +37,11 @@ export default {
       const { result } = await getPersonalMv();
       this.mvs = result;
       this.loading = false;
-    },
+    }
   },
   created() {
     this.initMv();
-  },
+  }
 };
 </script>
 

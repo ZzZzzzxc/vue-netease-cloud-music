@@ -12,6 +12,7 @@ import PrivateContentCard from "./private-content-card";
 import PlaylistCard from "./playlist-card";
 import SingerCard from "./singer-card";
 import CollectorCard from "./collector-card";
+import Comment from "./comment";
 
 export {
   HistoryControll,
@@ -27,5 +28,6 @@ export {
   PrivateContentCard,
   PlaylistCard,
   SingerCard,
-  CollectorCard
+  CollectorCard,
+  Comment,
 };

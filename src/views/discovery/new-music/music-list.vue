@@ -33,18 +33,18 @@ import { formatTime, pad } from "@/utils";
 import { Loading } from "@/base";
 export default {
   name: "music-list",
-  components:{Loading},
+  components: { Loading },
   props: {
     type: {
       // 0:全部 7:华语 96: 欧美 8:日本 16:韩国
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
   data() {
     return {
       list: [],
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -55,11 +55,11 @@ export default {
       const { data } = await getTopSong({ type: this.type });
       this.list = data;
       this.loading = false;
-    },
+    }
   },
   created() {
     this.initList();
-  },
+  }
 };
 </script>
 

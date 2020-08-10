@@ -75,7 +75,7 @@ export default {
       original: {}, // 原创榜
       hot: {}, // 热歌榜,
       singer: {}, // 歌手榜
-      songListLoading: false,
+      songListLoading: false
     };
   },
   computed: {
@@ -99,7 +99,7 @@ export default {
     global() {
       const { totalList } = this;
       return totalList.slice(4, totalList.length);
-    },
+    }
   },
   watch: {
     async soarId(id) {
@@ -117,7 +117,7 @@ export default {
     async hotId(id) {
       const { playlist } = await getPlayListDetail({ id });
       this.hot = playlist;
-    },
+    }
   },
   methods: {
     formatNumber,
@@ -132,12 +132,12 @@ export default {
       const { artists } = await getTopArtists();
       this.$set(this.singer, "tracks", artists);
       this.songListLoading = false;
-    },
+    }
   },
   created() {
     this.initTopList();
     this.initSingerList();
-  },
+  }
 };
 </script>
 

@@ -13,9 +13,9 @@ export default {
   props: {
     loading: {
       type: Boolean,
-      required: true,
+      required: true
     },
-    customStyle:Object
+    customStyle: Object
   },
   data() {
     return {};
@@ -23,7 +23,7 @@ export default {
   mounted() {},
   methods: {},
   computed: {},
-  watch: {},
+  watch: {}
 };
 </script>
 

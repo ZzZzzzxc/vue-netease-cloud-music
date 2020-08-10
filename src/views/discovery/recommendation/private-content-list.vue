@@ -15,12 +15,12 @@ export default {
   name: "PrivateContentList",
   components: {
     PrivateContentCard,
-    Loading,
+    Loading
   },
   data() {
     return {
       privatecontent: [],
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -29,11 +29,11 @@ export default {
       const { result } = await getPersonalPrivatecontent();
       this.privatecontent = result;
       this.loading = false;
-    },
+    }
   },
   created() {
     this.initPrivatecontent();
-  },
+  }
 };
 </script>
 

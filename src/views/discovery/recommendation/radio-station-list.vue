@@ -21,12 +21,12 @@ export default {
   name: "RadioStationList",
   components: {
     RadioStationCard,
-    Loading,
+    Loading
   },
   data() {
     return {
       loading: false,
-      djProgram: [],
+      djProgram: []
     };
   },
   methods: {
@@ -35,11 +35,11 @@ export default {
       const { result } = await getPersonalDjProgram();
       this.djProgram = result;
       this.loading = false;
-    },
+    }
   },
   created() {
     this.initDjProgram();
-  },
+  }
 };
 </script>
 

@@ -1,55 +1,57 @@
 <template>
   <div class="song-list-page-wrap">
-    <div class="header">
-      <div class="img-wrap">
-        <img v-lazy="getImgUrl(list.coverImgUrl, 250, 250)" />
-      </div>
-      <div class="info-wrap">
-        <div class="title-wrap">
-          <div class="tag">歌单</div>
-          <h1 class="title">{{ list.name }}</h1>
+    <Loading :loading="loading">
+      <div class="header">
+        <div class="img-wrap">
+          <img v-lazy="getImgUrl(list.coverImgUrl, 250, 250)" />
         </div>
-        <div class="user-wrap" v-if="list.creator">
-          <img v-lazy="getImgUrl(list.creator.avatarUrl, 40, 40)" />
-          <div class="name">{{ list.creator.nickname }}</div>
-          <div class="date">
-            {{ timestampToTime(list.creator.birthday) }}创建
+        <div class="info-wrap">
+          <div class="title-wrap">
+            <div class="tag" v-if="!loading">歌单</div>
+            <h1 class="title">{{ list.name }}</h1>
+          </div>
+          <div class="user-wrap" v-if="list.creator">
+            <img v-lazy="getImgUrl(list.creator.avatarUrl, 40, 40)" />
+            <div class="name">{{ list.creator.nickname }}</div>
+            <div class="date" v-if="list.createTime">
+              {{ formatDate(list.createTime) }}创建
+            </div>
+          </div>
+          <div class="tool-wrap"></div>
+          <div class="tag-wrap" v-if="list.tags">
+            标签：<span v-for="(tag, idx) in list.tags" :key="idx">{{
+              tag
+            }}</span>
+          </div>
+          <div class="desc-wrap" v-if="list.description">
+            <p v-for="(txt, idx) in list.description.split('\n')" :key="idx">
+              {{ txt }}
+            </p>
           </div>
         </div>
-        <div class="tool-wrap"></div>
-        <div class="tag-wrap">
-          标签：<span v-for="(tag, idx) in list.tags" :key="idx">{{
-            tag
-          }}</span>
-        </div>
-        <div class="desc-wrap" v-if="list.description">
-          <p v-for="(txt, idx) in list.description.split('\n')" :key="idx">
-            {{ txt }}
-          </p>
-        </div>
-      </div>
-      <div class="count-wrap">
-        <div class="count">
-          歌曲数
-          <div>
-            {{ formatNumber(list.trackCount) }}
+        <div class="count-wrap">
+          <div class="count" v-if="list.trackCount">
+            歌曲数
+            <div>
+              {{ formatNumber(list.trackCount) }}
+            </div>
           </div>
-        </div>
-        <div class="count">
-          播放数
-          <div>
-            {{ formatNumber(list.playCount) }}
+          <div class="count" v-if="list.playCount">
+            播放数
+            <div>
+              {{ formatNumber(list.playCount) }}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Loading>
     <div class="content">
       <Tabs v-model="activeName" :center="false">
         <TabsPane label="歌曲列表" name="1">
           <SongList :ids="ids" />
         </TabsPane>
-        <TabsPane label="评论" name="2">
-          <CommentsList />
+        <TabsPane :label="`评论(${this.list.commentCount})`" name="2">
+          <CommentsList :id="id" :commentCount="list.commentCount" />
         </TabsPane>
         <TabsPane label="收藏者" name="3">
           <CollectorsList :id="id" :total="list.subscribedCount" />
@@ -60,38 +62,48 @@
 </template>
 
 <script>
-import { Tabs, TabsPane } from "@/base";
+import { Tabs, TabsPane, Loading } from "@/base";
 import { getPlayListDetail } from "@/api";
-import { getImgUrl, timestampToTime, formatNumber, ObjArr2Arr } from "@/utils";
+import { getImgUrl, formatDate, formatNumber, ObjArr2Arr } from "@/utils";
 import CollectorsList from "./collectors-list";
 import SongList from "./song-list";
 import CommentsList from "./comments-list";
 export default {
   name: "Singer",
-  components: { Tabs, TabsPane, CollectorsList, SongList, CommentsList },
+  components: {
+    Tabs,
+    TabsPane,
+    CollectorsList,
+    SongList,
+    CommentsList,
+    Loading,
+  },
   props: ["id"],
   data() {
     return {
-      activeName: "1",
+      activeName: "2",
       list: {},
-      ids: ""
+      ids: "",
+      loading: false,
     };
   },
   methods: {
     ObjArr2Arr,
     getImgUrl,
-    timestampToTime,
+    formatDate,
     formatNumber,
     async initPlayListDetail() {
-      const id = this.id;
+      this.loading = true;
+      const { id } = this;
       const { playlist } = await getPlayListDetail({ id });
       this.list = playlist;
       this.ids = ObjArr2Arr(this.list.trackIds, "id").join(",");
-    }
+      this.loading = false;
+    },
   },
   created() {
     this.initPlayListDetail();
-  }
+  },
 };
 </script>
 
@@ -99,6 +111,7 @@ export default {
 .song-list-page-wrap {
   padding: 18px 0;
   .header {
+    min-height: 200px;
     display: flex;
     justify-content: flex-start;
     padding: 0 34px;
@@ -112,12 +125,14 @@ export default {
       .title-wrap {
         display: flex;
         justify-content: flex-start;
-        align-items: center;
+        align-items: flex-start;
         .tag {
+          margin: 4px 0;
           padding: 2px 8px;
           border: solid 1px $theme-color;
           color: $theme-color;
           font-size: $font-size-sm;
+          white-space: nowrap;
         }
         .title {
           font-size: 28px;
