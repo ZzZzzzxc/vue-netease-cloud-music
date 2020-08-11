@@ -1,7 +1,7 @@
 <template>
   <div class="z-tabs">
     <div class="z-tabs__header">
-      <TabsNav />
+      <TabsNav @click="handleClick" />
     </div>
     <div class="z-tabs__content">
       <slot />
@@ -48,6 +48,9 @@ export default {
   methods: {
     setPanes(pane) {
       this.panes.push(pane);
+    },
+    handleClick(data) {
+      this.$emit("click", data);
     }
   },
   mounted() {}

@@ -11,17 +11,24 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
   return originalPush.call(this, location).catch(err => err);
 };
 
-const layout = () =>
-  import(/* webpackChunkName: "layout" */ "../layout/index.vue");
-const discovery = () =>
-  import(/* webpackChunkName: "discovery" */ "../views/discovery/index.vue");
-const fm = () => import(/* webpackChunkName: "fm" */ "../views/fm/index.vue");
-const singer = () =>
-  import(/* webpackChunkName: "fm" */ "../views/detail/singer/index.vue");
-const dj = () =>
-  import(/* webpackChunkName: "fm" */ "../views/detail/dj/index.vue");
-const songList = () =>
-  import(/* webpackChunkName: "fm" */ "../views/detail/song-list/index.vue");
+// 基础布局
+const layout = () => import("../layout/index.vue");
+
+// 发现模块布局
+const discovery = () => import("../views/discovery/index.vue");
+// 发现模块子模块
+const recommendation = () => import("../views/discovery/recommendation");
+const songList = () => import("../views/discovery/song-list");
+const singer = () => import("../views/discovery/singer");
+const rank = () => import("../views/discovery/rank");
+const newMusic = () => import("../views/discovery/new-music");
+
+// 详情模块
+const fm = () => import("../views/fm/index.vue");
+const singerDetail = () => import("../views/detail/singer/index.vue");
+const djDetail = () => import("../views/detail/dj/index.vue");
+const songListDetail = () => import("../views/detail/song-list/index.vue");
+
 const routes = [
   {
     name: "Layout",
@@ -32,7 +39,35 @@ const routes = [
       {
         name: "Discovery",
         path: "/discovery",
-        component: discovery
+        redirect: "/discovery/recommendation",
+        component: discovery,
+        children: [
+          {
+            name: "Recommendation",
+            path: "recommendation",
+            component: recommendation
+          },
+          {
+            name: "SongList",
+            path: "song-list",
+            component: songList
+          },
+          {
+            name: "Singer",
+            path: "singer",
+            component: singer
+          },
+          {
+            name: "Rank",
+            path: "rank",
+            component: rank
+          },
+          {
+            name: "NewMusic",
+            path: "new-music",
+            component: newMusic
+          }
+        ]
       },
       {
         name: "Fm",
@@ -40,21 +75,21 @@ const routes = [
         component: fm
       },
       {
-        name: "Singer",
+        name: "SingerDetail",
         path: "/singer/:id",
-        component: singer,
+        component: singerDetail,
         props: true
       },
       {
-        name: "Dj",
+        name: "DjDetail",
         path: "/dj/:id",
-        component: dj,
+        component: djDetail,
         props: true
       },
       {
-        name: "SongList",
+        name: "SongListDetail",
         path: "/song-list/:id",
-        component: songList,
+        component: songListDetail,
         props: true
       }
     ]

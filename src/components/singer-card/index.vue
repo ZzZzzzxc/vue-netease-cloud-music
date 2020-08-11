@@ -15,7 +15,7 @@ export default {
   methods: {
     getImgUrl,
     toDetail() {
-      this.$router.push({ name: "Singer", params: { id: this.id } });
+      this.$router.push({ name: "SingerDetail", params: { id: this.id } });
     }
   }
 };

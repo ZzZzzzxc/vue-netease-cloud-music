@@ -1,37 +1,43 @@
 <template>
   <div class="tabs-wrapper">
-    <Tabs v-model="activeName">
-      <TabsPane label="个性推荐" name="1"><Recommend /></TabsPane>
-      <TabsPane label="歌单" name="2"><SongList /></TabsPane>
-      <TabsPane label="排行榜" name="3"><Rank /></TabsPane>
-      <TabsPane label="歌手" name="4"><Singer /></TabsPane>
-      <TabsPane label="最新音乐" name="5"><Music /></TabsPane>
+    <Tabs v-model="activeName" @click="onTabsClick">
+      <TabsPane
+        v-for="tab in tabs"
+        :key="tab.name"
+        :label="tab.label"
+        :name="tab.name"
+      >
+        <router-view />
+      </TabsPane>
     </Tabs>
   </div>
 </template>
 
 <script>
+const tabs = [
+  { label: "个性推荐", name: "Recommendation" },
+  { label: "歌单", name: "SongList" },
+  { label: "排行榜", name: "Rank" },
+  { label: "歌手", name: "Singer" },
+  { label: "最新音乐", name: "NewMusic" }
+];
 import { Tabs, TabsPane } from "@/base/index";
-import Rank from "./rank";
-import Recommend from "./recommendation";
-import SongList from "./song-list";
-import Singer from "./singer";
-import Music from "./new-music";
 export default {
   name: "Discovery",
   data() {
     return {
-      activeName: "1"
+      activeName: this.$route.name,
+      tabs
     };
   },
   components: {
     Tabs,
-    TabsPane,
-    Music,
-    Singer,
-    SongList,
-    Recommend,
-    Rank
+    TabsPane
+  },
+  methods: {
+    onTabsClick(name) {
+      this.$router.push({ name });
+    }
   }
 };
 </script>

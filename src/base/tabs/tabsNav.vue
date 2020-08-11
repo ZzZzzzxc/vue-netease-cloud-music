@@ -35,6 +35,7 @@ export default {
     handleCurrentNameChange(pane) {
       this.root.currentName = pane.name;
       this.getActiveBarPosition(`ref_${pane.name}`);
+      this.$emit("click", pane.name);
     },
     getActiveBarPosition(refName) {
       const ele = this.$refs[refName];

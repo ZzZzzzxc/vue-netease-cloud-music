@@ -149,11 +149,12 @@ export default {
       const { playlists, total } = await getTopPlayList(params);
       this.total = total;
       this.playlists = playlists;
-      this.contentRef.scrollTo({
-        left: 0,
-        top: 0,
-        behavior: "smooth"
-      });
+      this.contentRef &&
+        this.contentRef.scrollTo({
+          left: 0,
+          top: 0,
+          behavior: "smooth"
+        });
       this.listLoading = false;
     }
   },

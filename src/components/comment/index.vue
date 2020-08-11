@@ -37,14 +37,14 @@ export default {
     `content`,
     `count`,
     `replyName`,
-    `replyContent`,
+    `replyContent`
   ],
   data() {
     return {};
   },
   methods: { getImgUrl },
   computed: {},
-  watch: {},
+  watch: {}
 };
 </script>
 

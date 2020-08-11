@@ -48,7 +48,7 @@ export default {
       loading: false,
       currentPage: 1,
       limit: 60,
-      contentRef: null,
+      contentRef: null
     };
   },
   computed: {
@@ -57,14 +57,14 @@ export default {
       return {
         id,
         limit,
-        offset: limit * (currentPage - 1),
+        offset: limit * (currentPage - 1)
       };
-    },
+    }
   },
   watch: {
     params(params) {
       this.getListData(params);
-    },
+    }
   },
   methods: {
     formatData(comment) {
@@ -73,7 +73,7 @@ export default {
         name: comment.user.nickname,
         date: formatDate(comment.time),
         content: comment.content,
-        count: comment.likedCount,
+        count: comment.likedCount
       };
       if (comment.beReplied.length) {
         res.replyName = comment.beReplied[0].user.nickname;
@@ -86,7 +86,7 @@ export default {
         this.contentRef.scrollTo({
           left: 0,
           top: 0,
-          behavior: "smooth",
+          behavior: "smooth"
         });
       this.loading = true;
       const { params } = this;
@@ -94,12 +94,12 @@ export default {
       this.hotComments = hotComments;
       this.comments = comments;
       this.loading = false;
-    },
+    }
   },
   created() {
     this.contentRef = document.getElementById(`content_ref`);
     this.getListData();
-  },
+  }
 };
 </script>
 

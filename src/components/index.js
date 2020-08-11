@@ -29,5 +29,5 @@ export {
   PlaylistCard,
   SingerCard,
   CollectorCard,
-  Comment,
+  Comment
 };
