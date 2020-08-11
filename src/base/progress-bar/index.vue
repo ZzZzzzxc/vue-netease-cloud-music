@@ -1,14 +1,15 @@
 <template>
-  <div class="progress-bar" @mousedown="handleClick" ref="bar">
-    <div class="current" :style="{ width: `${percentage * barWidth}px ` }" />
+  <div
+    class="progress-bar"
+    :style="{ height: `${height}px` }"
+    @mousedown="handleClick"
+    ref="bar"
+  >
     <div
-      ref="btn"
-      class="btn"
-      :style="{
-        left: btnLeft,
-      }"
-      @mousedown="onMousedown"
+      class="current"
+      :style="{ width: `${percentage * barWidth}px `, backgroundColor: color }"
     />
+    <div ref="btn" :style="btnStyle" @mousedown="onMousedown" />
   </div>
 </template>
 
@@ -19,21 +20,54 @@ export default {
     prop: "percentage",
     event: "percentageChange",
   },
-  props: ["percentage"],
+  props: {
+    // v-moel 当前进度 0~1
+    percentage: Number,
+    // 高度
+    height: {
+      type: Number,
+      default: 4,
+    },
+    // 颜色
+    color: {
+      type: String,
+      default: `#d33a31`,
+    },
+    // 小球大小计算系数
+    coefficient: {
+      type: Number,
+      default: 2,
+    },
+  },
+
   data() {
     return {
-      btnWidth: 0,
       barWidth: 0,
       startX: 0,
       move: false,
     };
   },
   computed: {
+    btnStyle() {
+      const { btnLeft, color, btnWidth } = this;
+      return {
+        left: btnLeft,
+        position: `absolute`,
+        top: ` 50%`,
+        transform: ` translateY(-50%)`,
+        backgroundColor: color,
+        width: `${btnWidth}px`,
+        height: `${btnWidth}px`,
+        borderRadius: `50%`,
+      };
+    },
+    btnWidth() {
+      return this.height * this.coefficient;
+    },
     btnLeft() {
       const { percentage, barWidth, btnWidth } = this;
-      const currentLeft = percentage * barWidth;
-      const maxLeft = barWidth - btnWidth;
-      return `${currentLeft > maxLeft ? maxLeft : currentLeft}px`;
+      const currentLeft = percentage * barWidth - btnWidth / 2;
+      return `${currentLeft}px`;
     },
   },
   methods: {
@@ -68,7 +102,6 @@ export default {
     },
   },
   mounted() {
-    this.btnWidth = this.$refs.btn.offsetWidth;
     this.barWidth = this.$refs.bar.offsetWidth;
     document.addEventListener("mouseup", () => {
       this.move = false;
@@ -80,21 +113,10 @@ export default {
 <style lang="scss" scoped>
 .progress-bar {
   background-color: $grey;
-  height: 4px;
   width: 100%;
   position: relative;
   .current {
     height: inherit;
-    background-color: $theme-color;
-  }
-  .btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: $theme-color;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
   }
 }
 </style>
