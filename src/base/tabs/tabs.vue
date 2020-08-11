@@ -15,34 +15,36 @@ export default {
   name: "ZTabs",
   provide: function() {
     return {
-      root: this
+      root: this,
     };
   },
   model: {
     prop: "activeName",
-    event: "activeChange"
+    event: "activeChange",
   },
   props: {
     activeColor: String,
     activeName: {
-      type: String
+      type: String,
     },
-    value: {},
     center: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data() {
     return {
-      currentName: this.value || this.activeName,
-      panes: []
+      currentName: this.activeName,
+      panes: [],
     };
   },
   watch: {
     currentName(currentName) {
       this.$emit("activeChange", currentName);
-    }
+    },
+    activeName(activeName) {
+      this.currentName = activeName;
+    },
   },
   components: { TabsNav },
   methods: {
@@ -51,9 +53,11 @@ export default {
     },
     handleClick(data) {
       this.$emit("click", data);
-    }
+    },
+    set(currentName) {
+      this.currentName = currentName;
+    },
   },
-  mounted() {}
 };
 </script>
 
