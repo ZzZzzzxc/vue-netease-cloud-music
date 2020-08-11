@@ -9,8 +9,8 @@
       <Card :shadow="`hover`">
         <template slot="header">
           <div class="card-header">
-            <div>主播电台</div>
-            <div>更多</div>
+            <div class="title">主播电台</div>
+            <div class="more">更多</div>
           </div>
         </template>
         <RadioStationList />
@@ -20,8 +20,8 @@
       <Card :shadow="`hover`">
         <template slot="header">
           <div class="card-header">
-            <div>独家放送</div>
-            <div>更多</div>
+            <div class="title">独家放送</div>
+            <div class="more">更多</div>
           </div>
         </template>
         <PrivateContentList />
@@ -31,8 +31,8 @@
       <Card :shadow="`hover`">
         <template slot="header">
           <div class="card-header">
-            <div>最新音乐</div>
-            <div>更多</div>
+            <div class="title">最新音乐</div>
+            <div class="more" @click="toMorePage('NewMusic')">更多</div>
           </div>
         </template>
         <div class="card-content">
@@ -44,8 +44,8 @@
       <Card :shadow="`hover`">
         <template slot="header">
           <div class="card-header">
-            <div>推荐歌单</div>
-            <div>更多</div>
+            <div class="title">推荐歌单</div>
+            <div class="more" @click="toMorePage('SongList')">更多</div>
           </div>
         </template>
         <SongSheetList />
@@ -55,8 +55,8 @@
       <Card :shadow="`hover`">
         <template slot="header">
           <div class="card-header">
-            <div>推荐MV</div>
-            <div>更多</div>
+            <div class="title">推荐MV</div>
+            <div class="more">更多</div>
           </div>
         </template>
         <MvList />
@@ -96,6 +96,9 @@ export default {
     async initBanner() {
       const { banners } = await getBanner();
       this.banners = banners;
+    },
+    toMorePage(name) {
+      this.$router.push({ name });
     }
   },
   created() {
@@ -114,6 +117,18 @@ export default {
   .card-header {
     display: flex;
     justify-content: space-between;
+    padding: 0;
+    .title {
+      font-size: $font-size-lg;
+    }
+    .more {
+      font-size: $font-size-sm;
+      color: $grey-dark;
+      cursor: pointer;
+      &::after {
+        content: ">";
+      }
+    }
   }
   @include list(16.6%);
   .card-content {

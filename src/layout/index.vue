@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-wrap">
     <LayoutHeader />
     <LayoutBody />
     <LayoutFooter />
@@ -12,8 +12,12 @@ import LayoutBody from "./body";
 import LayoutFooter from "./footer";
 export default {
   name: "Layout",
-  components: { LayoutHeader, LayoutFooter, LayoutBody }
+  components: { LayoutHeader, LayoutFooter, LayoutBody },
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.app-wrap {
+  height: 100vh;
+}
+</style>

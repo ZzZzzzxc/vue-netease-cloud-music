@@ -10,6 +10,7 @@ import SwiperItem from "./swiper/swiperItem.vue";
 import Pagination from "./pagination";
 import Card from "./card";
 import Loading from "./loading";
+import ProgressBar from "./progress-bar";
 
 export {
   Popover,
@@ -23,5 +24,6 @@ export {
   SwiperItem,
   Pagination,
   Card,
-  Loading
+  Loading,
+  ProgressBar,
 };

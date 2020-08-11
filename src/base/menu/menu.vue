@@ -83,5 +83,6 @@ export default {
 .z-menu {
   width: $menu-width;
   background-color: $menu-bg;
+  overflow-y: scroll;
 }
 </style>

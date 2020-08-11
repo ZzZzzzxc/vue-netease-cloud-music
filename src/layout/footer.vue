@@ -1,9 +1,17 @@
 <template>
-  <div>footer</div>
+  <div class="footer"><MiniPlayer /></div>
 </template>
 
 <script>
-export default {};
+import { MiniPlayer } from "@/components";
+export default {
+  name: "Footer",
+  components: { MiniPlayer },
+};
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.footer {
+  height: $footer-height;
+}
+</style>

@@ -1,6 +1,10 @@
 <template>
   <div class="z-card" :class="`is-${shadow}-shadow`" :style="wrapStyle">
-    <div class="z-card__header" v-if="$slots.header || header">
+    <div
+      class="z-card__header"
+      :style="headerStyle"
+      v-if="$slots.header || header"
+    >
       <slot name="header">{{ header }}</slot>
     </div>
     <div class="z-card__content" :style="contentStyle">
@@ -20,6 +24,12 @@ export default {
       validator: value => ["always", "never", "hover"].indexOf(value) > -1
     },
     wrapStyle: {
+      default: () => {
+        return {};
+      },
+      type: Object
+    },
+    headerStyle: {
       default: () => {
         return {};
       },

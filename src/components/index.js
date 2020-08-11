@@ -1,4 +1,4 @@
-import HistoryControll from "./history-controll";
+import HistoryControl from "./history-control";
 import Search from "./search";
 import User from "./user";
 import Theme from "./theme";
@@ -13,9 +13,10 @@ import PlaylistCard from "./playlist-card";
 import SingerCard from "./singer-card";
 import CollectorCard from "./collector-card";
 import Comment from "./comment";
+import MiniPlayer from "./mini-player";
 
 export {
-  HistoryControll,
+  HistoryControl,
   Search,
   User,
   Theme,
@@ -29,5 +30,6 @@ export {
   PlaylistCard,
   SingerCard,
   CollectorCard,
-  Comment
+  Comment,
+  MiniPlayer
 };

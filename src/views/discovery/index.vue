@@ -7,7 +7,7 @@
         :label="tab.label"
         :name="tab.name"
       >
-        <router-view />
+        <router-view :key="true" />
       </TabsPane>
     </Tabs>
   </div>
@@ -29,6 +29,11 @@ export default {
       activeName: this.$route.name,
       tabs
     };
+  },
+  watch: {
+    $route(to) {
+      this.activeName = to.name;
+    }
   },
   components: {
     Tabs,

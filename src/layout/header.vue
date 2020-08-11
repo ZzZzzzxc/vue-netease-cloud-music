@@ -3,7 +3,7 @@
     <div class="left">
       <img class="logo item" :src="require(`@/assets/logo.jpg`)" />
       <div class="title item">Music</div>
-      <div class="item"><HistoryControll /></div>
+      <div class="item"><HistoryControl /></div>
       <div class="item"><Search /></div>
     </div>
     <div class="right">
@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import { HistoryControll, Search, User, Theme } from "@/components";
+import { HistoryControl, Search, User, Theme } from "@/components";
 export default {
   name: "Header",
-  components: { HistoryControll, Search, User, Theme },
+  components: { HistoryControl, Search, User, Theme },
   data() {
     return {};
   }
