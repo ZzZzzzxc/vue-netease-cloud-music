@@ -14,6 +14,7 @@ import SingerCard from "./singer-card";
 import CollectorCard from "./collector-card";
 import Comment from "./comment";
 import MiniPlayer from "./mini-player";
+import Playlist from "./playlist";
 
 export {
   HistoryControl,
@@ -31,5 +32,6 @@ export {
   SingerCard,
   CollectorCard,
   Comment,
-  MiniPlayer
+  MiniPlayer,
+  Playlist
 };

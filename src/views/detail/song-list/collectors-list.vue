@@ -31,9 +31,11 @@
 import { getPlayListSubscribers } from "@/api";
 import { Pagination, Loading } from "@/base";
 import { CollectorCard } from "@/components";
+import { domMixin } from "@/utils";
 export default {
   name: "CollectorsList",
   props: ["id", "total"],
+  mixins: [domMixin],
   components: { Pagination, CollectorCard, Loading },
   data() {
     return {
@@ -43,8 +45,7 @@ export default {
         limit: 60
       },
       list: [],
-      loading: false,
-      contentRef: null
+      loading: false
     };
   },
   computed: {
@@ -59,8 +60,8 @@ export default {
   },
   methods: {
     async init() {
-      this.contentRef &&
-        this.contentRef.scrollTo({
+      this.contentEl &&
+        this.contentEl.scrollTo({
           left: 0,
           top: 0,
           behavior: "smooth"
@@ -77,7 +78,6 @@ export default {
     }
   },
   created() {
-    this.contentRef = document.getElementById(`content_ref`);
     this.init();
   }
 };

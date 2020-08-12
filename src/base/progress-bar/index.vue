@@ -14,11 +14,12 @@
 </template>
 
 <script>
+import { on, off } from "@/utils/dom";
 export default {
   name: "ZProgressBar",
   model: {
     prop: "percentage",
-    event: "percentageChange",
+    event: "percentageChange"
   },
   props: {
     // v-moel 当前进度 0~1
@@ -26,25 +27,25 @@ export default {
     // 高度
     height: {
       type: Number,
-      default: 4,
+      default: 4
     },
     // 颜色
     color: {
       type: String,
-      default: `#d33a31`,
+      default: `#d33a31`
     },
     // 小球大小计算系数
     coefficient: {
       type: Number,
-      default: 2,
-    },
+      default: 2
+    }
   },
 
   data() {
     return {
       barWidth: 0,
       startX: 0,
-      move: false,
+      move: false
     };
   },
   computed: {
@@ -59,6 +60,7 @@ export default {
         width: `${btnWidth}px`,
         height: `${btnWidth}px`,
         borderRadius: `50%`,
+        cursor: `pointer`
       };
     },
     btnWidth() {
@@ -68,7 +70,7 @@ export default {
       const { percentage, barWidth, btnWidth } = this;
       const currentLeft = percentage * barWidth - btnWidth / 2;
       return `${currentLeft}px`;
-    },
+    }
   },
   methods: {
     formatPercentage(percentage) {
@@ -90,7 +92,7 @@ export default {
       this.move = true;
       const btn = this.$refs.btn;
       this.startX = e.clientX - btn.offsetLeft;
-      document.addEventListener("mousemove", this.onMousemove);
+      on(document, "mousemove", this.onMousemove);
     },
     onMousemove(e) {
       if (this.move) {
@@ -100,13 +102,18 @@ export default {
         );
       }
     },
+    stopMove() {
+      this.move = false;
+    }
   },
   mounted() {
     this.barWidth = this.$refs.bar.offsetWidth;
-    document.addEventListener("mouseup", () => {
-      this.move = false;
-    });
+    on(document, "mouseup", this.stopMove);
   },
+  beforeDestroy() {
+    off(document, "mousemove", this.onMousemove);
+    off(document, "mouseup", this.stopMove);
+  }
 };
 </script>
 
@@ -115,6 +122,7 @@ export default {
   background-color: $grey;
   width: 100%;
   position: relative;
+  cursor: pointer;
   .current {
     height: inherit;
   }

@@ -25,5 +25,5 @@ export {
   Pagination,
   Card,
   Loading,
-  ProgressBar,
+  ProgressBar
 };

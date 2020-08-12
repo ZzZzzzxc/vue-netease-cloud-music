@@ -1,10 +1,11 @@
 <template>
   <div>
-    <Swiper>
-      <SwiperItem v-for="banner in banners" :key="banner.imageUrl">
-        <img class="banner" v-lazy="getImgUrl(banner.imageUrl, 1000, 400)" />
-      </SwiperItem>
-    </Swiper>
+    <Loading :loading="loading">
+      <Swiper>
+        <SwiperItem v-for="banner in banners" :key="banner.imageUrl">
+          <img class="banner" v-lazy="getImgUrl(banner.imageUrl, 1000, 400)" />
+        </SwiperItem> </Swiper
+    ></Loading>
     <div class="card-wrapper">
       <Card :shadow="`hover`">
         <template slot="header">
@@ -67,7 +68,7 @@
 
 <script>
 import { getBanner } from "@/api";
-import { Swiper, SwiperItem, Card } from "@/base";
+import { Swiper, SwiperItem, Card, Loading } from "@/base";
 import { getImgUrl } from "@/utils";
 import SongList from "./list";
 import RadioStationList from "./radio-station-list";
@@ -78,7 +79,8 @@ export default {
   name: "Recommend",
   data() {
     return {
-      banners: []
+      banners: [],
+      loading: false
     };
   },
   components: {
@@ -89,13 +91,16 @@ export default {
     RadioStationList,
     PrivateContentList,
     SongSheetList,
-    MvList
+    MvList,
+    Loading
   },
   methods: {
     getImgUrl,
     async initBanner() {
+      this.loading = true;
       const { banners } = await getBanner();
       this.banners = banners;
+      this.loading = false;
     },
     toMorePage(name) {
       this.$router.push({ name });

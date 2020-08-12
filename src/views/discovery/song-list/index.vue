@@ -55,11 +55,12 @@
 <script>
 import { getCatList, getHotCatList, getTopPlayList } from "@/api";
 import { SongSheetCard, TagList } from "@/components";
-import { formatNumber } from "@/utils";
+import { formatNumber, domMixin } from "@/utils";
 import { Popover, Pagination, Loading } from "@/base";
 const OFFSET_VAL = 0;
 export default {
   name: "sheet",
+  mixins: [domMixin],
   components: { SongSheetCard, Popover, Pagination, TagList, Loading },
   data() {
     return {
@@ -88,8 +89,7 @@ export default {
         limit: 50,
         offset: OFFSET_VAL,
         cat: ""
-      },
-      contentRef: null
+      }
     };
   },
   computed: {
@@ -149,8 +149,8 @@ export default {
       const { playlists, total } = await getTopPlayList(params);
       this.total = total;
       this.playlists = playlists;
-      this.contentRef &&
-        this.contentRef.scrollTo({
+      this.contentEl &&
+        this.contentEl.scrollTo({
           left: 0,
           top: 0,
           behavior: "smooth"
@@ -159,7 +159,6 @@ export default {
     }
   },
   created() {
-    this.contentRef = document.getElementById(`content_ref`);
     this.initCatList();
     this.initHotCatList();
   }

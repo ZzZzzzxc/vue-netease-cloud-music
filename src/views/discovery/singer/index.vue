@@ -41,9 +41,11 @@ import { getArtistList } from "@/api";
 import { INITIALS, SINGERTYPE, LANGUAGES } from "@/config";
 import { TagList, SingerCard } from "@/components";
 import { Loading } from "@/base";
+import { domMixin, on, off } from "@/utils";
 const OFFSET_VAL = 0;
 export default {
   name: "Singer",
+  mixins: [domMixin],
   components: { TagList, SingerCard, Loading },
   data() {
     return {
@@ -61,8 +63,7 @@ export default {
       singerList: [],
       scrollToBottom: 0,
       more: true,
-      loading: false,
-      contentRef: null
+      loading: false
     };
   },
   computed: {},
@@ -108,9 +109,9 @@ export default {
       this.more = true;
     },
     scrollAction() {
-      let scrollTop = this.contentRef.scrollTop;
-      let scrollHeight = this.contentRef.scrollHeight;
-      let clientHeight = this.contentRef.clientHeight;
+      let scrollTop = this.contentEl.scrollTop;
+      let scrollHeight = this.contentEl.scrollHeight;
+      let clientHeight = this.contentEl.clientHeight;
       // 滚动条距离底部的距离
       this.scrollToBottom = scrollHeight - scrollTop - clientHeight;
     }
@@ -119,11 +120,10 @@ export default {
     this.initArtistList(this.params);
   },
   mounted() {
-    this.contentRef = document.getElementById(`content_ref`);
-    this.contentRef.addEventListener("scroll", this.scrollAction);
+    on(this.contentEl, "scroll", this.scrollAction);
   },
   destroyed() {
-    this.contentRef.removeEventListener("scroll", this.scrollAction);
+    off(this.contentEl, "scroll", this.scrollAction);
   }
 };
 </script>

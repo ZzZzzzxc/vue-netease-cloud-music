@@ -20,11 +20,12 @@ const MONTH = new Date().getMonth() + 1;
 const WEEK_KEY = "本周新碟";
 import { getAlbumList } from "@/api";
 import { AlbumCard } from "@/components";
-import { flattenDeep, pad } from "@/utils";
+import { flattenDeep, pad, domMixin, on, off } from "@/utils";
 import { Loading } from "@/base";
 export default {
   name: "album",
   components: { AlbumCard, Loading },
+  mixins: [domMixin],
   props: {
     type: String, // "new" || "hot"
     area: String
@@ -32,7 +33,6 @@ export default {
   data() {
     return {
       data: [],
-      contentRef: null,
       loading: false,
       scrollToBottom: 0,
       month: MONTH,
@@ -112,9 +112,9 @@ export default {
       this.year = YEAR;
     },
     scrollAction() {
-      let scrollTop = this.contentRef.scrollTop;
-      let scrollHeight = this.contentRef.scrollHeight;
-      let clientHeight = this.contentRef.clientHeight;
+      let scrollTop = this.contentEl.scrollTop;
+      let scrollHeight = this.contentEl.scrollHeight;
+      let clientHeight = this.contentEl.clientHeight;
       // 滚动条距离底部的距离
       this.scrollToBottom = scrollHeight - scrollTop - clientHeight;
     }
@@ -123,11 +123,10 @@ export default {
     this.getList();
   },
   mounted() {
-    this.contentRef = document.getElementById(`content_ref`);
-    this.contentRef.addEventListener("scroll", this.scrollAction);
+    on(this.contentEl, "scroll", this.scrollAction);
   },
   destroyed() {
-    this.contentRef.removeEventListener("scroll", this.scrollAction);
+    off(this.contentEl, "scroll", this.scrollAction);
   }
 };
 </script>

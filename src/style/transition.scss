@@ -1,7 +1,22 @@
+// fade
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s;
 }
-.fade-enter, .fade-leave-to  {
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+// playlist
+.playlist-enter-active {
+  transition: all 0.3s ease;
+}
+.playlist-leave-active {
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.playlist-enter,
+.playlist-leave-to {
+  transform: translateX(100px);
   opacity: 0;
 }
