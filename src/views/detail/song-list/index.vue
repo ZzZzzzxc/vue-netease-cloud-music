@@ -81,7 +81,7 @@ export default {
   props: ["id"],
   data() {
     return {
-      activeName: "2",
+      activeName: "1",
       list: {},
       ids: "",
       loading: false

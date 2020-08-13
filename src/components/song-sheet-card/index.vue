@@ -4,6 +4,9 @@
       <img v-lazy="getImgUrl(imgUrl, 300, 300)" />
       <div class="img-wrap__top txt">{{ count }}</div>
       <div class="img-wrap__bottom txt">{{ artistName }}</div>
+      <div class="play" @click.stop="handlePlay">
+        <img :src="require(`@/assets/icon/play-dark.png`)" />
+      </div>
     </div>
     <p>{{ name }}</p>
   </div>
@@ -18,6 +21,9 @@ export default {
     getImgUrl,
     toDetail() {
       this.$router.push({ name: "SongListDetail", params: { id: this.id } });
+    },
+    handlePlay() {
+      this.$emit("click");
     }
   }
 };
@@ -39,6 +45,15 @@ export default {
       width: 100%;
       height: 100%;
     }
+    .play {
+      opacity: 0;
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      bottom: 6%;
+      right: 6%;
+      transition: 0.3s;
+    }
     .txt {
       color: $white;
       width: 100%;
@@ -53,6 +68,11 @@ export default {
     }
     &__bottom {
       bottom: 0;
+    }
+    &:hover {
+      .play {
+        opacity: 0.8;
+      }
     }
   }
 }

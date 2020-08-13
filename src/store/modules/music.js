@@ -9,7 +9,8 @@ export default {
     mode: playModeConfig.loop, // 播放模式
     isPlaylistShow: false, // 播放列表是否显示
     isMute: false, // 是否静音
-    history: [] // 历史记录
+    history: [], // 历史记录
+    loading: false // 歌单是否正在加载
   },
   mutations: {
     setPlayState(state, playing) {
@@ -32,29 +33,21 @@ export default {
     },
     setMute(state, isMute) {
       state.isMute = isMute;
+    },
+    setPlaylistLoading(state, loading) {
+      state.loading = loading;
     }
   },
   actions: {
-    setPlayState(context) {
-      context.commit("setPlayState");
+    // 清除播放列表
+    clearPlaylist({ commit }) {
+      commit("setPlaylist", []);
     },
-    setCurrentTime(context) {
-      context.commit("setCurrentTime");
-    },
-    setCurrentSong(context) {
-      context.commit("setCurrentSong");
-    },
-    setPlaylistShow(context) {
-      context.commit("setPlaylistShow");
-    },
-    setMode(context) {
-      context.commit("setMode");
-    },
-    setPlaylist(context) {
-      context.commit("setPlaylist");
-    },
-    setMute(context) {
-      context.commit("setMute");
+    // 移除对应 idx 的歌曲
+    removeTargeSong({ commit, state }, idx) {
+      const { playlist } = state;
+      playlist.splice(idx, 1);
+      commit("setPlaylist", playlist);
     }
   },
   getters: {}

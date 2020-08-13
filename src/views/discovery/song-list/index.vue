@@ -33,6 +33,7 @@
       <ul class="list-wrap">
         <li class="list-item" v-for="sheet in playlists" :key="sheet.id">
           <SongSheetCard
+            @click="handleGetSong(sheet.id)"
             :count="formatNumber(sheet.playCount).toString()"
             :imgUrl="sheet.coverImgUrl"
             :artistName="sheet.creator.nickname"
@@ -53,14 +54,20 @@
 </template>
 
 <script>
-import { getCatList, getHotCatList, getTopPlayList } from "@/api";
+import {
+  getCatList,
+  getHotCatList,
+  getTopPlayList,
+  getPlayListDetail,
+  getSongDetail
+} from "@/api";
 import { SongSheetCard, TagList } from "@/components";
-import { formatNumber, domMixin } from "@/utils";
+import { formatNumber, domMixin, ObjArr2Arr, musicMixin } from "@/utils";
 import { Popover, Pagination, Loading } from "@/base";
 const OFFSET_VAL = 0;
 export default {
   name: "sheet",
-  mixins: [domMixin],
+  mixins: [domMixin, musicMixin],
   components: { SongSheetCard, Popover, Pagination, TagList, Loading },
   data() {
     return {
@@ -156,6 +163,17 @@ export default {
           behavior: "smooth"
         });
       this.listLoading = false;
+    },
+    async handleGetSong(id) {
+      this.setPlaylistLoading(true);
+      const { playlist } = await getPlayListDetail({ id });
+      const { trackIds } = playlist;
+      await this.getSongDetail(ObjArr2Arr(trackIds, "id").join(","));
+      this.setPlaylistLoading(false);
+    },
+    async getSongDetail(ids) {
+      const { songs } = await getSongDetail({ ids });
+      this.setPlaylist(songs);
     }
   },
   created() {

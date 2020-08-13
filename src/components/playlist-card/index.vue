@@ -4,6 +4,9 @@
       <img v-lazy="getImgUrl(imgUrl, 300, 300)" />
       <div class="desc txt">{{ desc }}</div>
       <div class="count txt">{{ count }}</div>
+      <div class="play" @click.stop="handlePlay">
+        <img :src="require(`@/assets/icon/play-dark.png`)" />
+      </div>
     </div>
     <p>{{ name }}</p>
   </div>
@@ -18,6 +21,9 @@ export default {
     getImgUrl,
     toDetail() {
       this.$router.push({ name: "SongListDetail", params: { id: this.id } });
+    },
+    handlePlay() {
+      this.$emit("click");
     }
   }
 };
@@ -38,6 +44,15 @@ export default {
       @include abs-stretch;
       width: 100%;
       height: 100%;
+    }
+    .play {
+      opacity: 0;
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      bottom: 6%;
+      right: 6%;
+      transition: 0.3s;
     }
     .txt {
       color: $white;
@@ -61,6 +76,9 @@ export default {
       }
       .count {
         transform: translateY(-100%);
+      }
+      .play {
+        opacity: 0.8;
       }
     }
   }

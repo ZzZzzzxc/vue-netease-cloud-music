@@ -11,6 +11,7 @@ import Pagination from "./pagination";
 import Card from "./card";
 import Loading from "./loading";
 import ProgressBar from "./progress-bar";
+import Table from "./table";
 
 export {
   Popover,
@@ -25,5 +26,6 @@ export {
   Pagination,
   Card,
   Loading,
-  ProgressBar
+  ProgressBar,
+  Table
 };

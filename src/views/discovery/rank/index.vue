@@ -1,6 +1,7 @@
 <template>
   <div class="rank-page-wrap">
-    <Card :title="`官方榜`" :shadow="`never`">
+    <Card :shadow="`never`">
+      <div slot="header">官方榜</div>
       <div class="rank-list-wrapper">
         <div class="list-wrap">
           <div class="list-item">
@@ -41,11 +42,13 @@
         </div>
       </div>
     </Card>
-    <Card :title="`全球榜`" :shadow="`never`">
+    <Card :shadow="`never`">
+      <div slot="header">全球榜</div>
       <Loading :loading="songListLoading">
         <ul class="list-wrap">
           <li class="list-item" v-for="sheet in global" :key="sheet.id">
             <SongSheetCard
+              @click="handleGetSong(sheet.id)"
               :id="sheet.id"
               :count="formatNumber(sheet.playCount).toString()"
               :imgUrl="sheet.coverImgUrl"
@@ -59,13 +62,19 @@
 </template>
 
 <script>
-import { getTopList, getPlayListDetail, getTopArtists } from "@/api";
+import {
+  getTopList,
+  getPlayListDetail,
+  getTopArtists,
+  getSongDetail
+} from "@/api";
 import { SongSheetCard } from "@/components";
 import { Card, Loading } from "@/base";
 import RankList from "./list";
-import { flattenDeep, formatNumber } from "@/utils";
+import { flattenDeep, formatNumber, musicMixin, ObjArr2Arr } from "@/utils";
 export default {
   name: "Rank",
+  mixins: [musicMixin],
   components: { Card, RankList, SongSheetCard, Loading },
   data() {
     return {
@@ -132,6 +141,17 @@ export default {
       const { artists } = await getTopArtists();
       this.$set(this.singer, "tracks", artists);
       this.songListLoading = false;
+    },
+    async handleGetSong(id) {
+      this.setPlaylistLoading(true);
+      const { playlist } = await getPlayListDetail({ id });
+      const { trackIds } = playlist;
+      await this.getSongDetail(ObjArr2Arr(trackIds, "id").join(","));
+      this.setPlaylistLoading(false);
+    },
+    async getSongDetail(ids) {
+      const { songs } = await getSongDetail({ ids });
+      this.setPlaylist(songs);
     }
   },
   created() {

@@ -11,13 +11,6 @@ export default {
       state.footer = footer;
     }
   },
-  actions: {
-    setContent(context) {
-      context.commit("setContent");
-    },
-    setFooter(context) {
-      context.commit("setFooter");
-    }
-  },
+  actions: {},
   getters: {}
 };

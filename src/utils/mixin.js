@@ -1,4 +1,4 @@
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 
 const musicMixin = {
   computed: {
@@ -10,7 +10,8 @@ const musicMixin = {
       mode: state => state.music.mode, // 播放模式
       isMute: state => state.music.isMute, // 是否静音
       isPlaylistShow: state => state.music.isPlaylistShow, // 播放列表是否显示
-      history: state => state.music.history // 历史记录
+      history: state => state.music.history, // 历史记录
+      playlistLoading: state => state.music.loading // 歌单是否正在加载
     })
   },
   methods: {
@@ -21,8 +22,10 @@ const musicMixin = {
       "setPlaylistShow",
       "setMode",
       "setPlaylist",
-      "setMute"
-    ])
+      "setMute",
+      "setPlaylistLoading"
+    ]),
+    ...mapActions(["clearPlaylist", "removeTargeSong"])
   }
 };
 
