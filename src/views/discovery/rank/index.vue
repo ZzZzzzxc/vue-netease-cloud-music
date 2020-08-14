@@ -71,7 +71,7 @@ import {
 import { SongSheetCard } from "@/components";
 import { Card, Loading } from "@/base";
 import RankList from "./list";
-import { flattenDeep, formatNumber, musicMixin, ObjArr2Arr } from "@/utils";
+import { flattenDeep, formatNumber, musicMixin, formatSong } from "@/utils";
 export default {
   name: "Rank",
   mixins: [musicMixin],
@@ -146,12 +146,24 @@ export default {
       this.setPlaylistLoading(true);
       const { playlist } = await getPlayListDetail({ id });
       const { trackIds } = playlist;
-      await this.getSongDetail(ObjArr2Arr(trackIds, "id").join(","));
+      await this.getSongDetail(trackIds.map(({ id }) => id).join(","));
       this.setPlaylistLoading(false);
     },
     async getSongDetail(ids) {
       const { songs } = await getSongDetail({ ids });
-      this.setPlaylist(songs);
+      const playlist = [];
+      songs.map(song => {
+        playlist.push(
+          formatSong({
+            id: song.id,
+            name: song.name,
+            artists: song.ar,
+            duration: song.dt
+          })
+        );
+      });
+      this.setPlaylist(playlist);
+      this.setCurrentSong(playlist[0]);
     }
   },
   created() {

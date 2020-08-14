@@ -42,12 +42,6 @@ export function formatTime(interval) {
   return `${minute}:${second}`;
 }
 
-export function ObjArr2Arr(array, key) {
-  const res = [];
-  array.map(item => res.push(item[key]));
-  return res;
-}
-
 export function formatDate(date, fmt = "yyyy-MM-dd hh:mm:ss") {
   date = date instanceof Date ? date : new Date(date);
   if (/(y+)/.test(fmt)) {

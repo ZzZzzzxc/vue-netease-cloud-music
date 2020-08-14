@@ -157,9 +157,20 @@ export default {
     }
   },
   destroyed() {
-    const { trigger } = this.$refs;
-    off(trigger, "click", this.doToggle);
-    off(document, "click", this.handleDocumentClick);
+    const { trigger, popper } = this.$refs;
+    switch (this.trigger) {
+      case "click": {
+        off(trigger, "click", this.doToggle);
+        off(document, "click", this.handleDocumentClick);
+        break;
+      }
+      case "hover": {
+        off(trigger, "mouseenter", this.handleMouseEnter);
+        off(popper, "mouseenter", this.handleMouseEnter);
+        off(trigger, "mouseleave", this.handleMouseLeave);
+        off(popper, "mouseleave", this.handleMouseLeave);
+      }
+    }
   }
 };
 </script>

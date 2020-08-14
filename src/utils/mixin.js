@@ -1,4 +1,4 @@
-import { mapState, mapMutations, mapActions } from "vuex";
+import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
 
 const musicMixin = {
   computed: {
@@ -12,10 +12,11 @@ const musicMixin = {
       isPlaylistShow: state => state.music.isPlaylistShow, // 播放列表是否显示
       history: state => state.music.history, // 历史记录
       playlistLoading: state => state.music.loading // 歌单是否正在加载
-    })
+    }),
+    ...mapGetters("music", [`currentSong`, `nextSong`])
   },
   methods: {
-    ...mapMutations([
+    ...mapMutations("music", [
       "setPlayState",
       "setCurrentTime",
       "setCurrentSong",
@@ -25,7 +26,11 @@ const musicMixin = {
       "setMute",
       "setPlaylistLoading"
     ]),
-    ...mapActions(["clearPlaylist", "removeTargeSong"])
+    ...mapActions("music", [
+      "clearPlaylist",
+      "removeTargeSong",
+      "addToPlaylist"
+    ])
   }
 };
 
@@ -37,7 +42,7 @@ const domMixin = {
     })
   },
   methods: {
-    ...mapMutations(["setContent", "setFooter"])
+    ...mapMutations("dom", ["setContent", "setFooter"])
   }
 };
 

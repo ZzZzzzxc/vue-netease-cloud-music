@@ -10,20 +10,14 @@
                 <div class="btn" @click="clearPlaylist">清空</div>
               </div>
               <table class="table">
-                <tr v-for="(song, idx) in playlist" :key="song.id">
+                <tr
+                  v-for="(song, idx) in playlist"
+                  :key="song.id"
+                  @click="setCurrentSong(song)"
+                >
                   <td>{{ song.name }}</td>
-                  <td>
-                    <div>
-                      <span
-                        class="artist"
-                        v-for="artist in song.ar"
-                        :key="artist.id"
-                      >
-                        {{ artist.name }}
-                      </span>
-                    </div>
-                  </td>
-                  <td>{{ formatTime(song.dt / 1000) }}</td>
+                  <td>{{ song.artistsText }}</td>
+                  <td>{{ song.durationText }}</td>
                   <td class="delete" @click.stop="removeTargeSong(idx)">
                     删除
                   </td>
@@ -39,7 +33,7 @@
 </template>
 
 <script>
-import { on, off, musicMixin, domMixin, formatTime } from "@/utils";
+import { on, off, musicMixin, domMixin } from "@/utils";
 import { Tabs, TabsPane, Loading } from "@/base";
 export default {
   name: "Playlist",
@@ -53,7 +47,6 @@ export default {
   computed: {},
   watch: {},
   methods: {
-    formatTime,
     close(e) {
       const { target } = e;
       if (this.footerEl.contains(target)) return; // 点击 footer
@@ -81,6 +74,7 @@ export default {
   z-index: $playlist-index;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   overflow-y: auto;
+  min-height: calc(100% - 64px);
   .list-wrap {
     font-size: $font-size-sm;
     .header {
@@ -118,14 +112,6 @@ export default {
           }
           &:nth-child(2) {
             width: 30%;
-            div {
-              @include text-ellipsis;
-              .artist {
-                &:not(:last-child)::after {
-                  content: "/";
-                }
-              }
-            }
           }
           &:nth-child(3) {
             width: 15%;

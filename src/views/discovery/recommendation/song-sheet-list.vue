@@ -17,7 +17,7 @@
 <script>
 import { getPersonalSheet, getPlayListDetail, getSongDetail } from "@/api";
 import { PlaylistCard } from "@/components";
-import { formatNumber, ObjArr2Arr, musicMixin } from "@/utils";
+import { formatNumber, musicMixin, formatSong } from "@/utils";
 import { Loading } from "@/base";
 export default {
   name: "SongSheetList",
@@ -46,13 +46,25 @@ export default {
       this.setPlaylistLoading(true);
       const { playlist } = await getPlayListDetail({ id });
       const { trackIds } = playlist;
-      await this.getSongDetail(ObjArr2Arr(trackIds, "id").join(","));
+      await this.getSongDetail(trackIds.map(({ id }) => id).join(","));
       this.setPlaylistLoading(false);
     },
     // 获取歌曲数组
     async getSongDetail(ids) {
       const { songs } = await getSongDetail({ ids });
-      this.setPlaylist(songs);
+      const playlist = [];
+      songs.map(song => {
+        playlist.push(
+          formatSong({
+            id: song.id,
+            name: song.name,
+            artists: song.ar,
+            duration: song.dt
+          })
+        );
+      });
+      this.setPlaylist(playlist);
+      this.setCurrentSong(playlist[0]);
     }
   },
   created() {

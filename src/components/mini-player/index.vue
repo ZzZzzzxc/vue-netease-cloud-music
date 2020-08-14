@@ -1,22 +1,32 @@
 <template>
   <div class="mini-player">
-    <div class="song-wrap"></div>
+    <div class="song-wrap" v-if="currentSong.id">
+      <div class="img-wrap">
+        <div class="mask"></div>
+        <img :src="getImgUrl(currentSong.img, 64, 64)" />
+      </div>
+      <div class="info-wrap">
+        <p :title="currentSong.name">{{ currentSong.name }}</p>
+        <p :title="currentSong.artistsText">{{ currentSong.artistsText }}</p>
+        <p>{{ formatTime(currentTime) }} / {{ currentSong.durationText }}</p>
+      </div>
+    </div>
     <div class="control-wrap">
-      <div class="item">
+      <div class="item" @click="prev">
         <img :src="require(`@/assets/icon/prev.png`)" />
       </div>
-      <div class="item" v-if="playing" @click="togglePlay">
+      <div class="item" v-if="playing" @click="pause">
         <img :src="require(`@/assets/icon/pause.png`)" />
       </div>
-      <div class="item" v-else @click="togglePlay">
+      <div class="item" v-else @click="play">
         <img :src="require(`@/assets/icon/play.png`)" />
       </div>
-      <div class="item">
+      <div class="item" @click="next">
         <img :src="require(`@/assets/icon/next.png`)" />
       </div>
     </div>
     <div class="progress-bar-wrap">
-      <ProgressBar v-model="percentage" />
+      <ProgressBar v-model="playProgress" :disable="disable" />
     </div>
     <div class="tools-wrap">
       <div class="volume">
@@ -48,13 +58,21 @@
         <img class="item" :src="require(`@/assets/icon/playlist.png`)" />
       </div>
     </div>
+    <audio
+      ref="audio"
+      :src="currentSong.url"
+      @canplay="canPlay"
+      @ended="ended"
+      @waiting="waiting"
+      @timeupdate="timeUpdate"
+    />
   </div>
 </template>
 
 <script>
 import { ProgressBar } from "@/base";
 import { playModeConfig } from "@/config";
-import { musicMixin } from "@/utils";
+import { musicMixin, getImgUrl, formatTime } from "@/utils";
 export default {
   name: "MiniPlayer",
   mixins: [musicMixin],
@@ -62,22 +80,42 @@ export default {
   data() {
     return {
       playModeConfig,
-      percentage: 0.5,
-      volume: 0.2
+      playProgress: 0,
+      volume: 0.2,
+      ready: false,
+      disable: true
     };
   },
-  computed: {},
+  computed: {
+    audio() {
+      return this.$refs.audio;
+    }
+  },
   watch: {
-    percentage(percentage) {
-      console.log(percentage);
+    currentSong(newSong) {
+      if (newSong.id) {
+        this.play();
+        this.disable = false;
+      } else {
+        this.disable = true;
+        this.setCurrentTime(0);
+        this.pause();
+      }
+    },
+    playProgress(progress) {
+      const time = progress * this.currentSong.durationSecond;
+      this.audio.currentTime = time;
+      this.setCurrentTime(time);
+    },
+    currentTime(currentTime) {
+      this.playProgress = currentTime / this.currentSong.durationSecond;
     }
   },
   methods: {
+    getImgUrl,
+    formatTime,
     toggleShow() {
       this.setPlaylistShow(!this.isPlaylistShow);
-    },
-    togglePlay() {
-      this.setPlayState(!this.playing);
     },
     toggleMute() {
       this.setMute(!this.isMute);
@@ -87,7 +125,39 @@ export default {
       const index = modes.findIndex(val => val === this.mode) + 1;
       const mode = modes[index] ? modes[index] : playModeConfig.loop;
       this.setMode(mode);
-    }
+    },
+    canPlay() {
+      this.ready = true;
+      console.log("audio 准备完成");
+    },
+    ended() {
+      this.next();
+    },
+    waiting(e) {
+      console.log(e);
+    },
+    timeUpdate(e) {
+      this.setCurrentTime(e.target.currentTime);
+    },
+    async play() {
+      if (this.ready) {
+        try {
+          await this.audio.play();
+          this.setPlayState(true);
+          console.log("正常开始播放");
+        } catch (err) {
+          console.log("播放出错了");
+          console.log(err);
+          this.setPlayState(false);
+        }
+      }
+    },
+    async pause() {
+      await this.audio.pause();
+      this.setPlayState(false);
+    },
+    prev() {},
+    next() {}
   }
 };
 </script>
@@ -100,6 +170,42 @@ export default {
   align-items: center;
   padding: 6px 24px;
   .song-wrap {
+    display: flex;
+    .img-wrap {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      margin-right: 12px;
+      .mask {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        top: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.1);
+      }
+      img {
+        height: 100%;
+        width: 100%;
+        filter: blur(1px);
+      }
+      &:hover {
+        .mask {
+          z-index: 1;
+        }
+      }
+    }
+    .info-wrap {
+      font-size: $font-size-sm;
+      color: $grey-dark;
+      width: 120px;
+      p {
+        @include text-ellipsis();
+      }
+    }
   }
   .control-wrap {
     display: flex;

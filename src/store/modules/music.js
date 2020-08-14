@@ -1,6 +1,7 @@
 import { playModeConfig } from "@/config";
 
 export default {
+  namespaced: true,
   state: {
     playing: false, // 播放状态
     currentTime: 0, // 当前播放时间
@@ -10,7 +11,7 @@ export default {
     isPlaylistShow: false, // 播放列表是否显示
     isMute: false, // 是否静音
     history: [], // 历史记录
-    loading: false // 歌单是否正在加载
+    loading: false, // 歌单是否正在加载
   },
   mutations: {
     setPlayState(state, playing) {
@@ -36,7 +37,7 @@ export default {
     },
     setPlaylistLoading(state, loading) {
       state.loading = loading;
-    }
+    },
   },
   actions: {
     // 清除播放列表
@@ -45,10 +46,28 @@ export default {
     },
     // 移除对应 idx 的歌曲
     removeTargeSong({ commit, state }, idx) {
-      const { playlist } = state;
+      const playlist = state.playlist.slice();
       playlist.splice(idx, 1);
       commit("setPlaylist", playlist);
-    }
+      commit("setCurrentSong", playlist[idx]);
+    },
+    // 新增歌曲
+    addToPlaylist({ commit, state }, song) {
+      const playlist = state.playlist.slice();
+      const { id } = song;
+      if (!playlist.some(song => song.id === id)) {
+        playlist.unshift(song);
+        commit("setPlaylist", playlist);
+        commit("setCurrentSong", song);
+      }
+    },
   },
-  getters: {}
+  getters: {
+    currentSong(state, getters) {
+      return getters;
+    },
+    nextSong(state, getters) {
+      return getters;
+    },
+  },
 };

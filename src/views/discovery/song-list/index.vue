@@ -62,7 +62,7 @@ import {
   getSongDetail
 } from "@/api";
 import { SongSheetCard, TagList } from "@/components";
-import { formatNumber, domMixin, ObjArr2Arr, musicMixin } from "@/utils";
+import { formatNumber, domMixin, musicMixin, formatSong } from "@/utils";
 import { Popover, Pagination, Loading } from "@/base";
 const OFFSET_VAL = 0;
 export default {
@@ -168,12 +168,24 @@ export default {
       this.setPlaylistLoading(true);
       const { playlist } = await getPlayListDetail({ id });
       const { trackIds } = playlist;
-      await this.getSongDetail(ObjArr2Arr(trackIds, "id").join(","));
+      await this.getSongDetail(trackIds.map(({ id }) => id).join(","));
       this.setPlaylistLoading(false);
     },
     async getSongDetail(ids) {
       const { songs } = await getSongDetail({ ids });
-      this.setPlaylist(songs);
+      const playlist = [];
+      songs.map(song => {
+        playlist.push(
+          formatSong({
+            id: song.id,
+            name: song.name,
+            artists: song.ar,
+            duration: song.dt
+          })
+        );
+      });
+      this.setPlaylist(playlist);
+      this.setCurrentSong(playlist[0]);
     }
   },
   created() {

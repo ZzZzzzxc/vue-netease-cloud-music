@@ -9,7 +9,12 @@
       class="current"
       :style="{ width: `${percentage * barWidth}px `, backgroundColor: color }"
     />
-    <div ref="btn" :style="btnStyle" @mousedown="onMousedown" />
+    <div
+      v-show="!disable"
+      ref="btn"
+      :style="btnStyle"
+      @mousedown="onMousedown"
+    />
   </div>
 </template>
 
@@ -22,6 +27,8 @@ export default {
     event: "percentageChange"
   },
   props: {
+    // 是否允许调整进度
+    disable: Boolean,
     // v-moel 当前进度 0~1
     percentage: Number,
     // 高度
@@ -79,6 +86,7 @@ export default {
       return percentage;
     },
     handleClick(e) {
+      if (this.disable) return;
       // 点击小球时跳过
       if (e.target === this.$refs.btn) {
         return;
@@ -89,12 +97,14 @@ export default {
       );
     },
     onMousedown(e) {
+      if (this.disable) return;
       this.move = true;
       const btn = this.$refs.btn;
       this.startX = e.clientX - btn.offsetLeft;
       on(document, "mousemove", this.onMousemove);
     },
     onMousemove(e) {
+      if (this.disable) return;
       if (this.move) {
         this.$emit(
           "percentageChange",

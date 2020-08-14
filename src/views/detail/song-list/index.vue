@@ -64,7 +64,7 @@
 <script>
 import { Tabs, TabsPane, Loading } from "@/base";
 import { getPlayListDetail } from "@/api";
-import { getImgUrl, formatDate, formatNumber, ObjArr2Arr } from "@/utils";
+import { getImgUrl, formatDate, formatNumber } from "@/utils";
 import CollectorsList from "./collectors-list";
 import SongList from "./song-list";
 import CommentsList from "./comments-list";
@@ -88,7 +88,6 @@ export default {
     };
   },
   methods: {
-    ObjArr2Arr,
     getImgUrl,
     formatDate,
     formatNumber,
@@ -97,7 +96,7 @@ export default {
       const { id } = this;
       const { playlist } = await getPlayListDetail({ id });
       this.list = playlist;
-      this.ids = ObjArr2Arr(this.list.trackIds, "id").join(",");
+      this.ids = this.list.trackIds.map(({ id }) => id).join(",");
       this.loading = false;
     }
   },
