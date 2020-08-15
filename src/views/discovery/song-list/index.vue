@@ -62,12 +62,12 @@ import {
   getSongDetail
 } from "@/api";
 import { SongSheetCard, TagList } from "@/components";
-import { formatNumber, domMixin, musicMixin, formatSong } from "@/utils";
+import { formatNumber, musicMixin, formatSong } from "@/utils";
 import { Popover, Pagination, Loading } from "@/base";
 const OFFSET_VAL = 0;
 export default {
   name: "sheet",
-  mixins: [domMixin, musicMixin],
+  mixins: [musicMixin],
   components: { SongSheetCard, Popover, Pagination, TagList, Loading },
   data() {
     return {
@@ -96,7 +96,8 @@ export default {
         limit: 50,
         offset: OFFSET_VAL,
         cat: ""
-      }
+      },
+      contentEl: document.getElementById("content__ref")
     };
   },
   computed: {

@@ -41,11 +41,10 @@ import { getArtistList } from "@/api";
 import { INITIALS, SINGERTYPE, LANGUAGES } from "@/config";
 import { TagList, SingerCard } from "@/components";
 import { Loading } from "@/base";
-import { domMixin, on, off } from "@/utils";
+import { on, off } from "@/utils";
 const OFFSET_VAL = 0;
 export default {
   name: "Singer",
-  mixins: [domMixin],
   components: { TagList, SingerCard, Loading },
   data() {
     return {
@@ -63,7 +62,8 @@ export default {
       singerList: [],
       scrollToBottom: 0,
       more: true,
-      loading: false
+      loading: false,
+      contentEl: document.getElementById("content__ref")
     };
   },
   computed: {},

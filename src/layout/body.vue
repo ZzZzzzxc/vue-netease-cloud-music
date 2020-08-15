@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <LayoutMenu />
-    <div class="content" v-el="setContent">
+    <div class="content" id="content__ref">
       <router-view />
     </div>
   </div>
@@ -9,10 +9,8 @@
 
 <script>
 import LayoutMenu from "./menu";
-import { domMixin } from "@/utils";
 export default {
   name: "LayoutBody",
-  mixins: [domMixin],
   components: { LayoutMenu },
   mounted() {}
 };

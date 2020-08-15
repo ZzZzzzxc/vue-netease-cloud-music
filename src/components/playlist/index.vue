@@ -34,15 +34,16 @@
 </template>
 
 <script>
-import { on, off, musicMixin, domMixin } from "@/utils";
+import { on, off, musicMixin } from "@/utils";
 import { Tabs, TabsPane, Loading } from "@/base";
 export default {
   name: "Playlist",
-  mixins: [musicMixin, domMixin],
+  mixins: [musicMixin],
   components: { Tabs, TabsPane, Loading },
   data() {
     return {
-      activeName: "1"
+      activeName: "1",
+      footerEl: null
     };
   },
   computed: {},
@@ -50,12 +51,13 @@ export default {
   methods: {
     close(e) {
       const { target } = e;
-      if (this.footerEl.contains(target)) return; // 点击 footer
+      if (this.footerEl && this.footerEl.contains(target)) return; // 点击 footer
       if (this.$el.contains(target)) return; // 点击自身
-      this.setPlaylistShow(false);
+      if (this.isPlaylistShow) this.setPlaylistShow(false);
     }
   },
   mounted() {
+    this.footerEl = document.getElementById("footer__ref");
     on(document, "click", this.close);
   },
   beforeDestroy() {

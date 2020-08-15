@@ -36,10 +36,9 @@
 import { getPlayListComment } from "@/api";
 import { Loading, Pagination } from "@/base";
 import { Comment } from "@/components";
-import { formatDate, domMixin } from "@/utils";
+import { formatDate } from "@/utils";
 export default {
   name: "CommentsList",
-  mixins: [domMixin],
   components: { Loading, Comment, Pagination },
   props: ["id", "commentCount"],
   data() {
@@ -48,7 +47,8 @@ export default {
       comments: [],
       loading: false,
       currentPage: 1,
-      limit: 60
+      limit: 60,
+      contentEl: document.getElementById("content__ref")
     };
   },
   computed: {

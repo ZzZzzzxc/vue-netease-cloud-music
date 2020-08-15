@@ -31,11 +31,9 @@
 import { getPlayListSubscribers } from "@/api";
 import { Pagination, Loading } from "@/base";
 import { CollectorCard } from "@/components";
-import { domMixin } from "@/utils";
 export default {
   name: "CollectorsList",
   props: ["id", "total"],
-  mixins: [domMixin],
   components: { Pagination, CollectorCard, Loading },
   data() {
     return {
@@ -45,7 +43,8 @@ export default {
         limit: 60
       },
       list: [],
-      loading: false
+      loading: false,
+      contentEl: document.getElementById("content__ref")
     };
   },
   computed: {

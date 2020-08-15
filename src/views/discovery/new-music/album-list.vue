@@ -20,12 +20,11 @@ const MONTH = new Date().getMonth() + 1;
 const WEEK_KEY = "本周新碟";
 import { getAlbumList } from "@/api";
 import { AlbumCard } from "@/components";
-import { flattenDeep, pad, domMixin, on, off } from "@/utils";
+import { flattenDeep, pad, on, off } from "@/utils";
 import { Loading } from "@/base";
 export default {
   name: "album",
   components: { AlbumCard, Loading },
-  mixins: [domMixin],
   props: {
     type: String, // "new" || "hot"
     area: String
@@ -36,7 +35,8 @@ export default {
       loading: false,
       scrollToBottom: 0,
       month: MONTH,
-      year: YEAR
+      year: YEAR,
+      contentEl: document.getElementById("content__ref")
     };
   },
   computed: {

@@ -39,16 +39,4 @@ const musicMixin = {
   }
 };
 
-const domMixin = {
-  computed: {
-    ...mapState({
-      contentEl: state => state.dom.content,
-      footerEl: state => state.dom.footer
-    })
-  },
-  methods: {
-    ...mapMutations("dom", ["setContent", "setFooter"])
-  }
-};
-
-export { musicMixin, domMixin };
+export { musicMixin };

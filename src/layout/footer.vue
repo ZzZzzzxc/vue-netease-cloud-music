@@ -1,13 +1,11 @@
 <template>
-  <div class="footer" v-el="setFooter"><MiniPlayer /></div>
+  <div class="footer" id="footer__ref"><MiniPlayer /></div>
 </template>
 
 <script>
 import { MiniPlayer } from "@/components";
-import { domMixin } from "@/utils";
 export default {
   name: "Footer",
-  mixins: [domMixin],
   components: { MiniPlayer }
 };
 </script>
