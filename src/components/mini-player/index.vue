@@ -84,7 +84,7 @@ export default {
       playModeConfig,
       playProgress: 0,
       volumeProgress: 1,
-      ready: false
+      ready: false,
     };
   },
   computed: {
@@ -99,7 +99,10 @@ export default {
     },
     isOrder() {
       return this.mode.key === playModeConfig.order.key;
-    }
+    },
+    isSingle() {
+      return this.mode.key === playModeConfig.singel.key;
+    },
   },
   watch: {
     ready(ready) {
@@ -120,7 +123,7 @@ export default {
     },
     volumeProgress(progress) {
       this.audio.volume = progress;
-    }
+    },
   },
   methods: {
     getImgUrl,
@@ -148,6 +151,12 @@ export default {
       // 列表顺序模式下，播放完最后一首歌曲就停止播放
       if (this.isOrder && this.currentIndex === this.playlist.length - 1)
         return;
+      // 单曲循环
+      if (this.isSingle) {
+        this.playProgress = 0;
+        this.play();
+        return;
+      }
       this.next();
     },
     onWaiting() {
@@ -216,8 +225,8 @@ export default {
     },
     next() {
       if (this.nextSong) this.setCurrentSong(this.nextSong);
-    }
-  }
+    },
+  },
 };
 </script>
 
