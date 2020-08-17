@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       newSongList: [],
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -57,15 +57,15 @@ export default {
           mvId: song.mvid,
           img: picUrl,
           albumId: song.album.id,
-          albumName: song.album.name,
+          albumName: song.album.name
         })
       );
       this.setPlaylistLoading(false);
-    },
+    }
   },
   created() {
     this.initNewSong();
-  },
+  }
 };
 </script>
 

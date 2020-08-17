@@ -2,7 +2,10 @@
   <div class="z-loading-wrap" :style="customStyle">
     <div class="z-loading-content-wrap"><slot /></div>
     <div class="z-loading" v-if="loading">
-      <div class="loader" />
+      <div
+        class="loader"
+        :style="{ height: `${width}px`, width: `${width}px` }"
+      />
     </div>
   </div>
 </template>
@@ -11,6 +14,10 @@
 export default {
   name: "ZLoading",
   props: {
+    width: {
+      type: Number,
+      default: 40
+    },
     loading: {
       type: Boolean,
       required: true

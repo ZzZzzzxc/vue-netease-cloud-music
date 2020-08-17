@@ -1,6 +1,14 @@
 export const playModeConfig = {
-  loop: 1, //列表循环
-  order: 2, //列表顺序
-  random: 3, //随机播放
-  singel: 4 //单曲循环
+  loop: {
+    icon: require("@/assets/icon/列表循环.png"),
+    key: "loop"
+  }, // 列表循环
+  order: {
+    icon: require("@/assets/icon/列表顺序.png"),
+    key: "order"
+  }, // 列表顺序
+  random: { icon: require("@/assets/icon/随机.png"), key: "random" }, // 随机播放
+  singel: { icon: require("@/assets/icon/单曲循环.png"), key: "singel" } // 单曲循环
 };
+
+export const defaultMode = playModeConfig.loop;

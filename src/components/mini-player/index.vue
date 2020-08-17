@@ -1,9 +1,11 @@
 <template>
   <div class="mini-player">
-    <div class="song-wrap" v-if="currentSong.id">
+    <div class="song-wrap" v-if="hasCurrentSong">
       <div class="img-wrap">
-        <div class="mask"></div>
-        <img :src="getImgUrl(currentSong.img, 64, 64)" />
+        <Loading :width="20" :loading="loading">
+          <div class="mask"></div>
+          <img :src="getImgUrl(currentSong.img, 64, 64)" />
+        </Loading>
       </div>
       <div class="info-wrap">
         <p :title="currentSong.name">{{ currentSong.name }}</p>
@@ -15,11 +17,10 @@
       <div class="item" @click="prev">
         <img :src="require(`@/assets/icon/prev.png`)" />
       </div>
-      <div class="item" v-if="playing" @click="pause">
-        <img :src="require(`@/assets/icon/pause.png`)" />
-      </div>
-      <div class="item" v-else @click="play">
-        <img :src="require(`@/assets/icon/play.png`)" />
+      <div class="item" @click="pause">
+        <img
+          :src="require(`@/assets/icon/${playing ? 'pause' : 'play'}.png`)"
+        />
       </div>
       <div class="item" @click="next">
         <img :src="require(`@/assets/icon/next.png`)" />
@@ -37,21 +38,12 @@
           <img :src="require(`@/assets/icon/volume.png`)" />
         </div>
         <div class="bar">
-          <ProgressBar :color="`black`" v-model="volume" />
+          <ProgressBar :color="`black`" v-model="volumeProgress" />
         </div>
       </div>
-      <div class="mode" @click="handleMuteChange">
-        <div class="item" v-if="mode === playModeConfig.random">
-          <img :src="require(`@/assets/icon/随机.png`)" />
-        </div>
-        <div class="item" v-if="mode === playModeConfig.loop">
-          <img :src="require(`@/assets/icon/列表循环.png`)" />
-        </div>
-        <div class="item" v-if="mode === playModeConfig.order">
-          <img :src="require(`@/assets/icon/列表顺序.png`)" />
-        </div>
-        <div class="item" v-if="mode === playModeConfig.singel">
-          <img :src="require(`@/assets/icon/单曲循环.png`)" />
+      <div class="mode" @click="handleModeChange" v-if="mode">
+        <div class="item">
+          <img :src="mode.icon" />
         </div>
       </div>
       <div class="playlist" @click="toggleShow">
@@ -60,46 +52,65 @@
     </div>
     <audio
       ref="audio"
+      preload="auto"
       :src="currentSong.url"
+      @play="onPlay"
       @canplay="canPlay"
-      @ended="ended"
-      @waiting="waiting"
-      @timeupdate="timeUpdate"
+      @ended="onEnded"
+      @waiting="onWaiting"
+      @progress="buffered"
+      @pause="onPause"
+      @timeupdate="onTimeUpdate"
+      @error="onError"
+      @volumechange="onVolumeChange"
     />
   </div>
 </template>
 
 <script>
-import { ProgressBar } from "@/base";
-import { playModeConfig } from "@/config";
+/**
+ * 用户点击播放按钮触发
+ *
+ */
+import { ProgressBar, Loading } from "@/base";
+import { playModeConfig, defaultMode } from "@/config";
 import { musicMixin, getImgUrl, formatTime } from "@/utils";
 export default {
   name: "MiniPlayer",
   mixins: [musicMixin],
-  components: { ProgressBar },
+  components: { ProgressBar, Loading },
   data() {
     return {
       playModeConfig,
       playProgress: 0,
-      volume: 0.2,
-      ready: false,
-      disable: true
+      volumeProgress: 1,
+      ready: false
     };
   },
   computed: {
     audio() {
       return this.$refs.audio;
+    },
+    disable() {
+      return !this.hasCurrentSong;
+    },
+    loading() {
+      return this.hasCurrentSong && !this.ready;
+    },
+    isOrder() {
+      return this.mode.key === playModeConfig.order.key;
     }
   },
   watch: {
+    ready(ready) {
+      if (ready && !this.playing) {
+        this.play();
+      }
+    },
     currentSong(newSong) {
       if (newSong.id) {
-        this.play();
-        this.disable = false;
-      } else {
-        this.disable = true;
-        this.setCurrentTime(0);
-        this.pause();
+        this.ready = false;
+        this.setPlayState(false);
       }
     },
     playProgress(progress) {
@@ -107,8 +118,8 @@ export default {
       this.audio.currentTime = time;
       this.setCurrentTime(time);
     },
-    currentTime(currentTime) {
-      this.playProgress = currentTime / this.currentSong.durationSecond;
+    volumeProgress(progress) {
+      this.audio.volume = progress;
     }
   },
   methods: {
@@ -117,47 +128,95 @@ export default {
     toggleShow() {
       this.setPlaylistShow(!this.isPlaylistShow);
     },
+    // 静音切换
     toggleMute() {
       this.setMute(!this.isMute);
+      this.audio.muted = !this.isMute;
     },
-    handleMuteChange() {
+    // 播放模式切换
+    handleModeChange() {
       const modes = Object.values(playModeConfig);
-      const index = modes.findIndex(val => val === this.mode) + 1;
-      const mode = modes[index] ? modes[index] : playModeConfig.loop;
+      const index = modes.findIndex(val => val.key === this.mode.key) + 1;
+      const mode = modes[index] ? modes[index] : defaultMode;
       this.setMode(mode);
     },
     canPlay() {
-      this.ready = true;
       console.log("audio 准备完成");
+      this.ready = true;
     },
-    ended() {
+    onEnded() {
+      // 列表顺序模式下，播放完最后一首歌曲就停止播放
+      if (this.isOrder && this.currentIndex === this.playlist.length - 1)
+        return;
       this.next();
     },
-    waiting(e) {
-      console.log(e);
+    onWaiting() {
+      // this.ready = false;
     },
-    timeUpdate(e) {
-      this.setCurrentTime(e.target.currentTime);
+    onPlay() {
+      console.log("播放事件触发");
+      if (!this.playing) {
+        this.setPlayState(true);
+      }
+    },
+    onPause() {
+      console.log("暂停事件触发");
+      if (this.playing) {
+        this.setPlayState(false);
+      }
+    },
+    onError() {
+      console.log("Error");
+      const { error } = this.audio;
+      if (error) {
+        console.log(error);
+      }
+    },
+    buffered() {
+      console.log("缓存进度");
+      const { audio } = this;
+      const duration = { audio };
+      console.log(audio.buffered);
+      if (duration > 0) {
+        for (var i = 0; i < audio.buffered.length; i++) {
+          if (
+            audio.buffered.start(audio.buffered.length - 1 - i) <
+            audio.currentTime
+          ) {
+            console.log(
+              audio.buffered.end(audio.buffered.length - 1 - i) / duration
+            );
+            break;
+          }
+        }
+      }
+    },
+    onTimeUpdate(e) {
+      this.playProgress =
+        e.target.currentTime / this.currentSong.durationSecond;
+    },
+    onVolumeChange() {
+      console.log("音量发生改变");
+      console.log(this.audio.volume);
     },
     async play() {
       if (this.ready) {
         try {
           await this.audio.play();
-          this.setPlayState(true);
-          console.log("正常开始播放");
         } catch (err) {
-          console.log("播放出错了");
-          console.log(err);
-          this.setPlayState(false);
+          console.error(err);
         }
       }
     },
-    async pause() {
-      await this.audio.pause();
-      this.setPlayState(false);
+    pause() {
+      this.audio.pause();
     },
-    prev() {},
-    next() {}
+    prev() {
+      if (this.prevSong) this.setCurrentSong(this.prevSong);
+    },
+    next() {
+      if (this.nextSong) this.setCurrentSong(this.nextSong);
+    }
   }
 };
 </script>

@@ -81,9 +81,7 @@ export default {
   },
   methods: {
     formatPercentage(percentage) {
-      if (percentage < 0) return 0;
-      if (percentage > 1) return 1;
-      return percentage;
+      return Math.min(percentage, 1) || 0;
     },
     handleClick(e) {
       if (this.disable) return;

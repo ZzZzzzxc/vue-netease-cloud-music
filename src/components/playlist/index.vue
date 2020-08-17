@@ -14,6 +14,7 @@
                   v-for="(song, idx) in playlist"
                   :key="song.id"
                   @click="setCurrentSong(song)"
+                  :class="currentSong.id === song.id ? `active` : ``"
                 >
                   <td>{{ song.name }}</td>
                   <td>{{ song.artistsText }}</td>
@@ -99,6 +100,9 @@ export default {
       tr {
         transition: 0.3s;
         cursor: pointer;
+        &.active {
+          color: $theme-color;
+        }
         td {
           width: 100%;
           height: 28px;

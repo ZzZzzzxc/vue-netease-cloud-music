@@ -13,7 +13,12 @@ const musicMixin = {
       history: state => state.music.history, // 历史记录
       playlistLoading: state => state.music.loading // 歌单是否正在加载
     }),
-    ...mapGetters("music", [`currentSong`, `nextSong`])
+    ...mapGetters("music", [
+      `currentIndex`,
+      `prevSong`,
+      `nextSong`,
+      `hasCurrentSong`
+    ])
   },
   methods: {
     ...mapMutations("music", [
