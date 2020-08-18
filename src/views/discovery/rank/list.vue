@@ -75,7 +75,9 @@ export default {
     },
     toDetail() {
       const { id } = this;
-      if (id) this.$router.push({ name: "SongListDetail", params: { id } });
+      id
+        ? this.$router.push({ name: "SongListDetail", params: { id } })
+        : this.$router.push({ name: "singerListDetail" });
     },
   },
   created() {},

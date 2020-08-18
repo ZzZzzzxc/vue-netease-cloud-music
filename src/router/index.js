@@ -28,6 +28,7 @@ const fm = () => import("../views/fm/index.vue");
 const singerDetail = () => import("../views/detail/singer/index.vue");
 const djDetail = () => import("../views/detail/dj/index.vue");
 const songListDetail = () => import("../views/detail/song-list/index.vue");
+const singerListDetail = () => import("../views/detail/singer-list/index.vue");
 
 const routes = [
   {
@@ -38,68 +39,74 @@ const routes = [
     children: [
       {
         name: "Discovery",
-        path: "/discovery",
+        path: "/discovery", // 发现音乐
         redirect: "/discovery/recommendation",
         component: discovery,
         children: [
           {
             name: "Recommendation",
-            path: "recommendation",
-            component: recommendation
+            path: "recommendation", // 个性推荐
+            component: recommendation,
           },
           {
             name: "SongList",
-            path: "song-list",
-            component: songList
+            path: "song-list", // 歌单
+            component: songList,
           },
           {
             name: "Singer",
-            path: "singer",
-            component: singer
+            path: "singer", // 歌手
+            component: singer,
           },
           {
             name: "Rank",
-            path: "rank",
-            component: rank
+            path: "rank", // 排行榜
+            component: rank,
           },
           {
             name: "NewMusic",
-            path: "new-music",
-            component: newMusic
-          }
-        ]
+            path: "new-music", // 最新音乐
+            component: newMusic,
+          },
+        ],
       },
       {
         name: "Fm",
         path: "/fm",
-        component: fm
+        component: fm,
       },
       {
         name: "SingerDetail",
-        path: "/singer/:id",
+        path: "/singer/:id", // 歌手详情
         component: singerDetail,
-        props: true
+        props: true,
       },
       {
         name: "DjDetail",
         path: "/dj/:id",
         component: djDetail,
-        props: true
+        props: true,
       },
       {
         name: "SongListDetail",
-        path: "/song-list/:id",
+        path: "/song-list/:id", // 歌单详情
         component: songListDetail,
-        props: true
-      }
-    ]
-  }
+        props: true,
+      },
+      {
+        name: "singerListDetail",
+        path: "/singer-list", // 歌手排行榜
+        component: singerListDetail,
+        props: true,
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;

@@ -88,6 +88,8 @@ export default {
     width: 100%;
     min-height: 200px;
     .avatar {
+      height: 200px;
+      width: 200px;
       background-size: cover;
       background-repeat: no-repeat;
       margin-right: 24px;
