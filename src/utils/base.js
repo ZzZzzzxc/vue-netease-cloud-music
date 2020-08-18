@@ -7,6 +7,10 @@ export function isDef(v) {
   return v !== undefined && v !== null;
 }
 
+export function isNaN(val) {
+  return val !== val;
+}
+
 export function formatNumber(number) {
   number = Number(number) || 0;
   return number > 100000 ? `${Math.round(number / 10000)}万` : number;
@@ -59,7 +63,7 @@ export function formatDate(date, fmt = "yyyy-MM-dd hh:mm:ss") {
     "d+": date.getDate(),
     "h+": date.getHours(),
     "m+": date.getMinutes(),
-    "s+": date.getSeconds()
+    "s+": date.getSeconds(),
   };
   for (let k in o) {
     if (new RegExp(`(${k})`).test(fmt)) {

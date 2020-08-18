@@ -11,14 +11,15 @@ const musicMixin = {
       isMute: state => state.music.isMute, // 是否静音
       isPlaylistShow: state => state.music.isPlaylistShow, // 播放列表是否显示
       history: state => state.music.history, // 历史记录
-      playlistLoading: state => state.music.loading // 歌单是否正在加载
+      playlistLoading: state => state.music.loading, // 歌单是否正在加载
+      isDetailShow: state => state.music.isDetailShow, // 是否展示歌曲详情
     }),
     ...mapGetters("music", [
       `currentIndex`,
       `prevSong`,
       `nextSong`,
-      `hasCurrentSong`
-    ])
+      `hasCurrentSong`,
+    ]),
   },
   methods: {
     ...mapMutations("music", [
@@ -29,14 +30,15 @@ const musicMixin = {
       "setMode",
       "setPlaylist",
       "setMute",
-      "setPlaylistLoading"
+      "setPlaylistLoading",
+      "setDetailShow",
     ]),
     ...mapActions("music", [
       "clearPlaylist",
       "removeTargeSong",
-      "addToPlaylist"
-    ])
-  }
+      "addToPlaylist",
+    ]),
+  },
 };
 
 export { musicMixin };

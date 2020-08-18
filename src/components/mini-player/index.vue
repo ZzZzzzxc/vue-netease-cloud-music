@@ -1,9 +1,8 @@
 <template>
   <div class="mini-player">
     <div class="song-wrap" v-if="hasCurrentSong">
-      <div class="img-wrap">
+      <div class="img-wrap" @click="toggleShowDetail">
         <Loading :width="20" :loading="loading">
-          <div class="mask"></div>
           <img :src="getImgUrl(currentSong.img, 64, 64)" />
         </Loading>
       </div>
@@ -88,7 +87,7 @@ const ERROR_MAP = {
 };
 import { ProgressBar, Loading } from "@/base";
 import { playModeConfig, defaultMode } from "@/config";
-import { musicMixin, getImgUrl, formatTime } from "@/utils";
+import { musicMixin, getImgUrl, formatTime, isNaN } from "@/utils";
 export default {
   name: "MiniPlayer",
   mixins: [musicMixin],
@@ -135,6 +134,7 @@ export default {
     },
     playProgress(progress) {
       const time = progress * this.currentSong.durationSecond;
+      if (isNaN(time)) return;
       this.audio.currentTime = time;
       this.setCurrentTime(time);
     },
@@ -150,6 +150,10 @@ export default {
   methods: {
     getImgUrl,
     formatTime,
+    toggleShowDetail() {
+      console.log(this.isDetailShow);
+      this.setDetailShow(!this.isDetailShow);
+    },
     toggleShow() {
       this.setPlaylistShow(!this.isPlaylistShow);
     },
@@ -276,14 +280,6 @@ export default {
       overflow: hidden;
       cursor: pointer;
       margin-right: 12px;
-      .mask {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        top: 0;
-        right: 0;
-        background: rgba(0, 0, 0, 0.1);
-      }
       img {
         height: 100%;
         width: 100%;

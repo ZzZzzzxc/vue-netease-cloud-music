@@ -4,6 +4,7 @@
     <LayoutBody />
     <LayoutFooter />
     <Playlist />
+    <CurrentSong />
   </div>
 </template>
 
@@ -11,10 +12,10 @@
 import LayoutHeader from "./header";
 import LayoutBody from "./body";
 import LayoutFooter from "./footer";
-import { Playlist } from "@/components";
+import { Playlist, CurrentSong } from "@/components";
 export default {
   name: "Layout",
-  components: { LayoutHeader, LayoutFooter, LayoutBody, Playlist }
+  components: { LayoutHeader, LayoutFooter, LayoutBody, Playlist, CurrentSong },
 };
 </script>
 

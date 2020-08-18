@@ -12,7 +12,8 @@ export default {
     isPlaylistShow: false, // 播放列表是否显示
     isMute: false, // 是否静音
     history: [], // 历史记录
-    loading: false // 歌单是否正在加载
+    loading: false, // 歌单是否正在加载
+    isDetailShow: false, // 是否展示歌曲详情
   },
   mutations: {
     setPlayState(state, playing) {
@@ -38,7 +39,10 @@ export default {
     },
     setPlaylistLoading(state, loading) {
       state.loading = loading;
-    }
+    },
+    setDetailShow(state, isDetailShow) {
+      state.isDetailShow = isDetailShow;
+    },
   },
   actions: {
     // 清除播放列表
@@ -62,7 +66,7 @@ export default {
         commit("setPlaylist", playlist);
         commit("setCurrentSong", song);
       }
-    }
+    },
   },
   getters: {
     // 当前是否有歌曲在播放
@@ -79,7 +83,7 @@ export default {
         [playModeConfig.order.key]: getSequencePrevIndex(), // 列表顺序
         [playModeConfig.loop.key]: getSequencePrevIndex(), // 列表循环
         [playModeConfig.random.key]: getRandomPrevIndex(), // 随机播放
-        [playModeConfig.singel.key]: getSingelPrevIndex() // 单曲循环
+        [playModeConfig.singel.key]: getSingelPrevIndex(), // 单曲循环
       };
 
       return playlist[prevIndexMap[mode.key]];
@@ -109,7 +113,7 @@ export default {
         [playModeConfig.order.key]: getLoopNextIndex(), // 列表顺序
         [playModeConfig.loop.key]: getLoopNextIndex(), // 列表循环
         [playModeConfig.random.key]: getRandomNextIndex(), // 随机播放
-        [playModeConfig.singel.key]: getSingelNextIndex() // 单曲循环
+        [playModeConfig.singel.key]: getSingelNextIndex(), // 单曲循环
       };
 
       return playlist[nextIndexMap[mode.key]];
@@ -132,8 +136,8 @@ export default {
       function getSingelNextIndex() {
         return getters.currentIndex;
       }
-    }
-  }
+    },
+  },
 };
 
 function getRandomIndex(playlist, currentIndex) {

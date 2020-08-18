@@ -76,7 +76,7 @@ export default {
     CollectorsList,
     SongList,
     CommentsList,
-    Loading
+    Loading,
   },
   props: ["id"],
   data() {
@@ -84,7 +84,7 @@ export default {
       activeName: "1",
       list: {},
       ids: "",
-      loading: false
+      loading: false,
     };
   },
   methods: {
@@ -98,11 +98,11 @@ export default {
       this.list = playlist;
       this.ids = this.list.trackIds.map(({ id }) => id).join(",");
       this.loading = false;
-    }
+    },
   },
   created() {
     this.initPlayListDetail();
-  }
+  },
 };
 </script>
 
@@ -118,6 +118,10 @@ export default {
     .img-wrap {
       width: 30%;
       height: 250px;
+      img {
+        height: 250px;
+        width: 250px;
+      }
     }
     .info-wrap {
       width: 50%;

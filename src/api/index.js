@@ -10,3 +10,4 @@ export * from "./simi";
 export * from "./dj";
 export * from "./comment";
 export * from "./song";
+export * from "./lyric";

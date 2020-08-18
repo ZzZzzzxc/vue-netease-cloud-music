@@ -17,6 +17,17 @@
 }
 .playlist-enter,
 .playlist-leave-to {
-  transform: translateX(100px);
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+// song-detail-page
+.song-detail-page-enter-active,
+.song-detail-page-leave-active {
+  transition: all 0.3s ease-out;
+}
+.song-detail-page-enter,
+.song-detail-page-leave-to {
+  transform: translate(-80%, 100%);
   opacity: 0;
 }

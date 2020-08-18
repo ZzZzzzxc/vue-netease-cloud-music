@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <Loading :loading="!list.length">
-      <ul class="rank-list" v-if="list.length">
+      <ul class="rank-list">
         <li class="img-wrap" @click="toDetail">
           <img v-lazy="getImgUrl(banner, 300, 100)" alt="" />
           <div class="play" @click.stop="handlePlay(list)" v-if="id">
@@ -87,6 +87,7 @@ export default {
 <style lang="scss" scoped>
 .rank-list {
   width: 300px;
+  min-height: 400px;
   border: solid $grey 1px;
   .img-wrap {
     width: 100%;
