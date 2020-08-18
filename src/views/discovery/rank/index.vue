@@ -6,6 +6,7 @@
         <div class="list-wrap">
           <div class="list-item">
             <RankList
+              :id="soarId"
               :list="flattenDeep(soar.tracks)"
               :banner="soar.coverImgUrl"
               :len="8"
@@ -13,6 +14,7 @@
           </div>
           <div class="list-item">
             <RankList
+              :id="newsId"
               :list="flattenDeep(news.tracks)"
               :banner="news.coverImgUrl"
               :len="8"
@@ -20,6 +22,7 @@
           </div>
           <div class="list-item">
             <RankList
+              :id="originalId"
               :list="flattenDeep(original.tracks)"
               :banner="original.coverImgUrl"
               :len="8"
@@ -27,6 +30,7 @@
           </div>
           <div class="list-item">
             <RankList
+              :id="hotId"
               :list="flattenDeep(hot.tracks)"
               :banner="hot.coverImgUrl"
               :len="8"
@@ -66,7 +70,7 @@ import {
   getTopList,
   getPlayListDetail,
   getTopArtists,
-  getSongDetail
+  getSongDetail,
 } from "@/api";
 import { SongSheetCard } from "@/components";
 import { Card, Loading } from "@/base";
@@ -84,7 +88,7 @@ export default {
       original: {}, // 原创榜
       hot: {}, // 热歌榜,
       singer: {}, // 歌手榜
-      songListLoading: false
+      songListLoading: false,
     };
   },
   computed: {
@@ -108,7 +112,7 @@ export default {
     global() {
       const { totalList } = this;
       return totalList.slice(4, totalList.length);
-    }
+    },
   },
   watch: {
     async soarId(id) {
@@ -126,7 +130,7 @@ export default {
     async hotId(id) {
       const { playlist } = await getPlayListDetail({ id });
       this.hot = playlist;
-    }
+    },
   },
   methods: {
     formatNumber,
@@ -158,18 +162,22 @@ export default {
             id: song.id,
             name: song.name,
             artists: song.ar,
-            duration: song.dt
+            duration: song.dt,
+            mvId: song.mv,
+            img: song.al.picUrl,
+            albumId: song.al.id,
+            albumName: song.al.name,
           })
         );
       });
       this.setPlaylist(playlist);
       this.setCurrentSong(playlist[0]);
-    }
+    },
   },
   created() {
     this.initTopList();
     this.initSingerList();
-  }
+  },
 };
 </script>
 

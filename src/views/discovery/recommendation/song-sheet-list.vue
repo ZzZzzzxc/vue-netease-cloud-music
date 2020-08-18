@@ -24,12 +24,12 @@ export default {
   mixins: [musicMixin],
   components: {
     PlaylistCard,
-    Loading
+    Loading,
   },
   data() {
     return {
       sheetList: [],
-      loading: false
+      loading: false,
     };
   },
   methods: {
@@ -54,22 +54,27 @@ export default {
       const { songs } = await getSongDetail({ ids });
       const playlist = [];
       songs.map(song => {
+        console.log(song);
         playlist.push(
           formatSong({
             id: song.id,
             name: song.name,
             artists: song.ar,
-            duration: song.dt
+            duration: song.dt,
+            mvId: song.mv,
+            img: song.al.picUrl,
+            albumId: song.al.id,
+            albumName: song.al.name,
           })
         );
       });
       this.setPlaylist(playlist);
       this.setCurrentSong(playlist[0]);
-    }
+    },
   },
   created() {
     this.initSheetList();
-  }
+  },
 };
 </script>
 

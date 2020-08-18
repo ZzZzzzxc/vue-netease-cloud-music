@@ -2,6 +2,9 @@
   <div class="album-card">
     <div class="img-wrap">
       <img v-lazy="getImgUrl(imgUrl, 340, 340)" />
+      <div class="play" @click.stop="handlePlay">
+        <img :src="require(`@/assets/icon/play-dark.png`)" />
+      </div>
     </div>
     <p>
       {{ name }}
@@ -33,7 +36,10 @@ export default {
     }
   },
   methods: {
-    getImgUrl
+    getImgUrl,
+    handlePlay() {
+      this.$emit("click");
+    }
   }
 };
 </script>
@@ -53,6 +59,20 @@ export default {
       @include abs-stretch;
       width: 100%;
       height: 100%;
+    }
+    .play {
+      opacity: 0;
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      bottom: 6%;
+      right: 6%;
+      transition: 0.3s;
+    }
+    &:hover {
+      .play {
+        opacity: 0.8;
+      }
     }
   }
   .artistName {

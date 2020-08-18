@@ -1,7 +1,12 @@
 <template>
   <Loading :loading="loading">
     <table class="music-list">
-      <tr class="album-card" v-for="(data, index) in list" :key="index">
+      <tr
+        @click="handleGetSong(data)"
+        class="album-card"
+        v-for="(data, index) in list"
+        :key="index"
+      >
         <td class=" index-wrap">{{ pad(index + 1) }}</td>
         <td class="img-wrap">
           <img class="img" v-lazy="data.album.picUrl" alt="" />
@@ -29,22 +34,23 @@
 
 <script>
 import { getTopSong } from "@/api";
-import { formatTime, pad } from "@/utils";
+import { formatTime, pad, formatSong, musicMixin } from "@/utils";
 import { Loading } from "@/base";
 export default {
   name: "music-list",
+  mixins: [musicMixin],
   components: { Loading },
   props: {
     type: {
       // 0:全部 7:华语 96: 欧美 8:日本 16:韩国
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   data() {
     return {
       list: [],
-      loading: false
+      loading: false,
     };
   },
   methods: {
@@ -55,11 +61,27 @@ export default {
       const { data } = await getTopSong({ type: this.type });
       this.list = data;
       this.loading = false;
-    }
+    },
+    handleGetSong(song) {
+      this.setPlaylistLoading(true);
+      this.addToPlaylist(
+        formatSong({
+          id: song.id,
+          name: song.name,
+          artists: song.artists,
+          duration: song.duration,
+          mvId: song.mvid,
+          img: song.album.picUrl,
+          albumId: song.album.id,
+          albumName: song.album.name,
+        })
+      );
+      this.setPlaylistLoading(false);
+    },
   },
   created() {
     this.initList();
-  }
+  },
 };
 </script>
 
@@ -71,8 +93,13 @@ export default {
   table-layout: fixed;
   color: $grey-dark;
   .album-card {
+    cursor: pointer;
     &:nth-child(odd) {
       background-color: $grey-light;
+    }
+    &:hover {
+      transition: 0.3s;
+      background-color: $grey;
     }
     height: 64px;
     line-height: 64px;

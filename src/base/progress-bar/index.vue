@@ -24,7 +24,7 @@ export default {
   name: "ZProgressBar",
   model: {
     prop: "percentage",
-    event: "percentageChange"
+    event: "percentageChange",
   },
   props: {
     // 是否允许调整进度
@@ -34,25 +34,25 @@ export default {
     // 高度
     height: {
       type: Number,
-      default: 4
+      default: 4,
     },
     // 颜色
     color: {
       type: String,
-      default: `#d33a31`
+      default: `#d33a31`,
     },
     // 小球大小计算系数
     coefficient: {
       type: Number,
-      default: 2
-    }
+      default: 2,
+    },
   },
 
   data() {
     return {
       barWidth: 0,
       startX: 0,
-      move: false
+      move: false,
     };
   },
   computed: {
@@ -67,7 +67,7 @@ export default {
         width: `${btnWidth}px`,
         height: `${btnWidth}px`,
         borderRadius: `50%`,
-        cursor: `pointer`
+        cursor: `pointer`,
       };
     },
     btnWidth() {
@@ -77,11 +77,11 @@ export default {
       const { percentage, barWidth, btnWidth } = this;
       const currentLeft = percentage * barWidth - btnWidth / 2;
       return `${currentLeft}px`;
-    }
+    },
   },
   methods: {
     formatPercentage(percentage) {
-      return Math.min(percentage, 1) || 0;
+      return Math.max(Math.min(percentage, 1), 0);
     },
     handleClick(e) {
       if (this.disable) return;
@@ -112,7 +112,7 @@ export default {
     },
     stopMove() {
       this.move = false;
-    }
+    },
   },
   mounted() {
     this.barWidth = this.$refs.bar.offsetWidth;
@@ -121,7 +121,7 @@ export default {
   beforeDestroy() {
     off(document, "mousemove", this.onMousemove);
     off(document, "mouseup", this.stopMove);
-  }
+  },
 };
 </script>
 

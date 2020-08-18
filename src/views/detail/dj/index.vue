@@ -20,10 +20,10 @@
           <div class="tool-wrap"></div>
           <div class="tag-wrap" v-if="info.radio">
             <span class="tag">{{ info.radio.category }}</span>
-            <span v-for="(txt, idx) in info.radio.desc.split('\n')" :key="idx">
-              {{ txt }}
-            </span>
           </div>
+          <p v-for="(txt, idx) in info.radio.desc.split('\n')" :key="idx">
+            {{ txt }}
+          </p>
         </div>
       </div>
     </Loading>

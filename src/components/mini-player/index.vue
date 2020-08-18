@@ -68,10 +68,24 @@
 </template>
 
 <script>
-/**
- * 用户点击播放按钮触发
- *
- */
+const ERROR_MAP = {
+  MEDIA_ERR_ABORTED: {
+    key: 1,
+    desc: "用户的请求中止了关联资源的获取.",
+  },
+  MEDIA_ERR_NETWORK: {
+    key: 2,
+    desc: "尽管以前可用，但发生了某种网络错误，阻止了媒体的成功获取.",
+  },
+  MEDIA_ERR_DECODE: {
+    key: 3,
+    desc: "	尽管先前已确定可用，但在尝试解码媒体资源时发生了错误，从而导致错误.",
+  },
+  MEDIA_ERR_SRC_NOT_SUPPORTED: {
+    key: 4,
+    desc: "已发现关联的资源或媒体提供程序对象（例如MediaStream ）不合适.",
+  },
+};
 import { ProgressBar, Loading } from "@/base";
 import { playModeConfig, defaultMode } from "@/config";
 import { musicMixin, getImgUrl, formatTime } from "@/utils";
@@ -85,6 +99,7 @@ export default {
       playProgress: 0,
       volumeProgress: 1,
       ready: false,
+      error: false,
     };
   },
   computed: {
@@ -114,6 +129,8 @@ export default {
       if (newSong.id) {
         this.ready = false;
         this.setPlayState(false);
+      } else {
+        this.playProgress = 0;
       }
     },
     playProgress(progress) {
@@ -123,6 +140,11 @@ export default {
     },
     volumeProgress(progress) {
       this.audio.volume = progress;
+    },
+    error(err) {
+      if (err) {
+        this.pause();
+      }
     },
   },
   methods: {
@@ -176,9 +198,14 @@ export default {
     },
     onError() {
       console.log("Error");
+      this.error = true;
       const { error } = this.audio;
       if (error) {
-        console.log(error);
+        const { code, detail } = error;
+        const errors = Object.values(ERROR_MAP);
+        const idx = errors.findIndex(({ key }) => key === code);
+        const msg = detail ? detail : errors[idx].desc;
+        console.log(`CODE：${code}，信息：${msg}`);
       }
     },
     buffered() {
@@ -211,8 +238,10 @@ export default {
     async play() {
       if (this.ready) {
         try {
+          this.error = false;
           await this.audio.play();
         } catch (err) {
+          this.error = true;
           console.error(err);
         }
       }
@@ -258,11 +287,11 @@ export default {
       img {
         height: 100%;
         width: 100%;
-        filter: blur(1px);
+        filter: blur(0.4px);
       }
       &:hover {
-        .mask {
-          z-index: 1;
+        img {
+          filter: blur(1px);
         }
       }
     }

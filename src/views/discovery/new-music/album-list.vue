@@ -5,7 +5,7 @@
         <div class="title-wrap">{{ title }}</div>
         <ul class="list-wrap">
           <li class="list-item" v-for="(item, index) in list" :key="index">
-            <AlbumCard v-bind="formatData(item)" />
+            <AlbumCard @click="handleAddSong(item)" v-bind="formatData(item)" />
           </li>
         </ul>
       </div>
@@ -20,14 +20,15 @@ const MONTH = new Date().getMonth() + 1;
 const WEEK_KEY = "本周新碟";
 import { getAlbumList } from "@/api";
 import { AlbumCard } from "@/components";
-import { flattenDeep, pad, on, off } from "@/utils";
+import { flattenDeep, pad, on, off, musicMixin, formatSong } from "@/utils";
 import { Loading } from "@/base";
 export default {
   name: "album",
+  mixins: [musicMixin],
   components: { AlbumCard, Loading },
   props: {
     type: String, // "new" || "hot"
-    area: String
+    area: String,
   },
   data() {
     return {
@@ -36,7 +37,7 @@ export default {
       scrollToBottom: 0,
       month: MONTH,
       year: YEAR,
-      contentEl: document.getElementById("content__ref")
+      contentEl: document.getElementById("content__ref"),
     };
   },
   computed: {
@@ -45,25 +46,25 @@ export default {
         type: this.type,
         area: this.area,
         month: this.month,
-        year: this.year
+        year: this.year,
       };
-    }
+    },
   },
   watch: {
     type() {
       this.resetStatus();
     },
     params: {
-      handler(params) {
-        params.type === "hot" && this.getList();
+      handler() {
+        this.getList();
       },
-      deep: true
+      deep: true,
     },
     scrollToBottom(val) {
       if (val < 500 && !this.loading) {
         this.setDate();
       }
-    }
+    },
   },
   methods: {
     setDate() {
@@ -79,7 +80,7 @@ export default {
         alias: item.alias,
         imgUrl: item.picUrl,
         name: item.name,
-        artistName: item.artists[0].name
+        artistName: item.artists[0].name,
       };
     },
     async getList() {
@@ -88,17 +89,15 @@ export default {
         this.loading = true;
         const { monthData, weekData } = await getAlbumList(params);
         // 最新
-        if (this.type === "new") {
-          if (weekData) {
-            const week = {};
-            week[WEEK_KEY] = [...flattenDeep(weekData)];
-            this.data.push(week);
-          }
+        if (this.type === "new" && weekData) {
+          const week = {};
+          week[WEEK_KEY] = [...flattenDeep(weekData)];
+          this.data.push(week);
         } else {
           // 全部
           const month = {};
           month[`${this.year}-${pad(this.month)}`] = [
-            ...flattenDeep(monthData)
+            ...flattenDeep(monthData),
           ];
           this.data.push(month);
         }
@@ -111,13 +110,27 @@ export default {
       this.month = MONTH;
       this.year = YEAR;
     },
+    handleAddSong(song) {
+      this.setPlaylistLoading(true);
+      this.addToPlaylist(
+        formatSong({
+          id: song.id,
+          name: song.name,
+          artists: song.artists,
+          duration: song.duration,
+          mvId: song.mv,
+          img: song.picUrl,
+        })
+      );
+      this.setPlaylistLoading(false);
+    },
     scrollAction() {
       let scrollTop = this.contentEl.scrollTop;
       let scrollHeight = this.contentEl.scrollHeight;
       let clientHeight = this.contentEl.clientHeight;
       // 滚动条距离底部的距离
       this.scrollToBottom = scrollHeight - scrollTop - clientHeight;
-    }
+    },
   },
   created() {
     this.getList();
@@ -127,7 +140,7 @@ export default {
   },
   destroyed() {
     off(this.contentEl, "scroll", this.scrollAction);
-  }
+  },
 };
 </script>
 
