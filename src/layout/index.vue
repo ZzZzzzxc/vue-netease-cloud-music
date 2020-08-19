@@ -1,10 +1,10 @@
 <template>
   <div class="app-wrap">
-    <LayoutHeader />
-    <LayoutBody />
-    <LayoutFooter />
-    <Playlist />
-    <CurrentSong />
+    <layout-header></layout-header>
+    <layout-body></layout-body>
+    <layout-footer></layout-footer>
+    <playlist></playlist>
+    <current-song></current-song>
   </div>
 </template>
 

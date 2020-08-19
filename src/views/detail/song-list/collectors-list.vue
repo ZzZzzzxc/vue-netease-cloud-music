@@ -1,28 +1,28 @@
 <template>
   <div class="collectors-list-wrap">
     <div class="content">
-      <Loading :loading="loading">
+      <loading :loading="loading">
         <div class="list-wrap wrapper">
           <div
             class="list-item"
             v-for="collector in list"
             :key="collector.userId"
           >
-            <CollectorCard
+            <collector-card
               :name="collector.nickname"
               :imgUrl="collector.avatarUrl"
-            />
+            ></collector-card>
           </div>
         </div>
-      </Loading>
+      </loading>
     </div>
     <div class="pagination-wrapper">
-      <Pagination
+      <pagination
         v-model="pagination.currentPage"
         :pagerCount="pagination.pagerCount"
         :limit="pagination.limit"
         :total="total"
-      />
+      ></pagination>
     </div>
   </div>
 </template>

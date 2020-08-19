@@ -8,7 +8,7 @@
       <slot name="header">{{ header }}</slot>
     </div>
     <div class="z-card__content" :style="contentStyle">
-      <slot />
+      <slot></slot>
     </div>
   </div>
 </template>

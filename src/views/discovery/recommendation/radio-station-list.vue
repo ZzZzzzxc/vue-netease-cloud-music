@@ -1,16 +1,16 @@
 <template>
-  <Loading :loading="loading">
+  <loading :loading="loading">
     <ul class="list-wrap">
       <li class="list-item" v-for="program in djProgram" :key="program.id">
-        <RadioStationCard
+        <radio-station-card
           :imgUrl="program.picUrl"
           :title="program.copywriter"
           :footer="program.name"
           :id="program.id"
-        />
+        ></radio-station-card>
       </li>
     </ul>
-  </Loading>
+  </loading>
 </template>
 
 <script>

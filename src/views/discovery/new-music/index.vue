@@ -33,28 +33,28 @@
           全部
         </div>
       </div>
-      <Tabs v-model="activeName" :center="false" :activeColor="`#909399`">
-        <TabsPane label="全部" name="1">
-          <MusicList :type="0" v-if="showTabLeft" />
-          <AlbumList v-else :type="type" :area="`ALL`" />
-        </TabsPane>
-        <TabsPane label="华语" name="2">
-          <MusicList :type="7" v-if="showTabLeft" />
-          <AlbumList v-else :type="type" :area="`ZH`" />
-        </TabsPane>
-        <TabsPane label="欧美" name="3">
-          <MusicList :type="96" v-if="showTabLeft" />
-          <AlbumList v-else :type="type" :area="`EA`" />
-        </TabsPane>
-        <TabsPane label="韩国" name="4">
-          <MusicList :type="8" v-if="showTabLeft" />
-          <AlbumList v-else :type="type" :area="`KR`" />
-        </TabsPane>
-        <TabsPane label="日本" name="5">
-          <MusicList :type="16" v-if="showTabLeft" />
-          <AlbumList v-else :type="type" :area="`JP`" />
-        </TabsPane>
-      </Tabs>
+      <tabs v-model="activeName" :center="false" :activeColor="`#909399`">
+        <tabs-pane label="全部" name="1">
+          <music-list :type="0" v-if="showTabLeft"></music-list>
+          <album-list v-else :type="type" :area="`ALL`"></album-list>
+        </tabs-pane>
+        <tabs-pane label="华语" name="2">
+          <music-list :type="7" v-if="showTabLeft"></music-list>
+          <album-list v-else :type="type" :area="`ZH`"></album-list>
+        </tabs-pane>
+        <tabs-pane label="欧美" name="3">
+          <music-list :type="96" v-if="showTabLeft"></music-list>
+          <album-list v-else :type="type" :area="`EA`"></album-list>
+        </tabs-pane>
+        <tabs-pane label="韩国" name="4">
+          <music-list :type="8" v-if="showTabLeft"></music-list>
+          <album-list v-else :type="type" :area="`KR`"></album-list>
+        </tabs-pane>
+        <tabs-pane label="日本" name="5">
+          <music-list :type="16" v-if="showTabLeft"></music-list>
+          <album-list v-else :type="type" :area="`JP`"></album-list>
+        </tabs-pane>
+      </tabs>
     </div>
   </div>
 </template>

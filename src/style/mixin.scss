@@ -12,6 +12,19 @@
   -webkit-box-orient: vertical;
 }
 
+@mixin circle($d) {
+  width: $d;
+  height: $d;
+  border-radius: 50%;
+}
+
+@mixin flex-center($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: center;
+  justify-content: center;
+}
+
 @mixin abs-stretch {
   position: absolute;
   left: 0;

@@ -8,13 +8,13 @@
         v-show="showPopper"
       >
         <div class="z-popper-content">
-          <slot name="content" />
+          <slot name="content"></slot>
         </div>
         <div :class="[`z-popper-arrow`, `z-popper-arrow__${placement}`]"></div>
       </div>
     </transition>
     <div class="trigger" ref="trigger">
-      <slot />
+      <slot></slot>
     </div>
   </div>
 </template>

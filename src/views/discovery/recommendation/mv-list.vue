@@ -1,16 +1,16 @@
 <template>
-  <Loading :loading="loading">
+  <loading :loading="loading">
     <ul class="list-wrap">
       <li class="list-item" v-for="mv in mvs" :key="mv.id">
-        <MvCard
+        <mv-card
           :imgUrl="mv.picUrl"
           :count="formatNumber(mv.playCount).toString()"
           :desc="mv.copywriter"
           :name="mv.name"
           :artistName="mv.artistName"
-        />
+        ></mv-card>
       </li></ul
-  ></Loading>
+  ></loading>
 </template>
 
 <script>

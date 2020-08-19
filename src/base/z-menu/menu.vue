@@ -1,6 +1,6 @@
 <template>
   <ul class="z-menu" :class="menuClass">
-    <slot />
+    <slot></slot>
   </ul>
 </template>
 

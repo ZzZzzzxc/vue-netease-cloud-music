@@ -74,7 +74,7 @@ export default {
               {pane.label}
             </div>
           ))}
-          <div class="active-bar" style={this.activeBarStyle} />
+          <div class="active-bar" style={this.activeBarStyle}></div>
         </div>
       </div>
     );

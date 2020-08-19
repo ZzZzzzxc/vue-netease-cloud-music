@@ -64,7 +64,7 @@
       @timeupdate="onTimeUpdate"
       @error="onError"
       @volumechange="onVolumeChange"
-    />
+    ></audio>
   </div>
 </template>
 

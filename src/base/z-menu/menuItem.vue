@@ -4,7 +4,7 @@
     :class="[rootMenu.activeIndex === index ? `z-menu-item__active` : ``]"
     @click.stop="onClick"
   >
-    <slot />
+    <slot></slot>
   </li>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <Loading :loading="loading">
+  <loading :loading="loading">
     <div class="comment-page-wrap">
       <div class="title" v-show="currentPage === 1">精彩评论</div>
       <ul class="comment-list" v-show="currentPage === 1">
@@ -8,7 +8,7 @@
           v-for="comment in hotComments"
           :key="comment.commentId"
         >
-          <Comment v-bind="formatData(comment)" />
+          <comment v-bind="formatData(comment)"></comment>
         </li>
       </ul>
       <div class="title">最新评论({{ commentCount }})</div>
@@ -18,18 +18,18 @@
           v-for="comment in comments"
           :key="comment.commentId"
         >
-          <Comment v-bind="formatData(comment)" />
+          <comment v-bind="formatData(comment)"></comment>
         </li>
       </ul>
       <div class="pagination-wrap">
-        <Pagination
+        <pagination
           v-model="currentPage"
           :limit="limit"
           :total="commentCount"
-        />
+        ></pagination>
       </div>
     </div>
-  </Loading>
+  </loading>
 </template>
 
 <script>

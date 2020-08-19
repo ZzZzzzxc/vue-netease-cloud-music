@@ -9,7 +9,7 @@
     </div>
     <transition>
       <ul v-show="isOpen">
-        <slot />
+        <slot></slot>
       </ul>
     </transition>
   </li>

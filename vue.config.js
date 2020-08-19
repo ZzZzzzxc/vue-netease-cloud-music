@@ -10,6 +10,7 @@ module.exports = {
           @import "~@/style/variables.scss";
           @import "~@/style/mixin.scss";
           @import "~@/style/scroll.scss";
+          @import "~@/style/animation.scss";
         `
       }
     }

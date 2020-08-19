@@ -50,7 +50,7 @@
         <div class="bottom">
           <div class="comment-list-wrap">
             <div class="header-title">听友评论({{ total }})</div>
-            <Loading :loading="commentLoading">
+            <loading :loading="commentLoading">
               <div class="title" v-show="current === 1">精彩评论</div>
               <ul class="comment-list" v-show="current === 1">
                 <li
@@ -58,7 +58,7 @@
                   v-for="comment in comments"
                   :key="comment.commentId"
                 >
-                  <Comment v-bind="formatCommentData(comment)" />
+                  <comment v-bind="formatCommentData(comment)"></comment>
                 </li>
               </ul>
               <div class="title">最新评论({{ total }})</div>
@@ -72,13 +72,17 @@
                   v-for="comment in comments"
                   :key="comment.commentId"
                 >
-                  <Comment v-bind="formatCommentData(comment)" />
+                  <comment v-bind="formatCommentData(comment)"></comment>
                 </li>
               </ul>
               <div class="pagination-wrap">
-                <Pagination v-model="current" :limit="limit" :total="total" />
+                <pagination
+                  v-model="current"
+                  :limit="limit"
+                  :total="total"
+                ></pagination>
               </div>
-            </Loading>
+            </loading>
           </div>
           <div class="similar-list-wrap">
             <div class="title">相似歌单</div>
@@ -292,7 +296,7 @@ export default {
       const { lyricList } = this.$refs;
       if (!isDef(lyricList)) return;
       const child = lyricList.children[activeLyricIndex];
-      const top = child.offsetTop - lyricList.clientHeight;
+      const top = child.offsetTop - lyricList.clientHeight / 2;
       lyricList.scrollTo({
         top,
         behavior: "smooth"
@@ -373,15 +377,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@keyframes rotate {
-  0% {
-    transform: rotate(0);
-  }
-
-  100% {
-    transform: rotate(1turn);
-  }
-}
 .song-page-wrap {
   position: fixed;
   top: 64px;
@@ -431,17 +426,13 @@ export default {
           }
         }
         .img-outer-border {
-          width: 340px;
-          height: 340px;
-          border-radius: 50%;
+          @include circle(340px);
           display: flex;
           justify-content: center;
           align-items: center;
           background-color: $grey;
           .img-outer {
-            width: 310px;
-            height: 310px;
-            border-radius: 50%;
+            @include circle(310px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -455,9 +446,7 @@ export default {
               height: 200px;
               flex-shrink: 0;
               img {
-                width: 100%;
-                height: 100%;
-                border-radius: 50%;
+                @include circle(100%);
               }
             }
           }
@@ -481,6 +470,7 @@ export default {
           text-align: center;
         }
         .lyric-list {
+          position: relative;
           height: 350px;
           mask-image: linear-gradient(
             180deg,
@@ -506,6 +496,14 @@ export default {
               font-weight: bold;
               font-size: $font-size;
               color: $black;
+            }
+          }
+          &::-webkit-scrollbar {
+            width: 0;
+          }
+          &:hover {
+            &::-webkit-scrollbar {
+              width: 4px;
             }
           }
         }

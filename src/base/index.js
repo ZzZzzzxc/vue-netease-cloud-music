@@ -1,17 +1,17 @@
-import Popover from "./popover";
-import Menu from "./menu/menu.vue";
-import SubMenu from "./menu/subMenu.vue";
-import MenuItem from "./menu/menuItem.vue";
-import MenuItemGroup from "./menu/menuItemGroup.vue";
-import Tabs from "./tabs/tabs.vue";
-import TabsPane from "./tabs/tabsPane.vue";
-import Swiper from "./swiper/swiper.vue";
-import SwiperItem from "./swiper/swiperItem.vue";
-import Pagination from "./pagination";
-import Card from "./card";
-import Loading from "./loading";
-import ProgressBar from "./progress-bar";
-import Table from "./table";
+import Popover from "./z-popover";
+import Menu from "./z-menu/menu.vue";
+import SubMenu from "./z-menu/subMenu.vue";
+import MenuItem from "./z-menu/menuItem.vue";
+import MenuItemGroup from "./z-menu/menuItemGroup.vue";
+import Tabs from "./z-tabs/tabs.vue";
+import TabsPane from "./z-tabs/tabsPane.vue";
+import Swiper from "./z-swiper/swiper.vue";
+import SwiperItem from "./z-swiper/swiperItem.vue";
+import Pagination from "./z-pagination";
+import Card from "./z-card";
+import Loading from "./z-loading";
+import ProgressBar from "./z-progress-bar";
+import Table from "./z-table";
 
 export {
   Popover,

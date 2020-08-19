@@ -1,7 +1,7 @@
 <template>
   <div class="z-swiper__item" :style="itemStyle" v-show="ready">
-    <div class="z-swiper__item__mask" v-show="!active" />
-    <slot />
+    <div class="z-swiper__item__mask" v-show="!active"></div>
+    <slot></slot>
   </div>
 </template>
 

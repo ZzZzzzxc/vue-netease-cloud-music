@@ -28,27 +28,31 @@
       </template>
       <div class="current-tag">{{ currentTag.name }}</div>
     </Popover>
-    <TagList :title="`热门标签：`" :tags="tags" @tagChange="selectTag" />
-    <Loading :loading="listLoading">
+    <tag-list
+      :title="`热门标签：`"
+      :tags="tags"
+      @tagChange="selectTag"
+    ></tag-list>
+    <loading :loading="listLoading">
       <ul class="list-wrap">
         <li class="list-item" v-for="sheet in playlists" :key="sheet.id">
-          <SongSheetCard
+          <song-sheet-card
             @click="handleGetSong(sheet.id)"
             :count="formatNumber(sheet.playCount).toString()"
             :imgUrl="sheet.coverImgUrl"
             :artistName="sheet.creator.nickname"
             :name="sheet.name"
             :id="sheet.id"
-          />
+          ></song-sheet-card>
         </li></ul
-    ></Loading>
+    ></loading>
     <div class="pagination-wrapper">
-      <Pagination
+      <pagination
         v-model="pagination.currentPage"
         :pagerCount="pagination.pagerCount"
         :limit="params.limit"
         :total="total"
-      />
+      ></pagination>
     </div>
   </div>
 </template>

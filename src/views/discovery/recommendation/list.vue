@@ -1,5 +1,5 @@
 <template>
-  <Loading :loading="loading" :customStyle="{ width: `100%` }">
+  <loading :loading="loading" :customStyle="{ width: `100%` }">
     <div class="song-list">
       <div
         class="item"
@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>
-  </Loading>
+  </loading>
 </template>
 
 <script>

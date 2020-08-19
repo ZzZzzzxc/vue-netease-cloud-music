@@ -8,13 +8,13 @@
     <div
       class="current"
       :style="{ width: `${percentage * barWidth}px `, backgroundColor: color }"
-    />
+    ></div>
     <div
       v-show="!disable"
       ref="btn"
       :style="btnStyle"
       @mousedown="onMousedown"
-    />
+    ></div>
   </div>
 </template>
 

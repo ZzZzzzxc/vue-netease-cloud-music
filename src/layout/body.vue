@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <LayoutMenu />
+    <layout-menu></layout-menu>
     <div class="content" id="content__ref">
-      <router-view />
+      <router-view></router-view>
     </div>
   </div>
 </template>

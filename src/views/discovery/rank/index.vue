@@ -1,67 +1,67 @@
 <template>
   <div class="rank-page-wrap">
-    <Card :shadow="`never`">
+    <card :shadow="`never`">
       <div slot="header">官方榜</div>
       <div class="rank-list-wrapper">
         <div class="list-wrap">
           <div class="list-item">
-            <RankList
+            <rank-list
               :id="soarId"
               :list="flattenDeep(soar.tracks)"
               :banner="soar.coverImgUrl"
               :len="8"
-            />
+            ></rank-list>
           </div>
           <div class="list-item">
-            <RankList
+            <rank-list
               :id="newsId"
               :list="flattenDeep(news.tracks)"
               :banner="news.coverImgUrl"
               :len="8"
-            />
+            ></rank-list>
           </div>
           <div class="list-item">
-            <RankList
+            <rank-list
               :id="originalId"
               :list="flattenDeep(original.tracks)"
               :banner="original.coverImgUrl"
               :len="8"
-            />
+            ></rank-list>
           </div>
           <div class="list-item">
-            <RankList
+            <rank-list
               :id="hotId"
               :list="flattenDeep(hot.tracks)"
               :banner="hot.coverImgUrl"
               :len="8"
-            />
+            ></rank-list>
           </div>
           <div class="list-item">
-            <RankList
+            <rank-list
               :list="flattenDeep(singer.tracks)"
               :banner="singer.coverUrl"
               :len="8"
-            />
+            ></rank-list>
           </div>
         </div>
       </div>
-    </Card>
-    <Card :shadow="`never`">
+    </card>
+    <card :shadow="`never`">
       <div slot="header">全球榜</div>
-      <Loading :loading="songListLoading">
+      <loading :loading="songListLoading">
         <ul class="list-wrap">
           <li class="list-item" v-for="sheet in global" :key="sheet.id">
-            <SongSheetCard
+            <song-sheet-card
               @click="handleGetSong(sheet.id)"
               :id="sheet.id"
               :count="formatNumber(sheet.playCount).toString()"
               :imgUrl="sheet.coverImgUrl"
               :name="sheet.name"
-            />
+            ></song-sheet-card>
           </li>
         </ul>
-      </Loading>
-    </Card>
+      </loading>
+    </card>
   </div>
 </template>
 

@@ -5,12 +5,15 @@
         <div class="title-wrap">{{ title }}</div>
         <ul class="list-wrap">
           <li class="list-item" v-for="(item, index) in list" :key="index">
-            <AlbumCard @click="handleAddSong(item)" v-bind="formatData(item)" />
+            <album-card
+              @click="handleAddSong(item)"
+              v-bind="formatData(item)"
+            ></album-card>
           </li>
         </ul>
       </div>
     </div>
-    <Loading :loading="loading" />
+    <loading :loading="loading"></loading>
   </div>
 </template>
 

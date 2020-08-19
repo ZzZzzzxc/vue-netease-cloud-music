@@ -1,5 +1,5 @@
 <template>
-  <div class="footer" id="footer__ref"><MiniPlayer /></div>
+  <div class="footer" id="footer__ref"><mini-player></mini-player></div>
 </template>
 
 <script>

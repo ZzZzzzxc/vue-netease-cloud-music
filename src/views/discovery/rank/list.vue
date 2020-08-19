@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <Loading :loading="!list.length">
+    <loading :loading="!list.length">
       <ul class="rank-list">
         <li class="img-wrap" @click="toDetail">
           <img v-lazy="getImgUrl(banner, 300, 100)" alt="" />
@@ -29,7 +29,7 @@
           <span @click="toDetail">查看全部</span>
         </li>
       </ul>
-    </Loading>
+    </loading>
   </transition>
 </template>
 

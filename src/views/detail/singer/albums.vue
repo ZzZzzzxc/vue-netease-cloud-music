@@ -1,19 +1,19 @@
 <template>
   <div class="albums-wrapper">
-    <Card :shadow="`never`">
-      <Loading :loading="loading">
+    <card :shadow="`never`">
+      <loading :loading="loading">
         <ul class="list-wrap">
           <li class="list-item" v-for="alb in albums" :key="alb.id">
-            <AlbumCard
+            <album-card
               :imgUrl="alb.picUrl"
               :name="alb.name"
               :artistName="formatDate(alb.publishTime)"
               @click="handleGetSong(alb.id)"
-            />
+            ></album-card>
           </li>
         </ul>
-      </Loading>
-    </Card>
+      </loading>
+    </card>
   </div>
 </template>
 

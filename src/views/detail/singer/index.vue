@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <Loading :loading="loading">
+    <loading :loading="loading">
       <div class="header">
         <img class="avatar" v-lazy="getImgUrl(info.picUrl, 200, 200)" />
         <div class="info">
@@ -18,19 +18,19 @@
           </div>
         </div>
       </div>
-    </Loading>
+    </loading>
     <div class="content">
-      <Tabs v-model="activeName">
-        <TabsPane label="专辑" name="1">
-          <Albums :albums="albums" :loading="loading" />
-        </TabsPane>
-        <TabsPane label="MV" name="2">
-          <Mvs :id="id" />
-        </TabsPane>
-        <TabsPane label="歌手详情" name="3">
-          <Description :name="info.name" :id="id" />
-        </TabsPane>
-      </Tabs>
+      <tabs v-model="activeName">
+        <tabs-pane label="专辑" name="1">
+          <albums :albums="albums" :loading="loading"></albums>
+        </tabs-pane>
+        <tabs-pane label="MV" name="2">
+          <mvs :id="id"></mvs>
+        </tabs-pane>
+        <tabs-pane label="歌手详情" name="3">
+          <description :name="info.name" :id="id"></description>
+        </tabs-pane>
+      </tabs>
     </div>
   </div>
 </template>

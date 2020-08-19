@@ -1,5 +1,5 @@
 <template>
-  <Loading :loading="loading">
+  <loading :loading="loading">
     <div class="desc-wrapper">
       <div class="section">
         <h2 class="title">{{ name }}简介</h2>
@@ -13,7 +13,7 @@
           <p v-for="txt in intro.txt.split('\n')" :key="txt">{{ txt }}</p>
         </div>
       </div>
-    </div></Loading
+    </div></loading
   >
 </template>
 

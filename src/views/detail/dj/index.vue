@@ -1,6 +1,6 @@
 <template>
   <div class="dj-page-wrap">
-    <Loading :loading="loading">
+    <loading :loading="loading">
       <div class="header">
         <div class="img-wrap">
           <img v-lazy="getImgUrl(info.coverUrl, 250, 250)" />
@@ -26,7 +26,7 @@
           </p>
         </div>
       </div>
-    </Loading>
+    </loading>
   </div>
 </template>
 
@@ -104,9 +104,7 @@ export default {
         align-items: center;
         margin: 16px 0;
         img {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
+          @include circle(40px);
         }
         .name {
           margin: 0 16px 0 6px;

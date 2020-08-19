@@ -1,5 +1,5 @@
 <template>
-  <Loading :loading="loading">
+  <loading :loading="loading">
     <table class="music-list">
       <tr class="list-header">
         <th>编号</th>
@@ -28,7 +28,7 @@
         </td>
       </tr>
     </table>
-  </Loading>
+  </loading>
 </template>
 
 <script>

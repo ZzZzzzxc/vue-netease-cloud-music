@@ -1,38 +1,38 @@
 <template>
   <div class="singer-page-wrap">
     <div>
-      <TagList
+      <tag-list
         :active="true"
         :defaultActive="LANGUAGES[0]"
         :title="`语种：`"
         :tags="LANGUAGES"
         @tagChange="onLanguageTagChange"
-      />
-      <TagList
+      ></tag-list>
+      <tag-list
         :active="true"
         :defaultActive="SINGERTYPE[0]"
         :title="`分类：`"
         :tags="SINGERTYPE"
         @tagChange="onTypeTagChange"
-      />
-      <TagList
+      ></tag-list>
+      <tag-list
         :active="true"
         :defaultActive="INITIALS[1]"
         :title="`筛选：`"
         :tags="INITIALS"
         @tagChange="onInitialsTagChange"
-      />
+      ></tag-list>
     </div>
     <ul class="list-wrap">
       <li class="list-item" v-for="(singer, index) in singerList" :key="index">
-        <SingerCard
+        <singer-card
           :id="singer.id"
           :imgUrl="singer.picUrl"
           :name="singer.name"
-        />
+        ></singer-card>
       </li>
     </ul>
-    <Loading :loading="loading" />
+    <loading :loading="loading"></loading>
   </div>
 </template>
 

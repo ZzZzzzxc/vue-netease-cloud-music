@@ -5,7 +5,7 @@
     @mouseleave="startTimer"
   >
     <div class="z-swiper" :style="{ height: `${height}px` }">
-      <slot />
+      <slot></slot>
     </div>
     <div class="z-swiper-control">
       <div

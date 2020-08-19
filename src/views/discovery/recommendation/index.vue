@@ -1,35 +1,35 @@
 <template>
   <div>
-    <Loading :loading="loading">
-      <Swiper>
-        <SwiperItem v-for="banner in banners" :key="banner.imageUrl">
+    <loading :loading="loading">
+      <swiper>
+        <swiper-item v-for="banner in banners" :key="banner.imageUrl">
           <img class="banner" v-lazy="getImgUrl(banner.imageUrl, 1000, 400)" />
-        </SwiperItem> </Swiper
-    ></Loading>
+        </swiper-item> </swiper
+    ></loading>
     <div class="card-wrapper">
-      <Card :shadow="`hover`">
+      <card :shadow="`hover`">
         <template slot="header">
           <div class="card-header">
             <div class="title">主播电台</div>
             <div class="more">更多</div>
           </div>
         </template>
-        <RadioStationList />
-      </Card>
+        <radio-station-list></radio-station-list>
+      </card>
     </div>
     <div class="card-wrapper">
-      <Card :shadow="`hover`">
+      <card :shadow="`hover`">
         <template slot="header">
           <div class="card-header">
             <div class="title">独家放送</div>
             <div class="more">更多</div>
           </div>
         </template>
-        <PrivateContentList />
-      </Card>
+        <private-content-list></private-content-list>
+      </card>
     </div>
     <div class="card-wrapper">
-      <Card :shadow="`hover`">
+      <card :shadow="`hover`">
         <template slot="header">
           <div class="card-header">
             <div class="title">最新音乐</div>
@@ -37,31 +37,31 @@
           </div>
         </template>
         <div class="card-content">
-          <SongList />
+          <song-list></song-list>
         </div>
-      </Card>
+      </card>
     </div>
     <div class="card-wrapper">
-      <Card :shadow="`hover`">
+      <card :shadow="`hover`">
         <template slot="header">
           <div class="card-header">
             <div class="title">推荐歌单</div>
             <div class="more" @click="toMorePage('SongList')">更多</div>
           </div>
         </template>
-        <SongSheetList />
-      </Card>
+        <song-sheet-list></song-sheet-list>
+      </card>
     </div>
     <div class="card-wrapper">
-      <Card :shadow="`hover`">
+      <card :shadow="`hover`">
         <template slot="header">
           <div class="card-header">
             <div class="title">推荐MV</div>
             <div class="more">更多</div>
           </div>
         </template>
-        <MvList />
-      </Card>
+        <mv-list></mv-list>
+      </card>
     </div>
   </div>
 </template>

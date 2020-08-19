@@ -1,17 +1,17 @@
 <template>
-  <Loading :loading="loading">
+  <loading :loading="loading">
     <ul class="list-wrap">
       <li class="list-item" v-for="sheet in sheetList" :key="sheet.id">
-        <PlaylistCard
+        <playlist-card
           @click="handleGetSong(sheet.id)"
           :id="sheet.id"
           :imgUrl="sheet.picUrl"
           :desc="sheet.copywriter"
           :name="sheet.name"
           :count="formatNumber(sheet.playCount).toString()"
-        />
+        ></playlist-card>
       </li></ul
-  ></Loading>
+  ></loading>
 </template>
 
 <script>

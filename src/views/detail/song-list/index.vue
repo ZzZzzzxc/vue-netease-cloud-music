@@ -1,6 +1,6 @@
 <template>
   <div class="song-list-page-wrap">
-    <Loading :loading="loading">
+    <loading :loading="loading">
       <div class="header">
         <div class="img-wrap">
           <img v-lazy="getImgUrl(list.coverImgUrl, 250, 250)" />
@@ -44,19 +44,25 @@
           </div>
         </div>
       </div>
-    </Loading>
+    </loading>
     <div class="content">
-      <Tabs v-model="activeName" :center="false">
-        <TabsPane label="歌曲列表" name="1">
-          <SongList :ids="ids" />
-        </TabsPane>
-        <TabsPane :label="`评论(${this.list.commentCount})`" name="2">
-          <CommentsList :id="id" :commentCount="list.commentCount" />
-        </TabsPane>
-        <TabsPane label="收藏者" name="3">
-          <CollectorsList :id="id" :total="list.subscribedCount" />
-        </TabsPane>
-      </Tabs>
+      <tabs v-model="activeName" :center="false">
+        <tabs-pane label="歌曲列表" name="1">
+          <song-list :ids="ids"></song-list>
+        </tabs-pane>
+        <tabs-pane :label="`评论(${this.list.commentCount})`" name="2">
+          <comments-list
+            :id="id"
+            :commentCount="list.commentCount"
+          ></comments-list>
+        </tabs-pane>
+        <tabs-pane label="收藏者" name="3">
+          <collectors-list
+            :id="id"
+            :total="list.subscribedCount"
+          ></collectors-list>
+        </tabs-pane>
+      </tabs>
     </div>
   </div>
 </template>
@@ -149,9 +155,7 @@ export default {
         align-items: center;
         margin: 16px 0;
         img {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
+          @include circle(40px);
         }
         .name {
           margin: 0 16px 0 6px;

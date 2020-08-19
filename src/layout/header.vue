@@ -3,12 +3,12 @@
     <div class="left">
       <img class="logo item" :src="require(`@/assets/logo.jpg`)" />
       <div class="title item">Music</div>
-      <div class="item"><HistoryControl /></div>
-      <div class="item"><Search /></div>
+      <div class="item"><history-control></history-control></div>
+      <div class="item"><search></search></div>
     </div>
     <div class="right">
-      <div class="item"><Theme /></div>
-      <div class="item"><User /></div>
+      <div class="item"><theme></theme></div>
+      <div class="item"><user></user></div>
     </div>
   </div>
 </template>
@@ -41,9 +41,7 @@ export default {
     display: flex;
     flex: 1;
     .logo {
-      height: 32px;
-      width: 32px;
-      border-radius: 50%;
+      @include circle(32px);
       position: relative;
       top: 50%;
       transform: translateY(-50%);

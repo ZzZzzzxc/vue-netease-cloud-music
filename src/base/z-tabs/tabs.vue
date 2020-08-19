@@ -1,10 +1,10 @@
 <template>
   <div class="z-tabs">
     <div class="z-tabs__header">
-      <TabsNav @click="handleClick" />
+      <TabsNav @click="handleClick"></TabsNav>
     </div>
     <div class="z-tabs__content">
-      <slot />
+      <slot></slot>
     </div>
   </div>
 </template>

@@ -1,17 +1,17 @@
 <template>
   <div class="mvs-wrapper">
-    <Card :shadow="`never`">
-      <Loading :loading="loading">
+    <card :shadow="`never`">
+      <loading :loading="loading">
         <ul class="list-wrap">
           <li class="list-item" v-for="mv in mvs" :key="mv.id">
-            <MvCard
+            <mv-card
               :imgUrl="mv.imgurl"
               :name="mv.name"
               :count="formatNumber(mv.playCount).toString()"
-            />
+            ></mv-card>
           </li></ul
-      ></Loading>
-    </Card>
+      ></loading>
+    </card>
   </div>
 </template>
 

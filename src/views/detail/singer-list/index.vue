@@ -7,14 +7,14 @@
       </div>
     </div>
     <div class="tabs-wrap">
-      <Tabs v-model="activeName" :center="false" :activeColor="`#909399`">
-        <TabsPane
+      <tabs v-model="activeName" :center="false" :activeColor="`#909399`">
+        <tabs-pane
           :label="tab.label"
           :name="tab.name"
           v-for="tab in TabsData"
           :key="tab.name"
         >
-          <Loading :loading="loading">
+          <loading :loading="loading">
             <ul class="list">
               <li
                 class="item"
@@ -37,9 +37,9 @@
                 </div>
               </li>
             </ul>
-          </Loading>
-        </TabsPane>
-      </Tabs>
+          </loading>
+        </tabs-pane>
+      </tabs>
     </div>
   </div>
 </template>

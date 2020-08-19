@@ -1,15 +1,15 @@
 <template>
   <div class="tabs-wrapper">
-    <Tabs v-model="activeName" @click="onTabsClick">
-      <TabsPane
+    <tabs v-model="activeName" @click="onTabsClick">
+      <tabs-pane
         v-for="tab in tabs"
         :key="tab.name"
         :label="tab.label"
         :name="tab.name"
       >
-        <router-view :key="true" />
-      </TabsPane>
-    </Tabs>
+        <router-view :key="true"></router-view>
+      </tabs-pane>
+    </tabs>
   </div>
 </template>
 

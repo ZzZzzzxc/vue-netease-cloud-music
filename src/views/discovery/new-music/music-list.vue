@@ -1,5 +1,5 @@
 <template>
-  <Loading :loading="loading">
+  <loading :loading="loading">
     <table class="music-list">
       <tr
         @click="handleGetSong(data)"
@@ -28,7 +28,7 @@
           {{ formatTime(data.duration / 1000) }}
         </td>
       </tr>
-    </table></Loading
+    </table></loading
   >
 </template>
 

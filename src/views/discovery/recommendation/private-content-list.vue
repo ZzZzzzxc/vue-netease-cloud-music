@@ -1,10 +1,13 @@
 <template>
-  <Loading :loading="loading">
+  <loading :loading="loading">
     <ul class="list-wrap">
       <li class="list-item" v-for="content in privatecontent" :key="content.id">
-        <PrivateContentCard :imgUrl="content.picUrl" :footer="content.name" />
+        <private-content-card
+          :imgUrl="content.picUrl"
+          :footer="content.name"
+        ></private-content-card>
       </li></ul
-  ></Loading>
+  ></loading>
 </template>
 
 <script>

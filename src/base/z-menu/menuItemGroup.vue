@@ -2,7 +2,7 @@
   <li class="z-menu-item-group">
     <div class="z-menu-item-group__title">{{ title }}</div>
     <ul>
-      <slot />
+      <slot></slot>
     </ul>
   </li>
 </template>

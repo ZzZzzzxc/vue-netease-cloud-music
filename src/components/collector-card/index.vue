@@ -28,9 +28,7 @@ export default {
   .img-wrap {
     margin-bottom: 8px;
     img {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
+      @include circle(70px);
     }
   }
 }

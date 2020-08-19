@@ -59,9 +59,7 @@ export default {
     margin-right: 18px;
     flex-shrink: 0;
     img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
+      @include circle(100%);
     }
   }
   .content-wrap {
