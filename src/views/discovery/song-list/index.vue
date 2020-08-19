@@ -59,7 +59,7 @@ import {
   getHotCatList,
   getTopPlayList,
   getPlayListDetail,
-  getSongDetail,
+  getSongDetail
 } from "@/api";
 import { SongSheetCard, TagList } from "@/components";
 import { formatNumber, musicMixin, formatSong } from "@/utils";
@@ -88,16 +88,16 @@ export default {
       playlists: [],
       pagination: {
         currentPage: 1,
-        pagerCount: 7,
+        pagerCount: 7
       },
       total: 0,
       params: {
         order: "hot",
         limit: 50,
         offset: OFFSET_VAL,
-        cat: "",
+        cat: ""
       },
-      contentEl: document.getElementById("content__ref"),
+      contentEl: document.getElementById("content__ref")
     };
   },
   computed: {
@@ -107,18 +107,18 @@ export default {
       for (let i = 0; i < categories.length; i++) {
         catSelectionList.push({
           title: categories[i],
-          list: this.filterCatList(i),
+          list: this.filterCatList(i)
         });
       }
       return catSelectionList;
-    },
+    }
   },
   watch: {
     params: {
       handler() {
         this.initPlayList();
       },
-      deep: true,
+      deep: true
     },
     "pagination.currentPage": function(page) {
       this.params.offset = (page - 1) * this.params.limit;
@@ -128,7 +128,7 @@ export default {
       params.offset = OFFSET_VAL;
       params.cat = tag.name;
       this.params = params;
-    },
+    }
   },
   methods: {
     formatNumber,
@@ -161,7 +161,7 @@ export default {
         this.contentEl.scrollTo({
           left: 0,
           top: 0,
-          behavior: "smooth",
+          behavior: "smooth"
         });
       this.listLoading = false;
     },
@@ -185,18 +185,18 @@ export default {
             mvId: song.mv,
             img: song.al.picUrl,
             albumId: song.al.id,
-            albumName: song.al.name,
+            albumName: song.al.name
           })
         );
       });
       this.setPlaylist(playlist);
       this.setCurrentSong(playlist[0]);
-    },
+    }
   },
   created() {
     this.initCatList();
     this.initHotCatList();
-  },
+  }
 };
 </script>
 

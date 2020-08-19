@@ -24,12 +24,12 @@ export default {
   mixins: [musicMixin],
   components: {
     PlaylistCard,
-    Loading,
+    Loading
   },
   data() {
     return {
       sheetList: [],
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -64,17 +64,17 @@ export default {
             mvId: song.mv,
             img: song.al.picUrl,
             albumId: song.al.id,
-            albumName: song.al.name,
+            albumName: song.al.name
           })
         );
       });
       this.setPlaylist(playlist);
       this.setCurrentSong(playlist[0]);
-    },
+    }
   },
   created() {
     this.initSheetList();
-  },
+  }
 };
 </script>
 

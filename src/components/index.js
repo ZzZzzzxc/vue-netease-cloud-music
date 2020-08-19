@@ -35,5 +35,5 @@ export {
   Comment,
   MiniPlayer,
   Playlist,
-  CurrentSong,
+  CurrentSong
 };

@@ -48,7 +48,7 @@ export default {
   computed: {
     _list() {
       return this.list.slice(0, this.len);
-    },
+    }
   },
   methods: {
     getImgUrl,
@@ -65,7 +65,7 @@ export default {
             mvId: song.mv,
             img: song.al.picUrl,
             albumId: song.al.id,
-            albumName: song.al.name,
+            albumName: song.al.name
           })
         );
       });
@@ -78,9 +78,9 @@ export default {
       id
         ? this.$router.push({ name: "SongListDetail", params: { id } })
         : this.$router.push({ name: "singerListDetail" });
-    },
+    }
   },
-  created() {},
+  created() {}
 };
 </script>
 

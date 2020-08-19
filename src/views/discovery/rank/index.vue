@@ -70,7 +70,7 @@ import {
   getTopList,
   getPlayListDetail,
   getTopArtists,
-  getSongDetail,
+  getSongDetail
 } from "@/api";
 import { SongSheetCard } from "@/components";
 import { Card, Loading } from "@/base";
@@ -88,7 +88,7 @@ export default {
       original: {}, // 原创榜
       hot: {}, // 热歌榜,
       singer: {}, // 歌手榜
-      songListLoading: false,
+      songListLoading: false
     };
   },
   computed: {
@@ -112,7 +112,7 @@ export default {
     global() {
       const { totalList } = this;
       return totalList.slice(4, totalList.length);
-    },
+    }
   },
   watch: {
     async soarId(id) {
@@ -130,7 +130,7 @@ export default {
     async hotId(id) {
       const { playlist } = await getPlayListDetail({ id });
       this.hot = playlist;
-    },
+    }
   },
   methods: {
     formatNumber,
@@ -166,18 +166,18 @@ export default {
             mvId: song.mv,
             img: song.al.picUrl,
             albumId: song.al.id,
-            albumName: song.al.name,
+            albumName: song.al.name
           })
         );
       });
       this.setPlaylist(playlist);
       this.setCurrentSong(playlist[0]);
-    },
+    }
   },
   created() {
     this.initTopList();
     this.initSingerList();
-  },
+  }
 };
 </script>
 

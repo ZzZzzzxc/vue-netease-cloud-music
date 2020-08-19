@@ -44,13 +44,13 @@ export default {
     type: {
       // 0:全部 7:华语 96: 欧美 8:日本 16:韩国
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
   data() {
     return {
       list: [],
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -73,15 +73,15 @@ export default {
           mvId: song.mvid,
           img: song.album.picUrl,
           albumId: song.album.id,
-          albumName: song.album.name,
+          albumName: song.album.name
         })
       );
       this.setPlaylistLoading(false);
-    },
+    }
   },
   created() {
     this.initList();
-  },
+  }
 };
 </script>
 

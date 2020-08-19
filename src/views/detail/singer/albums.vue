@@ -43,15 +43,15 @@ export default {
             mvId: song.mv,
             img: song.al.picUrl,
             albumId: song.al.id,
-            albumName: song.al.name,
+            albumName: song.al.name
           })
         );
       });
       this.setPlaylist(playlist);
       this.setCurrentSong(playlist[0]);
       this.setPlaylistLoading(false);
-    },
-  },
+    }
+  }
 };
 </script>
 

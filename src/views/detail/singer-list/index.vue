@@ -48,20 +48,20 @@
 const TabsData = [
   {
     label: "华语",
-    name: "1",
+    name: "1"
   },
   {
     label: "欧美",
-    name: "2",
+    name: "2"
   },
   {
     label: "韩国",
-    name: "3",
+    name: "3"
   },
   {
     label: "日本",
-    name: "4",
-  },
+    name: "4"
+  }
 ];
 import { getArtistTopList } from "@/api";
 import { formatDate, getImgUrl, isDef } from "@/utils";
@@ -71,7 +71,7 @@ export default {
   components: {
     Tabs,
     TabsPane,
-    Loading,
+    Loading
   },
   data() {
     return {
@@ -79,13 +79,13 @@ export default {
       artists: {},
       loading: false,
       activeName: TabsData[0].name,
-      updateTime: 0,
+      updateTime: 0
     };
   },
   watch: {
     activeName() {
       this.getArtistsList();
-    },
+    }
   },
   methods: {
     getImgUrl,
@@ -111,11 +111,11 @@ export default {
     },
     toDetail(id) {
       this.$router.push({ name: "SingerDetail", params: { id } });
-    },
+    }
   },
   created() {
     this.getArtistsList();
-  },
+  }
 };
 </script>
 

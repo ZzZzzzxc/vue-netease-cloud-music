@@ -15,7 +15,7 @@ import LayoutFooter from "./footer";
 import { Playlist, CurrentSong } from "@/components";
 export default {
   name: "Layout",
-  components: { LayoutHeader, LayoutFooter, LayoutBody, Playlist, CurrentSong },
+  components: { LayoutHeader, LayoutFooter, LayoutBody, Playlist, CurrentSong }
 };
 </script>
 
