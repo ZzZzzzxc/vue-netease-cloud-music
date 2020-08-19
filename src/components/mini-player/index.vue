@@ -131,13 +131,13 @@ export default {
         this.ready = false;
         this.setPlayState(false);
       } else {
-        this.setCurrentTime(0);
+        this.audio.currentTime = 0;
       }
     },
     playProgress(progress) {
       const time = progress * this.currentSong.durationSecond;
       if (isNaN(time)) return;
-      this.setCurrentTime(time);
+      this.audio.currentTime = time;
     },
     volumeProgress(progress) {
       this.audio.volume = progress;
@@ -146,10 +146,6 @@ export default {
       if (err) {
         this.pause();
       }
-    },
-    currentTime(time) {
-      this.playProgress = time / this.currentSong.durationSecond;
-      this.audio.currentTime = time;
     }
   },
   methods: {
@@ -183,7 +179,8 @@ export default {
         return;
       // 单曲循环
       if (this.isSingle) {
-        this.setCurrentTime(0);
+        this.audio.currentTime = 0;
+
         this.play();
         return;
       }

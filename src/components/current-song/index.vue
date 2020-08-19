@@ -288,8 +288,13 @@ export default {
     },
     // 鼠标点击歌词
     handleScrollToActiveLyric(lrcData, idx) {
-      this.setCurrentTime(lrcData.time);
-      this.scrollToActiveLyric(idx);
+      const audio = document.getElementById("audio");
+      if (audio) {
+        audio.currentTime = lrcData.time;
+        this.scrollToActiveLyric(idx);
+      } else {
+        console.log("audio 呢？");
+      }
     },
     // 滚动至当前歌词
     scrollToActiveLyric(activeLyricIndex) {
