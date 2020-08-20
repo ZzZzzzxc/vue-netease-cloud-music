@@ -27,7 +27,13 @@
       </div>
     </div>
     <div class="progress-bar-wrap">
-      <ProgressBar v-model="playProgress" :disable="disable" />
+      <ProgressBar
+        @bar-click="setAudioCurrentTime"
+        @moving="onArtificialMoving"
+        @move-stop="onartificialMoveStop"
+        v-model="playProgress"
+        :disable="disable"
+      />
     </div>
     <div class="tools-wrap">
       <div class="volume">
@@ -72,20 +78,20 @@
 const ERROR_MAP = {
   MEDIA_ERR_ABORTED: {
     key: 1,
-    desc: "用户的请求中止了关联资源的获取."
+    desc: "用户的请求中止了关联资源的获取.",
   },
   MEDIA_ERR_NETWORK: {
     key: 2,
-    desc: "尽管以前可用，但发生了某种网络错误，阻止了媒体的成功获取."
+    desc: "尽管以前可用，但发生了某种网络错误，阻止了媒体的成功获取.",
   },
   MEDIA_ERR_DECODE: {
     key: 3,
-    desc: "	尽管先前已确定可用，但在尝试解码媒体资源时发生了错误，从而导致错误."
+    desc: "	尽管先前已确定可用，但在尝试解码媒体资源时发生了错误，从而导致错误.",
   },
   MEDIA_ERR_SRC_NOT_SUPPORTED: {
     key: 4,
-    desc: "已发现关联的资源或媒体提供程序对象（例如MediaStream ）不合适."
-  }
+    desc: "已发现关联的资源或媒体提供程序对象（例如MediaStream ）不合适.",
+  },
 };
 import { ProgressBar, Loading } from "@/base";
 import { playModeConfig, defaultMode } from "@/config";
@@ -100,7 +106,8 @@ export default {
       playProgress: 0,
       volumeProgress: 1,
       ready: false,
-      error: false
+      error: false,
+      artificialMoving: false,
     };
   },
   computed: {
@@ -118,7 +125,7 @@ export default {
     },
     isSingle() {
       return this.mode.key === playModeConfig.singel.key;
-    }
+    },
   },
   watch: {
     ready(ready) {
@@ -134,22 +141,18 @@ export default {
         this.audio.currentTime = 0;
       }
     },
-    playProgress(progress) {
-      const time = progress * this.currentSong.durationSecond;
-      if (isNaN(time)) return;
-      this.audio.currentTime = time;
-    },
     volumeProgress(progress) {
       this.audio.volume = progress;
     },
     currentTime(time) {
-      this.playProgress = time / this.currentSong.durationSecond;
+      if (!this.artificialMoving)
+        this.playProgress = time / this.currentSong.durationSecond;
     },
     error(err) {
       if (err) {
         this.pause();
       }
-    }
+    },
   },
   methods: {
     getImgUrl,
@@ -159,6 +162,18 @@ export default {
     },
     toggleShow() {
       this.setPlaylistShow(!this.isPlaylistShow);
+    },
+    setAudioCurrentTime() {
+      const time = this.playProgress * this.currentSong.durationSecond;
+      if (isNaN(time)) return;
+      this.audio.currentTime = time;
+    },
+    onartificialMoveStop() {
+      this.setAudioCurrentTime();
+      this.artificialMoving = false;
+    },
+    onArtificialMoving() {
+      this.artificialMoving = true;
     },
     // 静音切换
     toggleMute() {
@@ -259,8 +274,8 @@ export default {
     },
     next() {
       if (this.nextSong) this.setCurrentSong(this.nextSong);
-    }
-  }
+    },
+  },
 };
 </script>
 
