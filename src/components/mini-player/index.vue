@@ -95,7 +95,7 @@ const ERROR_MAP = {
 };
 import { ProgressBar, Loading } from "@/base";
 import { playModeConfig, defaultMode } from "@/config";
-import { musicMixin, getImgUrl, formatTime, isNaN } from "@/utils";
+import { musicMixin, getImgUrl, formatTime, isNaN, isDef } from "@/utils";
 export default {
   name: "MiniPlayer",
   mixins: [musicMixin],
@@ -138,7 +138,11 @@ export default {
         this.ready = false;
         this.setPlayState(false);
       } else {
+        this.setPlayState(false);
+        // this.pause();
+        this.playProgress = 0;
         this.audio.currentTime = 0;
+        this.audio.src = "";
       }
     },
     volumeProgress(progress) {
@@ -256,6 +260,7 @@ export default {
       console.log(this.audio.volume);
     },
     async play() {
+      if (!isDef(this.currentSong.id)) return;
       try {
         console.log("audio 播放");
         this.error = false;
@@ -266,6 +271,7 @@ export default {
       }
     },
     pause() {
+      if (!isDef(this.currentSong.id)) return;
       console.log(`audio 暂停`);
       this.audio.pause();
     },

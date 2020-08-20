@@ -54,29 +54,31 @@
           </div>
         </div>
         <div class="bottom">
-          <card :shadow="`hover`">
-            <template slot="header">
-              <div class="card-header">听友评论({{ total }})</div>
-            </template>
-            <comment-list
-              v-if="current === 1"
-              :loading="commentLoading"
-              :title="`精彩评论`"
-              :comments="hotComments"
-            />
-            <CommentList
-              :loading="commentLoading"
-              :title="`最新评论（${total}）`"
-              :comments="comments"
-            />
-            <div class="pagination-wrap">
-              <pagination
-                v-model="current"
-                :limit="limit"
-                :total="total"
-              ></pagination>
-            </div>
-          </card>
+          <div class="comment-wrap">
+            <card :shadow="`hover`">
+              <template slot="header">
+                <div class="card-header">听友评论({{ total }})</div>
+              </template>
+              <comment-list
+                v-if="current === 1"
+                :loading="commentLoading"
+                :title="`精彩评论`"
+                :comments="hotComments"
+              />
+              <CommentList
+                :loading="commentLoading"
+                :title="`最新评论（${total}）`"
+                :comments="comments"
+              />
+              <div class="pagination-wrap">
+                <pagination
+                  v-model="current"
+                  :limit="limit"
+                  :total="total"
+                ></pagination>
+              </div>
+            </card>
+          </div>
           <div class="similar-list-wrap">
             <card :shadow="`hover`">
               <template slot="header">
@@ -520,6 +522,12 @@ export default {
     }
     .bottom {
       display: flex;
+      .comment-wrap {
+        width: 60%;
+        .pagination-wrapper {
+          float: right;
+        }
+      }
       .similar-list-wrap {
         width: 30%;
         padding-left: 10%;
