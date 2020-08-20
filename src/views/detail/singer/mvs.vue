@@ -3,7 +3,12 @@
     <card :shadow="`never`">
       <loading :loading="loading">
         <ul class="list-wrap">
-          <li class="list-item" v-for="mv in mvs" :key="mv.id">
+          <li
+            class="list-item"
+            v-for="mv in mvs"
+            :key="mv.id"
+            @click="toDetail(mv.id)"
+          >
             <mv-card
               :imgUrl="mv.imgurl"
               :name="mv.name"
@@ -38,6 +43,9 @@ export default {
       const { mvs } = await getArtistMv({ id, limit: 1000 });
       this.mvs = mvs;
       this.loading = false;
+    },
+    toDetail(id) {
+      this.$router.push({ name: "Mv", params: { id } });
     }
   },
   created() {

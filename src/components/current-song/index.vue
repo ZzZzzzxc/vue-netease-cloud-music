@@ -28,7 +28,13 @@
               <div class="artists">歌手：{{ currentSong.artistsText }}</div>
             </div>
             <div class="empty" v-if="nolyric">暂无歌词</div>
-            <ul class="lyric-list" ref="lyricList" v-else>
+            <ul
+              @mouseenter="onMouseenter"
+              @mouseleave="onMouseleave"
+              class="lyric-list"
+              ref="lyricList"
+              v-else
+            >
               <li
                 :class="activeLyricIndex === index ? `active` : ``"
                 class="lyric-item"
@@ -48,80 +54,72 @@
           </div>
         </div>
         <div class="bottom">
-          <div class="comment-list-wrap">
-            <div class="header-title">听友评论({{ total }})</div>
-            <loading :loading="commentLoading">
-              <div class="title" v-show="current === 1">精彩评论</div>
-              <ul class="comment-list" v-show="current === 1">
-                <li
-                  class="comment-item"
-                  v-for="comment in comments"
-                  :key="comment.commentId"
-                >
-                  <comment v-bind="formatCommentData(comment)"></comment>
-                </li>
-              </ul>
-              <div class="title">最新评论({{ total }})</div>
-              <ul
-                class="comment-list"
-                @mouseenter="onMouseenter"
-                @mouseleave="onMouseleave"
-              >
-                <li
-                  class="comment-item"
-                  v-for="comment in comments"
-                  :key="comment.commentId"
-                >
-                  <comment v-bind="formatCommentData(comment)"></comment>
-                </li>
-              </ul>
-              <div class="pagination-wrap">
-                <pagination
-                  v-model="current"
-                  :limit="limit"
-                  :total="total"
-                ></pagination>
-              </div>
-            </loading>
-          </div>
+          <card :shadow="`hover`">
+            <template slot="header">
+              <div class="card-header">听友评论({{ total }})</div>
+            </template>
+            <comment-list
+              v-if="current === 1"
+              :loading="commentLoading"
+              :title="`精彩评论`"
+              :comments="hotComments"
+            />
+            <CommentList
+              :loading="commentLoading"
+              :title="`最新评论（${total}）`"
+              :comments="comments"
+            />
+            <div class="pagination-wrap">
+              <pagination
+                v-model="current"
+                :limit="limit"
+                :total="total"
+              ></pagination>
+            </div>
+          </card>
           <div class="similar-list-wrap">
-            <div class="title">相似歌单</div>
-            <ul class="similar-list">
-              <li
-                v-for="playlist in simiPlaylist"
-                :key="playlist.id"
-                class="item"
-                @click="toPlaylistDetail(playlist.id)"
-              >
-                <div class="img-wrap">
-                  <img v-lazy="getImgUrl(playlist.coverImgUrl, 50)" />
-                </div>
-                <div class="info-wrap">
-                  <p>{{ playlist.name }}</p>
-                  <p>播放：{{ formatNumber(playlist.playCount) }}</p>
-                </div>
-              </li>
-            </ul>
-            <div class="title">相似歌曲</div>
-            <ul class="similar-list">
-              <li
-                v-for="song in simiSongs"
-                :key="song.id"
-                class="item"
-                @click="handleAddToPlaylist(song)"
-              >
-                <div class="img-wrap">
-                  <img v-lazy="getImgUrl(song.album.picUrl, 50)" />
-                </div>
-                <div class="info-wrap">
-                  <p>
-                    {{ song.name }}
-                    <span v-if="song.alias[0]">（{{ song.alias[0] }}）</span>
-                  </p>
-                  <p>{{ getArtistisText(song.artists) }}</p>
-                </div>
-              </li>
-            </ul>
+            <card :shadow="`hover`">
+              <template slot="header">
+                <div class="card-header">相似歌单</div>
+              </template>
+              <ul class="similar-list">
+                <li
+                  v-for="playlist in simiPlaylist"
+                  :key="playlist.id"
+                  class="item"
+                  @click="toPlaylistDetail(playlist.id)"
+                >
+                  <horizontal-card
+                    :minWidth="`30%`"
+                    :imgUrl="playlist.coverImgUrl"
+                    :title="playlist.name"
+                    :artist="`播放：${formatNumber(playlist.playCount)}`"
+                  >
+                  </horizontal-card>
+                </li>
+              </ul>
+            </card>
+            <card :shadow="`hover`">
+              <template slot="header">
+                <div class="card-header">相似歌曲</div>
+              </template>
+              <ul class="similar-list">
+                <li
+                  v-for="song in simiSongs"
+                  :key="song.id"
+                  class="item"
+                  @click="handleAddToPlaylist(song)"
+                >
+                  <horizontal-card
+                    :minWidth="`30%`"
+                    :imgUrl="song.album.picUrl"
+                    :title="song.name"
+                    :artist="getArtistisText(song.artists)"
+                  >
+                  </horizontal-card>
+                </li>
+              </ul>
+            </card>
           </div>
         </div>
       </div>
@@ -139,13 +137,19 @@ import {
   formatSong,
   isDef
 } from "@/utils";
-import { Pagination, Loading } from "@/base";
-import { Comment } from "@/components";
+import { Pagination, Card } from "@/base";
+import CommentList from "@/components/comment-list";
+import HorizontalCard from "@/components/horizontal-card";
 import { getMusicComment, getLyric, getSimiSong, getSimiPlaylist } from "@/api";
 export default {
   name: "",
   mixins: [musicMixin],
-  components: { Pagination, Comment, Loading },
+  components: {
+    Pagination,
+    CommentList,
+    HorizontalCard,
+    Card
+  },
   data() {
     return {
       limit: 20, // 每页条数
@@ -397,7 +401,7 @@ export default {
     margin: 0 auto;
     .song-wrap {
       display: flex;
-      margin-bottom: 120px;
+      margin-bottom: 20px;
       .left {
         $disc-width: 400px;
         $support-width: 30px;
@@ -516,74 +520,17 @@ export default {
     }
     .bottom {
       display: flex;
-      .comment-list-wrap {
-        width: 70%;
-        margin: 0 2%;
-        font-size: $font-size-sm;
-        color: $grey-dark;
-        .header-title {
-          color: $grey-dark;
-          border-bottom: solid 1px $grey-dark;
-          line-height: 1.6;
-          font-size: 18px;
-          margin-bottom: 6px;
-        }
-        .title {
-          padding: 6px 0;
-        }
-        .comment-list {
-          margin-bottom: 24px;
-          .comment-item {
-            padding: 16px 0;
-            border-bottom: solid $grey 1px;
-          }
-        }
-        .pagination-wrap {
-          float: right;
-        }
-      }
       .similar-list-wrap {
         width: 30%;
         padding-left: 10%;
-        .title {
-          color: $grey-dark;
-          border-bottom: solid 1px $grey-dark;
-          line-height: 1.6;
-          font-size: 18px;
-          margin-bottom: 6px;
-        }
         .similar-list {
           margin-bottom: 60px;
           .item {
-            height: 64px;
             width: 100%;
-            display: flex;
-            align-items: center;
             cursor: pointer;
             transition: 0.3s;
-            .img-wrap {
-              margin-right: 12px;
-              width: 50px;
-              height: 50px;
-              flex-shrink: 0;
-              flex-grow: 0;
-              border: $white solid 1px;
-              img {
-                height: 100%;
-                width: 100%;
-              }
-            }
-            .info-wrap {
-              overflow: hidden;
-              p {
-                @include text-ellipsis;
-                font-size: $font-size-sm;
-                line-height: 1.4;
-                &:nth-child(2) {
-                  color: $grey-dark;
-                }
-              }
-            }
+            padding: 12px 4px;
+            border-radius: 6px;
             &:hover {
               background-color: $grey;
             }

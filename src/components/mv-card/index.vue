@@ -1,7 +1,7 @@
 <template>
   <div class="mv-card">
     <div class="img-wrap">
-      <img v-lazy="getImgUrl(imgUrl, 600, 320)" />
+      <img v-lazy="getImgUrl(imgUrl, 500, 260)" />
       <template v-if="count && desc">
         <div class="desc txt">{{ desc }}</div>
         <div class="count txt">{{ count }}</div>
@@ -10,8 +10,8 @@
         <div class="txt">{{ desc || count }}</div>
       </template>
     </div>
-    <p>{{ name }}</p>
-    <p class="artistName">{{ artistName }}</p>
+    <p v-if="name">{{ name }}</p>
+    <p v-if="artistName" class="artistName">{{ artistName }}</p>
   </div>
 </template>
 
@@ -35,7 +35,7 @@ export default {
     position: relative;
     overflow: hidden;
     border-radius: 8px;
-    padding-top: 53.3%;
+    padding-top: 56%;
     margin-bottom: 8px;
     img {
       @include abs-stretch;

@@ -18,3 +18,9 @@ export const getSimiSong = params => request.get("/simi/song", { params });
  */
 export const getSimiPlaylist = params =>
   request.get("/simi/playlist", { params });
+
+/**
+ * 获取相似 mv
+ * @param {String} mvid
+ */
+export const getSimiMv = params => request.get("/simi/mv", { params });

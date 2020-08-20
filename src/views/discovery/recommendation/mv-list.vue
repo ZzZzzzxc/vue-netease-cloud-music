@@ -1,7 +1,12 @@
 <template>
   <loading :loading="loading">
     <ul class="list-wrap">
-      <li class="list-item" v-for="mv in mvs" :key="mv.id">
+      <li
+        class="list-item"
+        v-for="mv in mvs"
+        :key="mv.id"
+        @click="toDetail(mv.id)"
+      >
         <mv-card
           :imgUrl="mv.picUrl"
           :count="formatNumber(mv.playCount).toString()"
@@ -37,6 +42,9 @@ export default {
       const { result } = await getPersonalMv();
       this.mvs = result;
       this.loading = false;
+    },
+    toDetail(id) {
+      this.$router.push({ name: "Mv", params: { id } });
     }
   },
   created() {

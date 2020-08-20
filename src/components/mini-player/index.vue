@@ -142,6 +142,9 @@ export default {
     volumeProgress(progress) {
       this.audio.volume = progress;
     },
+    currentTime(time) {
+      this.playProgress = time / this.currentSong.durationSecond;
+    },
     error(err) {
       if (err) {
         this.pause();

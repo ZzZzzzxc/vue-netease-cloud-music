@@ -11,3 +11,4 @@ export * from "./dj";
 export * from "./comment";
 export * from "./song";
 export * from "./lyric";
+export * from "./mv";

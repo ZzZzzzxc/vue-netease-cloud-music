@@ -29,6 +29,7 @@ const singerDetail = () => import("../views/detail/singer/index.vue");
 const djDetail = () => import("../views/detail/dj/index.vue");
 const songListDetail = () => import("../views/detail/song-list/index.vue");
 const singerListDetail = () => import("../views/detail/singer-list/index.vue");
+const mv = () => import("../views/detail/mv/index.vue");
 
 const routes = [
   {
@@ -91,6 +92,12 @@ const routes = [
         name: "SongListDetail",
         path: "/song-list/:id", // 歌单详情
         component: songListDetail,
+        props: true
+      },
+      {
+        name: "Mv",
+        path: "/mv/:id", // mv 详情
+        component: mv,
         props: true
       },
       {

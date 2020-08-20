@@ -16,6 +16,8 @@ import Comment from "./comment";
 import MiniPlayer from "./mini-player";
 import Playlist from "./playlist";
 import CurrentSong from "./current-song";
+import CommentList from "./comment-list";
+import HorizontalCard from "./horizontal-card";
 
 export {
   HistoryControl,
@@ -35,5 +37,7 @@ export {
   Comment,
   MiniPlayer,
   Playlist,
-  CurrentSong
+  CurrentSong,
+  CommentList,
+  HorizontalCard
 };
