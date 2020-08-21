@@ -78,20 +78,20 @@
 const ERROR_MAP = {
   MEDIA_ERR_ABORTED: {
     key: 1,
-    desc: "用户的请求中止了关联资源的获取.",
+    desc: "用户的请求中止了关联资源的获取."
   },
   MEDIA_ERR_NETWORK: {
     key: 2,
-    desc: "尽管以前可用，但发生了某种网络错误，阻止了媒体的成功获取.",
+    desc: "尽管以前可用，但发生了某种网络错误，阻止了媒体的成功获取."
   },
   MEDIA_ERR_DECODE: {
     key: 3,
-    desc: "	尽管先前已确定可用，但在尝试解码媒体资源时发生了错误，从而导致错误.",
+    desc: "	尽管先前已确定可用，但在尝试解码媒体资源时发生了错误，从而导致错误."
   },
   MEDIA_ERR_SRC_NOT_SUPPORTED: {
     key: 4,
-    desc: "已发现关联的资源或媒体提供程序对象（例如MediaStream ）不合适.",
-  },
+    desc: "已发现关联的资源或媒体提供程序对象（例如MediaStream ）不合适."
+  }
 };
 import { ProgressBar, Loading } from "@/base";
 import { playModeConfig, defaultMode } from "@/config";
@@ -107,7 +107,7 @@ export default {
       volumeProgress: 1,
       ready: false,
       error: false,
-      artificialMoving: false,
+      artificialMoving: false
     };
   },
   computed: {
@@ -125,7 +125,7 @@ export default {
     },
     isSingle() {
       return this.mode.key === playModeConfig.singel.key;
-    },
+    }
   },
   watch: {
     ready(ready) {
@@ -156,7 +156,7 @@ export default {
       if (err) {
         this.pause();
       }
-    },
+    }
   },
   methods: {
     getImgUrl,
@@ -237,16 +237,16 @@ export default {
       // console.log("缓存进度");
       const { audio } = this;
       const duration = { audio };
-      console.log(audio.buffered);
+      // console.log(audio.buffered);
       if (duration > 0) {
         for (var i = 0; i < audio.buffered.length; i++) {
           if (
             audio.buffered.start(audio.buffered.length - 1 - i) <
             audio.currentTime
           ) {
-            console.log(
-              audio.buffered.end(audio.buffered.length - 1 - i) / duration
-            );
+            // console.log(
+            //   audio.buffered.end(audio.buffered.length - 1 - i) / duration
+            // );
             break;
           }
         }
@@ -257,7 +257,7 @@ export default {
     },
     onVolumeChange() {
       // console.log("音量发生改变");
-      console.log(this.audio.volume);
+      // console.log(this.audio.volume);
     },
     async play() {
       if (!isDef(this.currentSong.id)) return;
@@ -280,8 +280,8 @@ export default {
     },
     next() {
       if (this.nextSong) this.setCurrentSong(this.nextSong);
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -239,7 +239,7 @@ export default {
     },
     activeLyricIndex(idx) {
       // 触发歌词滚动
-      if (idx > -1 && this.autoScroll) {
+      if (idx > -1 && this.autoScroll && this.isDetailShow) {
         this.scrollToActiveLyric(idx);
       }
     },

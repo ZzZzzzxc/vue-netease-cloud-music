@@ -54,7 +54,6 @@ export default {
       const { songs } = await getSongDetail({ ids });
       const playlist = [];
       songs.map(song => {
-        console.log(song);
         playlist.push(
           formatSong({
             id: song.id,

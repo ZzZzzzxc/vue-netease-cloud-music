@@ -5,7 +5,8 @@
         <div class="video-wrap">
           <video
             :src="mvPlayInfo.url"
-            width="600"
+            width="665"
+            height="385"
             controls
             controlslist
           ></video>
@@ -185,6 +186,7 @@ export default {
       padding: 12px;
       margin: 30px 0;
       .video-wrap {
+        margin-bottom: 64px;
       }
       .comment-wrap {
         padding-bottom: 24px;

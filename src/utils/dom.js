@@ -29,7 +29,3 @@ export const off = (function() {
     };
   }
 })();
-
-export function scrollInto(dom) {
-  dom.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-}
