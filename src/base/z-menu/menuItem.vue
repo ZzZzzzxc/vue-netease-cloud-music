@@ -48,6 +48,7 @@ export default {
   cursor: pointer;
   &__active {
     background-color: $menu-item-active;
+    position: relative;
     &::before {
       content: "";
       height: $menu-item-height;
