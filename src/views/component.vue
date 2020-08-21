@@ -162,7 +162,7 @@ import {
   Loading,
   ProgressBar,
   Pagination,
-  Popover,
+  Popover
 } from "@/base";
 export default {
   name: "",
@@ -179,7 +179,7 @@ export default {
     Loading,
     ProgressBar,
     Pagination,
-    Popover,
+    Popover
   },
   data() {
     return {
@@ -188,7 +188,7 @@ export default {
       banners: [
         { url: "https://cdn.zhangxc.cn/image/jpeg/wallhaven-01qpg4.jpg" },
         { url: "https://cdn.zhangxc.cn/image/jpeg/2020-05-19 230011.jpg" },
-        { url: "https://cdn.zhangxc.cn/image/jpeg/希里.jpg" },
+        { url: "https://cdn.zhangxc.cn/image/jpeg/希里.jpg" }
       ],
       loading: true,
       percentage: 0.2,
@@ -197,9 +197,9 @@ export default {
       page: {
         current: 1,
         limit: 30,
-        total: 4000,
+        total: 4000
       },
-      manualShow: false,
+      manualShow: false
     };
   },
   mounted() {},
@@ -215,7 +215,7 @@ export default {
     },
     moveStop() {
       this.move = false;
-    },
+    }
   },
   computed: {},
   watch: {
@@ -228,8 +228,8 @@ export default {
       } else {
         this.loading = true;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

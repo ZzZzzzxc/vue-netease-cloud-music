@@ -1,17 +1,22 @@
 <template>
   <div class="mini-player">
-    <div class="song-wrap" v-if="hasCurrentSong">
-      <div class="img-wrap" @click="toggleShowDetail">
-        <Loading :width="20" :loading="loading">
-          <img :src="getImgUrl(currentSong.img, 64, 64)" />
-        </Loading>
+    <Popover trigger="manual" placement="right" :show="isTipsShow">
+      <template slot="content">
+        <div class="tips-wrap">{{ tipsText }}</div>
+      </template>
+      <div class="song-wrap" v-if="hasCurrentSong">
+        <div class="img-wrap" @click="toggleShowDetail">
+          <Loading :width="20" :loading="loading">
+            <img :src="getImgUrl(currentSong.img, 64, 64)" />
+          </Loading>
+        </div>
+        <div class="info-wrap">
+          <p :title="currentSong.name">{{ currentSong.name }}</p>
+          <p :title="currentSong.artistsText">{{ currentSong.artistsText }}</p>
+          <p>{{ formatTime(currentTime) }} / {{ currentSong.durationText }}</p>
+        </div>
       </div>
-      <div class="info-wrap">
-        <p :title="currentSong.name">{{ currentSong.name }}</p>
-        <p :title="currentSong.artistsText">{{ currentSong.artistsText }}</p>
-        <p>{{ formatTime(currentTime) }} / {{ currentSong.durationText }}</p>
-      </div>
-    </div>
+    </Popover>
     <div class="control-wrap">
       <div class="item" @click="prev">
         <img :src="require(`@/assets/icon/prev.png`)" />
@@ -65,7 +70,6 @@
       @canplay="canPlay"
       @ended="onEnded"
       @waiting="onWaiting"
-      @progress="buffered"
       @pause="onPause"
       @timeupdate="onTimeUpdate"
       @error="onError"
@@ -78,28 +82,32 @@
 const ERROR_MAP = {
   MEDIA_ERR_ABORTED: {
     key: 1,
-    desc: "用户的请求中止了关联资源的获取."
+    desc: "用户的请求中止了关联资源的获取.",
+    info: "用户的请求中止了关联资源的获取"
   },
   MEDIA_ERR_NETWORK: {
     key: 2,
-    desc: "尽管以前可用，但发生了某种网络错误，阻止了媒体的成功获取."
+    desc: "尽管以前可用，但发生了某种网络错误，阻止了媒体的成功获取.",
+    info: "网络错误"
   },
   MEDIA_ERR_DECODE: {
     key: 3,
-    desc: "	尽管先前已确定可用，但在尝试解码媒体资源时发生了错误，从而导致错误."
+    desc: "	尽管先前已确定可用，但在尝试解码媒体资源时发生了错误，从而导致错误.",
+    info: "资源出现错误，请尝试切换歌曲"
   },
   MEDIA_ERR_SRC_NOT_SUPPORTED: {
     key: 4,
-    desc: "已发现关联的资源或媒体提供程序对象（例如MediaStream ）不合适."
+    desc: "已发现关联的资源或媒体提供程序对象（例如MediaStream ）不合适.",
+    info: "无法播放，可能是VIP歌曲，请切换歌曲"
   }
 };
-import { ProgressBar, Loading } from "@/base";
+import { ProgressBar, Loading, Popover } from "@/base";
 import { playModeConfig, defaultMode } from "@/config";
 import { musicMixin, getImgUrl, formatTime, isNaN, isDef } from "@/utils";
 export default {
   name: "MiniPlayer",
   mixins: [musicMixin],
-  components: { ProgressBar, Loading },
+  components: { ProgressBar, Loading, Popover },
   data() {
     return {
       playModeConfig,
@@ -107,7 +115,9 @@ export default {
       volumeProgress: 1,
       ready: false,
       error: false,
-      artificialMoving: false
+      artificialMoving: false,
+      isTipsShow: false,
+      tipsText: ""
     };
   },
   computed: {
@@ -128,6 +138,15 @@ export default {
     }
   },
   watch: {
+    isTipsShow(show) {
+      if (show) {
+        const self = this;
+        setTimeout(() => {
+          self.isTipsShow = false;
+          self.tipsText = false;
+        }, 3000);
+      }
+    },
     ready(ready) {
       if (ready && !this.playing) {
         this.play();
@@ -202,7 +221,6 @@ export default {
       // 单曲循环
       if (this.isSingle) {
         this.audio.currentTime = 0;
-
         this.play();
         return;
       }
@@ -229,28 +247,14 @@ export default {
         const { code, detail } = error;
         const errors = Object.values(ERROR_MAP);
         const idx = errors.findIndex(({ key }) => key === code);
-        const msg = detail ? detail : errors[idx].desc;
-        console.log(`CODE：${code}，信息：${msg}`);
+        const msg = detail ? detail : errors[idx].info;
+        this.showTips(`CODE：${code}，信息：${msg}`);
+        // console.log(`CODE：${code}，信息：${msg}`);
       }
     },
-    buffered() {
-      // console.log("缓存进度");
-      const { audio } = this;
-      const duration = { audio };
-      // console.log(audio.buffered);
-      if (duration > 0) {
-        for (var i = 0; i < audio.buffered.length; i++) {
-          if (
-            audio.buffered.start(audio.buffered.length - 1 - i) <
-            audio.currentTime
-          ) {
-            // console.log(
-            //   audio.buffered.end(audio.buffered.length - 1 - i) / duration
-            // );
-            break;
-          }
-        }
-      }
+    showTips(text) {
+      this.isTipsShow = true;
+      this.tipsText = text;
     },
     onTimeUpdate(e) {
       this.setCurrentTime(e.target.currentTime);
@@ -286,6 +290,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.tips-wrap {
+  font-size: $font-size-sm;
+  color: $grey-dark;
+  font-weight: bold;
+  padding: 2px 14px;
+}
 .mini-player {
   user-select: none;
   display: flex;

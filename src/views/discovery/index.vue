@@ -21,7 +21,7 @@ const tabs = [
   { label: "歌手", name: "Singer" },
   { label: "最新音乐", name: "NewMusic" }
 ];
-import { Tabs, TabsPane } from "@/base/index";
+import { Tabs, TabsPane } from "@/base";
 export default {
   name: "Discovery",
   data() {

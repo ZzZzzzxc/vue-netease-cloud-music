@@ -3,7 +3,7 @@
     <menu-item-group title="推荐">
       <menu-item index="/discovery">发现音乐</menu-item>
       <menu-item index="/fm">私人FM</menu-item>
-      <menu-item index="/show">直播</menu-item>
+      <menu-item index="/video">视频</menu-item>
     </menu-item-group>
     <menu-item-group title="我的音乐">
       <menu-item index="/local-music">本地音乐</menu-item>
@@ -34,8 +34,8 @@ export default {
     },
     handleItemSelect(index) {
       console.log(index);
-    },
-  },
+    }
+  }
 };
 </script>
 
