@@ -14,9 +14,8 @@ VueRouter.prototype.push = function push(location, onResolve, onReject) {
 // 基础布局
 const layout = () => import("../layout/index.vue");
 
-// 发现模块布局
+// 发现音乐模块
 const discovery = () => import("../views/discovery/index.vue");
-// 发现模块子模块
 const recommendation = () => import("../views/discovery/recommendation");
 const songList = () => import("../views/discovery/song-list");
 const singer = () => import("../views/discovery/singer");
@@ -34,7 +33,7 @@ const mv = () => import("../views/detail/mv/index.vue");
 // 组件
 const component = () => import("../views/component.vue");
 
-// video
+// 视频模块
 const video = () => import("../views/video");
 const allMv = () => import("../views/video/mv/all-mv.vue");
 const mvRankList = () => import("../views/video/mv/mv-rank-list.vue");

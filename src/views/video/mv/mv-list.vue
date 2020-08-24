@@ -10,7 +10,7 @@
                 <tag-list
                   :active="true"
                   :defaultActive="newActiveTag"
-                  :tags="areaTabs"
+                  :tags="areaTags"
                   @tagChange="onNewTagChange"
                   :wrapStyle="tagWrapStyle"
                 ></tag-list>
@@ -90,7 +90,7 @@
                 <tag-list
                   :active="true"
                   :defaultActive="rankActiveTag"
-                  :tags="areaTabs"
+                  :tags="areaTags"
                   @tagChange="onRankTagChange"
                   :wrapStyle="tagWrapStyle"
                 ></tag-list>
@@ -134,7 +134,7 @@
 import { getTopMv, getAllMv, getNewMv, getExclusiveMv } from "@/api";
 import { Card, Loading } from "@/base";
 import { TagList, MvCard, HorizontalCard } from "@/components";
-import { areaTabs } from "@/config";
+import { areaTags } from "@/config";
 import { formatNumber, getArtistisText, pad } from "@/utils";
 const defaultParams = {
   limit: 6,
@@ -151,11 +151,11 @@ export default {
       margin: "0",
     };
     return {
-      areaTabs,
+      areaTags,
       cardHeaderStyle,
       tagWrapStyle,
-      newActiveTag: areaTabs[0], // 被选中地区（最新 MV）
-      rankActiveTag: areaTabs[0], // 被选中地区（ MV 排行榜）
+      newActiveTag: areaTags[0], // 被选中地区（最新 MV）
+      rankActiveTag: areaTags[0], // 被选中地区（ MV 排行榜）
       hotMvs: [], // 热门 MV
       exclusiveMvs: [], // 网易出品 MV
       newMvs: [], // 最新 MV
