@@ -14,8 +14,8 @@
       <menu-item index="/winter">winter</menu-item>
       <menu-item index="/paper">paper</menu-item>
     </sub-menu>
-    <menu-item-group title="我的音乐">
-      <menu-item index="/components">通用组件</menu-item>
+    <menu-item-group title="通用组件">
+      <menu-item index="/components">test</menu-item>
     </menu-item-group>
   </Menu>
 </template>

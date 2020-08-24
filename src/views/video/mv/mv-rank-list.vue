@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    mv
+    MV 排行榜
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
   mounted() {},
   methods: {},
   computed: {},
-  watch: {}
+  watch: {},
 };
 </script>
 

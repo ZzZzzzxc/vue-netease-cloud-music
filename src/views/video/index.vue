@@ -13,7 +13,7 @@
 
 <script>
 import { Tabs, TabsPane } from "@/base";
-import MvList from "./mv-list";
+import MvList from "./mv/mv-list";
 import videoList from "./video-list";
 export default {
   name: "Video",
@@ -21,17 +21,17 @@ export default {
     Tabs,
     TabsPane,
     MvList,
-    videoList
+    videoList,
   },
   data() {
     return {
-      activeName: "video"
+      activeName: "mv",
     };
   },
   mounted() {},
   methods: {},
   computed: {},
-  watch: {}
+  watch: {},
 };
 </script>
 

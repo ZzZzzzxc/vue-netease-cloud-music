@@ -1,5 +1,5 @@
 <template>
-  <div class="hot-tags">
+  <div class="hot-tags" :style="wrapStyle">
     <div class="title " v-if="title">
       {{ title }}
     </div>
@@ -13,7 +13,7 @@
         <span
           class="item"
           :class="[
-            active && activeTag && activeTag.name === tag.name ? `active` : ``
+            active && activeTag && activeTag.name === tag.name ? `active` : ``,
           ]"
           >{{ tag.name }}</span
         >
@@ -30,25 +30,26 @@ export default {
     title: String,
     active: {
       default: false,
-      type: Boolean
+      type: Boolean,
     },
-    defaultActive: Object
+    defaultActive: Object,
+    wrapStyle: Object,
   },
   data() {
     return {
-      activeTag: this.defaultActive
+      activeTag: this.defaultActive,
     };
   },
   watch: {
     activeTag(tag) {
       this.$emit("tagChange", tag);
-    }
+    },
   },
   methods: {
     onTagClick(tag) {
       this.activeTag = tag;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -57,19 +58,19 @@ export default {
   display: flex;
   font-size: $font-size-sm;
   flex-wrap: nowrap;
-  margin: 18px 0;
+  margin: 8px 0;
   width: 100%;
   .title {
     min-width: 60px;
-    line-height: 24px;
-    height: 24px;
+    line-height: 36px;
+    height: 36px;
   }
   .list {
     display: flex;
     width: 100%;
     flex-wrap: wrap;
     .item-wrapper {
-      margin-bottom: 12px;
+      margin: 6px 0;
       padding: 0 12px;
       height: 24px;
       line-height: 24px;
@@ -77,12 +78,12 @@ export default {
       &:not(:last-child) {
         border-right: 1px $grey solid;
       }
-      .active {
-        color: $white;
-        background-color: $grey-dark;
-      }
       .item {
         padding: 6px;
+        &.active {
+          color: $white;
+          background-color: $grey-dark;
+        }
       }
     }
   }

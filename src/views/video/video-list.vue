@@ -1,5 +1,5 @@
 <template>
-  <div class=""></div>
+  <div class="">没做</div>
 </template>
 
 <script>
@@ -20,13 +20,13 @@ export default {
     },
     async getAllVideoList() {
       await getAllVideo();
-    }
+    },
   },
   created() {
     this.initTagList();
     this.initCategoryList();
     this.getAllVideoList();
-  }
+  },
 };
 </script>
 

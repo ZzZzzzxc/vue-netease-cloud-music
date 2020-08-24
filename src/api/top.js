@@ -28,3 +28,11 @@ export const getTopSong = params => request.get(`/top/song`, { params });
  * @param {Number} month  9 默认本月
  */
 export const getAlbumList = params => request.get(`/top/album`, { params });
+
+/**
+ * mv 排行
+ * @param {Number} limit 30
+ * @param {Number} offset
+ * @param {String} area 地区,可选值为内地,港台,欧美,日本,韩国,不填则为全部
+ */
+export const getTopMv = params => request.get(`/top/mv`, { params });
