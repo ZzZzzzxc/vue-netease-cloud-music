@@ -62,11 +62,11 @@ export default {
   name: "",
   components: { Card, TagList, Pagination, MvCard, Loading },
   data() {
-    areaTags.unshift({ name: "全部" });
-    typeTags.unshift({ name: "全部" });
+    const areas = [{ name: "全部", value: "" }, ...areaTags];
+    const types = [{ name: "全部", value: "" }, ...typeTags];
     return {
-      areaTags,
-      typeTags,
+      areaTags: areas,
+      typeTags: types,
       sortTags,
       areaActive: areaTags[0],
       typeActive: typeTags[0],
@@ -90,6 +90,7 @@ export default {
       this.current = 1;
     },
     params() {
+      this.mvList = []
       this.getListData();
     },
   },

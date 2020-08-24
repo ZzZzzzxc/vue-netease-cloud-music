@@ -16,8 +16,8 @@ export default {
     index: {
       type: String,
       default: "",
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {};
@@ -27,14 +27,13 @@ export default {
   },
   methods: {
     onClick() {
-      if (this.rootMenu.router) this.$router.push(this.index);
       this.handleActiveIndexChange();
     },
     // 通知 menu activeIndex 改变
     handleActiveIndexChange() {
       this.$emit("activeIndexChange", this.index);
-    }
-  }
+    },
+  },
 };
 </script>
 

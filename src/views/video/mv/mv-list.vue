@@ -21,7 +21,12 @@
         </template>
         <loading :loading="newMvsLoading">
           <ul class="list-wrap">
-            <li class="list-item" v-for="mv in newMvs" :key="mv.id">
+            <li
+              @click="toMvdetail(mv.id)"
+              class="list-item"
+              v-for="mv in newMvs"
+              :key="mv.id"
+            >
               <mv-card
                 :imgUrl="mv.cover"
                 :count="formatNumber(mv.playCount).toString()"
@@ -45,7 +50,12 @@
         </template>
         <loading :loading="hotMvsLoading">
           <ul class="list-wrap">
-            <li class="list-item" v-for="mv in hotMvs" :key="mv.id">
+            <li
+              @click="toMvdetail(mv.id)"
+              class="list-item"
+              v-for="mv in hotMvs"
+              :key="mv.id"
+            >
               <mv-card
                 :imgUrl="mv.cover"
                 :count="formatNumber(mv.playCount).toString()"
@@ -68,7 +78,12 @@
         </template>
         <loading :loading="exclusiveMvLoading">
           <ul class="list-wrap">
-            <li class="list-item" v-for="mv in exclusiveMvs" :key="mv.id">
+            <li
+              @click="toMvdetail(mv.id)"
+              class="list-item"
+              v-for="mv in exclusiveMvs"
+              :key="mv.id"
+            >
               <mv-card
                 :imgUrl="mv.cover"
                 :count="formatNumber(mv.playCount).toString()"
@@ -102,7 +117,12 @@
         <div class="rank">
           <loading :loading="mvRankLoading">
             <ul class="list-wrap">
-              <li class="list-item" v-for="(mv, idx) in mvRank" :key="mv.id">
+              <li
+                @click="toMvdetail(mv.id)"
+                class="list-item"
+                v-for="(mv, idx) in mvRank"
+                :key="mv.id"
+              >
                 <div class="rank-card-wrap">
                   <div class="idx">
                     {{ pad(idx + 1) }}
@@ -168,9 +188,11 @@ export default {
   },
   watch: {
     newActiveTag() {
+      this.newMvs = [];
       this.getNewMvList();
     },
     rankActiveTag() {
+      this.mvRank = [];
       this.getMvRank();
     },
   },
@@ -187,6 +209,9 @@ export default {
     },
     toDetail(name) {
       this.$router.push({ name });
+    },
+    toMvDetail(id) {
+      if (id) this.$router.push({ name: "Mv", params: { id } });
     },
     // 获取热门 MV
     async getHotMvList() {

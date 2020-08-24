@@ -13,11 +13,6 @@ export default {
     };
   },
   props: {
-    // 是否开启路由模式
-    router: {
-      type: Boolean,
-      default: true
-    },
     menuClass: {
       type: String,
       default: ""
