@@ -62,7 +62,7 @@ import {
   getArtistisText,
   pad,
   hasKey,
-  formatDate,
+  formatDate
 } from "@/utils";
 import { Card, Loading } from "@/base";
 import { TagList, MvCard, HorizontalCard } from "@/components";
@@ -72,7 +72,7 @@ export default {
   components: { Card, TagList, MvCard, HorizontalCard, Loading },
   data() {
     const cardHeaderStyle = {
-      padding: "6px 16px 0 16px",
+      padding: "6px 16px 0 16px"
     };
     const tags = [{ name: "全部", value: "" }, ...areaTags];
     return {
@@ -81,14 +81,14 @@ export default {
       mvRankLoading: false,
       rankActiveTag: tags[0],
       mvRank: [],
-      updateTime: 0,
+      updateTime: 0
     };
   },
   watch: {
     rankActiveTag() {
       this.mvRank = [];
       this.getMvRank();
-    },
+    }
   },
   methods: {
     formatNumber,
@@ -107,7 +107,7 @@ export default {
       const { data, updateTime } = await getTopMv({
         limit: 50,
         offset: 0,
-        area: this.getTagValue(rankActiveTag),
+        area: this.getTagValue(rankActiveTag)
       });
       this.updateTime = updateTime;
       this.mvRank = data;
@@ -115,11 +115,11 @@ export default {
     },
     toDetail(id) {
       if (id) this.$router.push({ name: "Mv", params: { id } });
-    },
+    }
   },
   created() {
     this.getMvRank();
-  },
+  }
 };
 </script>
 

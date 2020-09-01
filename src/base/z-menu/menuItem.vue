@@ -1,7 +1,10 @@
 <template>
   <li
     class="z-menu-item"
-    :class="[rootMenu.activeIndex === index ? `z-menu-item__active` : ``]"
+    :class="[
+      rootMenu.activeIndex === index ? `z-menu-item__active` : ``,
+      disable ? `z-menu-item__disable` : ``,
+    ]"
     @click.stop="onClick"
   >
     <slot></slot>
@@ -18,6 +21,10 @@ export default {
       default: "",
       required: true,
     },
+    disable: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {};
@@ -27,7 +34,7 @@ export default {
   },
   methods: {
     onClick() {
-      this.handleActiveIndexChange();
+      if (!this.disable) this.handleActiveIndexChange();
     },
     // 通知 menu activeIndex 改变
     handleActiveIndexChange() {
@@ -56,6 +63,10 @@ export default {
       left: 0;
       background-color: $theme-color;
     }
+  }
+  &__disable {
+    cursor: wait;
+    opacity: 0.4;
   }
 }
 </style>

@@ -8,7 +8,7 @@
     >
       <MenuItemGroup title="MenuItemGroup">
         <MenuItem index="1">MenuItem_1</MenuItem>
-        <MenuItem index="2">MenuItem_2</MenuItem>
+        <MenuItem index="2" :disable="true">MenuItem_2</MenuItem>
         <MenuItem index="3">MenuItem_3</MenuItem>
       </MenuItemGroup>
       <SubMenu title="SubMenu" index="/">

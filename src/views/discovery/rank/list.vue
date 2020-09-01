@@ -87,7 +87,6 @@ export default {
 <style lang="scss" scoped>
 .rank-list {
   width: 300px;
-  min-height: 400px;
   border: solid $grey 1px;
   .img-wrap {
     width: 100%;

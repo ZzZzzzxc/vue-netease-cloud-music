@@ -11,7 +11,6 @@
         <template slot="header">
           <div class="card-header">
             <div class="title">主播电台</div>
-            <div class="more">更多</div>
           </div>
         </template>
         <radio-station-list></radio-station-list>
@@ -22,7 +21,6 @@
         <template slot="header">
           <div class="card-header">
             <div class="title">独家放送</div>
-            <div class="more">更多</div>
           </div>
         </template>
         <private-content-list></private-content-list>
@@ -57,7 +55,7 @@
         <template slot="header">
           <div class="card-header">
             <div class="title">推荐MV</div>
-            <div class="more">更多</div>
+            <div class="more" @click="toMorePage('AllMv')">更多</div>
           </div>
         </template>
         <mv-list></mv-list>

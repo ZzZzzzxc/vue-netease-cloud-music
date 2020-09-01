@@ -21,9 +21,11 @@
           <div class="tag-wrap" v-if="info.radio">
             <span class="tag">{{ info.radio.category }}</span>
           </div>
-          <p v-for="(txt, idx) in info.radio.desc.split('\n')" :key="idx">
-            {{ txt }}
-          </p>
+          <template v-if="info.radio && info.radio.desc">
+            <p v-for="(txt, idx) in info.radio.desc.split('\n')" :key="idx">
+              {{ txt }}
+            </p>
+          </template>
         </div>
       </div>
     </loading>
@@ -41,7 +43,8 @@ export default {
   data() {
     return {
       loading: false,
-      info: {}
+      info: {},
+      limit: 30,
     };
   },
   methods: {
@@ -55,14 +58,14 @@ export default {
       this.loading = false;
     },
     async initDjProgram() {
-      const { id } = this;
-      await getDjProgram({ rid: id });
-    }
+      const { id, limit } = this;
+      await getDjProgram({ rid: id, limit });
+    },
   },
   created() {
     this.initDjProgramDetail();
     this.initDjProgram();
-  }
+  },
 };
 </script>
 
@@ -83,10 +86,11 @@ export default {
       .title-wrap {
         display: flex;
         justify-content: flex-start;
-        align-items: flex-start;
+        align-items: center;
         .tag {
-          margin: 4px 0;
-          padding: 2px 8px;
+          height: 24px;
+          line-height: 24px;
+          padding: 0 8px;
           background-color: $theme-color;
           color: $white;
           font-size: $font-size-sm;

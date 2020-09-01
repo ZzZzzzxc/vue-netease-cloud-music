@@ -1,7 +1,12 @@
 <template>
   <loading :loading="loading">
     <ul class="list-wrap">
-      <li class="list-item" v-for="content in privatecontent" :key="content.id">
+      <li
+        @click="toDetail(content.id)"
+        class="list-item"
+        v-for="content in privatecontent"
+        :key="content.id"
+      >
         <private-content-card
           :imgUrl="content.picUrl"
           :footer="content.name"
@@ -18,12 +23,12 @@ export default {
   name: "PrivateContentList",
   components: {
     PrivateContentCard,
-    Loading
+    Loading,
   },
   data() {
     return {
       privatecontent: [],
-      loading: false
+      loading: false,
     };
   },
   methods: {
@@ -32,11 +37,16 @@ export default {
       const { result } = await getPersonalPrivatecontent();
       this.privatecontent = result;
       this.loading = false;
-    }
+    },
+    toDetail(id) {
+      if (id) {
+        this.$router.push({ name: "Mv", params: { id } });
+      }
+    },
   },
   created() {
     this.initPrivatecontent();
-  }
+  },
 };
 </script>
 

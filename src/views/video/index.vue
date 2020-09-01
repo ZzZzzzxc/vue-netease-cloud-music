@@ -21,17 +21,17 @@ export default {
     Tabs,
     TabsPane,
     MvList,
-    videoList,
+    videoList
   },
   data() {
     return {
-      activeName: "mv",
+      activeName: "mv"
     };
   },
   mounted() {},
   methods: {},
   computed: {},
-  watch: {},
+  watch: {}
 };
 </script>
 

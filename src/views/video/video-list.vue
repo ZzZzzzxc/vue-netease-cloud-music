@@ -20,13 +20,13 @@ export default {
     },
     async getAllVideoList() {
       await getAllVideo();
-    },
+    }
   },
   created() {
     this.initTagList();
     this.initCategoryList();
     this.getAllVideoList();
-  },
+  }
 };
 </script>
 

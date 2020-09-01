@@ -34,25 +34,23 @@
         </div>
       </div>
       <tabs v-model="activeName" :center="false" :activeColor="`#909399`">
-        <tabs-pane label="全部" name="1">
-          <music-list :type="0" v-if="showTabLeft"></music-list>
-          <album-list v-else :type="type" :area="`ALL`"></album-list>
-        </tabs-pane>
-        <tabs-pane label="华语" name="2">
-          <music-list :type="7" v-if="showTabLeft"></music-list>
-          <album-list v-else :type="type" :area="`ZH`"></album-list>
-        </tabs-pane>
-        <tabs-pane label="欧美" name="3">
-          <music-list :type="96" v-if="showTabLeft"></music-list>
-          <album-list v-else :type="type" :area="`EA`"></album-list>
-        </tabs-pane>
-        <tabs-pane label="韩国" name="4">
-          <music-list :type="8" v-if="showTabLeft"></music-list>
-          <album-list v-else :type="type" :area="`KR`"></album-list>
-        </tabs-pane>
-        <tabs-pane label="日本" name="5">
-          <music-list :type="16" v-if="showTabLeft"></music-list>
-          <album-list v-else :type="type" :area="`JP`"></album-list>
+        <template slot="header">
+          <div v-if="showTabLeft" class="play-all" @click="playAll">
+            播放全部
+          </div>
+        </template>
+        <tabs-pane
+          :label="tab.label"
+          :name="tab.name"
+          v-for="tab in tabsData"
+          :key="tab.name"
+        >
+          <music-list
+            ref="musicList"
+            :type="tab.type"
+            v-if="showTabLeft"
+          ></music-list>
+          <album-list v-else :type="type" :area="tab.area"></album-list>
         </tabs-pane>
       </tabs>
     </div>
@@ -60,17 +58,27 @@
 </template>
 
 <script>
+const tabsData = [
+  { label: "全部", name: "1", type: 0, area: "ALL" },
+  { label: "华语", name: "2", type: 7, area: "ZH" },
+  { label: "欧美", name: "3", type: 96, area: "EA" },
+  { label: "韩国", name: "4", type: 16, area: "KR" },
+  { label: "日本", name: "5", type: 8, area: "JP" },
+];
 import { Tabs, TabsPane } from "@/base/index";
 import MusicList from "./music-list";
 import AlbumList from "./album-list";
+import { formatSong, musicMixin } from "@/utils";
 export default {
   name: "Music",
+  mixins: [musicMixin],
   components: { Tabs, TabsPane, MusicList, AlbumList },
   data() {
     return {
       activeName: "1",
       showTabLeft: true,
-      type: "new"
+      type: "new",
+      tabsData,
     };
   },
   methods: {
@@ -85,19 +93,51 @@ export default {
     },
     setHot() {
       this.type = "hot";
-    }
-  }
+    },
+    playAll() {
+      if (this.$refs.musicList) {
+        this.setPlaylistLoading(true);
+        const playlist = [];
+        this.$refs.musicList[0].list.map(song => {
+          playlist.push(
+            formatSong({
+              id: song.id,
+              name: song.name,
+              artists: song.artists,
+              duration: song.duration,
+              mvId: song.mvid,
+              img: song.album.picUrl,
+              albumId: song.album.id,
+              albumName: song.album.name,
+            })
+          );
+        });
+        this.setPlaylist(playlist);
+        this.setCurrentSong(playlist[0]);
+        this.setPlaylistLoading(false);
+      }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.play-all {
+  color: $grey-dark;
+  font-size: $font-size-sm;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    color: $black;
+  }
+}
 .header {
   display: flex;
   justify-content: center;
   margin: 24px auto;
   font-size: $font-size-sm;
+  transition: 0.3s;
   .item {
-    transition: 0.2s;
     cursor: pointer;
     height: 28px;
     line-height: 28px;

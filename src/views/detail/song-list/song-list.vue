@@ -9,7 +9,12 @@
         <th>专辑</th>
         <th>时长</th>
       </tr>
-      <tr class="album-card" v-for="(data, index) in list" :key="index">
+      <tr
+        class="album-card"
+        v-for="(data, index) in list"
+        :key="index"
+        @click="addToList(data)"
+      >
         <td class=" index-wrap">{{ pad(index + 1) }}</td>
         <td class="img-wrap">
           <img class="img" v-lazy="data.al.picUrl" alt="" />
@@ -33,22 +38,23 @@
 
 <script>
 import { getSongDetail } from "@/api";
-import { formatTime, pad } from "@/utils";
+import { formatTime, pad, formatSong, musicMixin } from "@/utils";
 import { Loading } from "@/base";
 export default {
   name: "music-list",
   props: ["ids"],
+  mixins: [musicMixin],
   components: { Loading },
   data() {
     return {
       list: [],
-      loading: false
+      loading: false,
     };
   },
   watch: {
     ids() {
       this.initList();
-    }
+    },
   },
   methods: {
     pad,
@@ -61,11 +67,25 @@ export default {
         this.list = songs;
       }
       this.loading = false;
-    }
+    },
+    addToList(song) {
+      this.addToPlaylist(
+        formatSong({
+          id: song.id,
+          name: song.name,
+          artists: song.ar,
+          duration: song.dt,
+          mvId: song.mv,
+          img: song.al.picUrl,
+          albumId: song.al.id,
+          albumName: song.al.name,
+        })
+      );
+    },
   },
   created() {
     this.initList();
-  }
+  },
 };
 </script>
 
@@ -93,12 +113,17 @@ export default {
     &:nth-child(odd) {
       background-color: $grey-light;
     }
+    cursor: pointer;
     height: 64px;
     line-height: 64px;
     width: 100%;
     font-size: $font-size-sm;
     text-align-last: left;
     position: relative;
+    transition: 0.3s;
+    &:hover {
+      background-color: $grey;
+    }
     td {
       @include text-ellipsis();
     }

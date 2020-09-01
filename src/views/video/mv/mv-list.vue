@@ -158,17 +158,17 @@ import { areaTags } from "@/config";
 import { formatNumber, getArtistisText, pad } from "@/utils";
 const defaultParams = {
   limit: 6,
-  offset: 0,
+  offset: 0
 };
 export default {
   name: "",
   components: { Card, TagList, MvCard, HorizontalCard, Loading },
   data() {
     const cardHeaderStyle = {
-      padding: "6px 16px 0 16px",
+      padding: "6px 16px 0 16px"
     };
     const tagWrapStyle = {
-      margin: "0",
+      margin: "0"
     };
     return {
       areaTags,
@@ -183,7 +183,7 @@ export default {
       hotMvsLoading: false,
       exclusiveMvLoading: false,
       newMvsLoading: false,
-      mvRankLoading: false,
+      mvRankLoading: false
     };
   },
   watch: {
@@ -194,7 +194,7 @@ export default {
     rankActiveTag() {
       this.mvRank = [];
       this.getMvRank();
-    },
+    }
   },
   computed: {},
   methods: {
@@ -233,7 +233,7 @@ export default {
       const { newActiveTag } = this;
       const { data } = await getNewMv({
         area: newActiveTag.name,
-        ...defaultParams,
+        ...defaultParams
       });
       this.newMvs = data;
       this.newMvsLoading = false;
@@ -245,18 +245,18 @@ export default {
       const { data } = await getTopMv({
         limit: 10,
         offset: 0,
-        area: rankActiveTag.name,
+        area: rankActiveTag.name
       });
       this.mvRank = data;
       this.mvRankLoading = false;
-    },
+    }
   },
   created() {
     this.getHotMvList();
     this.getExclusiveMvList();
     this.getNewMvList();
     this.getMvRank();
-  },
+  }
 };
 </script>
 

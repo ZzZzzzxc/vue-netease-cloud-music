@@ -94,7 +94,7 @@ import {
   getMvDetailInfo,
   getMvUrl,
   getSimiMv,
-  getMvComment,
+  getMvComment
 } from "@/api";
 import { CommentList, MvCard, HorizontalCard } from "@/components";
 import { Pagination, Card } from "@/base";
@@ -114,7 +114,7 @@ export default {
       total: 0, // 评论总数
       hotComments: [], // 热门评论
       comments: [], // 评论
-      commentLoading: false, // 评论是否在加载中
+      commentLoading: false // 评论是否在加载中
     };
   },
   watch: {
@@ -126,7 +126,7 @@ export default {
       this.initData();
       this.getCommentData();
       this.current = 1;
-    },
+    }
   },
   methods: {
     formatNumber,
@@ -138,12 +138,12 @@ export default {
         { data: mvDetail },
         { data: mvDetailInfo },
         { data: mvPlayInfo },
-        { mvs: simiMvs },
+        { mvs: simiMvs }
       ] = await Promise.all([
         getMvDetail({ mvid: id }),
         getMvDetailInfo({ mvid: id }),
         getMvUrl({ id }),
-        getSimiMv({ mvid: id }),
+        getSimiMv({ mvid: id })
       ]);
       this.mvDetail = mvDetail;
       this.mvDetailInfo = mvDetailInfo;
@@ -156,7 +156,7 @@ export default {
       const { total, hotComments, comments } = await getMvComment({
         id,
         limit,
-        offset: limit * (current - 1),
+        offset: limit * (current - 1)
       });
       this.total = total;
       this.hotComments = hotComments;
@@ -167,12 +167,12 @@ export default {
       if (id) {
         this.$router.push({ name: "Mv", params: { id } });
       }
-    },
+    }
   },
   created() {
     this.initData();
     this.getCommentData();
-  },
+  }
 };
 </script>
 

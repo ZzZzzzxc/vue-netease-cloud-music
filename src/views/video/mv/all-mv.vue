@@ -76,7 +76,7 @@ export default {
       total: 0,
       mvList: [],
       loading: true,
-      contentEl: null,
+      contentEl: null
     };
   },
   watch: {
@@ -90,9 +90,9 @@ export default {
       this.current = 1;
     },
     params() {
-      this.mvList = []
+      this.mvList = [];
       this.getListData();
-    },
+    }
   },
   computed: {
     params() {
@@ -102,9 +102,9 @@ export default {
         type: this.getTagValue(typeActive),
         order: this.getTagValue(sortActive),
         limit,
-        offset: limit * (current - 1),
+        offset: limit * (current - 1)
       };
-    },
+    }
   },
   methods: {
     formatNumber,
@@ -126,7 +126,7 @@ export default {
         this.contentEl.scrollTo({
           left: 0,
           top: 0,
-          behavior: "smooth",
+          behavior: "smooth"
         });
       this.loading = true;
       const { params } = this;
@@ -139,14 +139,14 @@ export default {
     },
     toDetail(id) {
       if (id) this.$router.push({ name: "Mv", params: { id } });
-    },
+    }
   },
   created() {
     this.getListData();
   },
   mounted() {
     this.contentEl = document.getElementById("content__ref");
-  },
+  }
 };
 </script>
 

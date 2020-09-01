@@ -19,7 +19,7 @@ const tabs = [
   { label: "歌单", name: "SongList" },
   { label: "排行榜", name: "Rank" },
   { label: "歌手", name: "Singer" },
-  { label: "最新音乐", name: "NewMusic" }
+  { label: "最新音乐", name: "NewMusic" },
 ];
 import { Tabs, TabsPane } from "@/base";
 export default {
@@ -27,23 +27,23 @@ export default {
   data() {
     return {
       activeName: this.$route.name,
-      tabs
+      tabs,
     };
   },
   watch: {
     $route(to) {
       this.activeName = to.name;
-    }
+    },
   },
   components: {
     Tabs,
-    TabsPane
+    TabsPane,
   },
   methods: {
     onTabsClick(name) {
       this.$router.push({ name });
-    }
-  }
+    },
+  },
 };
 </script>
 

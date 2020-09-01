@@ -1,7 +1,7 @@
 <template>
   <div class="album-page-wrap">
     <div class="album-list-wrap" v-for="(val, idx) in data" :key="idx">
-      <div v-for="(list, title) in val" :key="title">
+      <div class="container" v-for="(list, title) in val" :key="title">
         <div class="title-wrap">{{ title }}</div>
         <ul class="list-wrap">
           <li class="list-item" v-for="(item, index) in list" :key="index">
@@ -31,7 +31,7 @@ export default {
   components: { AlbumCard, Loading },
   props: {
     type: String, // "new" || "hot"
-    area: String
+    area: String,
   },
   data() {
     return {
@@ -40,7 +40,7 @@ export default {
       scrollToBottom: 0,
       month: MONTH,
       year: YEAR,
-      contentEl: document.getElementById("content__ref")
+      contentEl: document.getElementById("content__ref"),
     };
   },
   computed: {
@@ -49,9 +49,9 @@ export default {
         type: this.type,
         area: this.area,
         month: this.month,
-        year: this.year
+        year: this.year,
       };
-    }
+    },
   },
   watch: {
     type() {
@@ -61,13 +61,13 @@ export default {
       handler() {
         this.getList();
       },
-      deep: true
+      deep: true,
     },
     scrollToBottom(val) {
       if (val < 500 && !this.loading) {
         this.setDate();
       }
-    }
+    },
   },
   methods: {
     setDate() {
@@ -83,7 +83,7 @@ export default {
         alias: item.alias,
         imgUrl: item.picUrl,
         name: item.name,
-        artistName: item.artists[0].name
+        artistName: item.artists[0].name,
       };
     },
     async getList() {
@@ -100,7 +100,7 @@ export default {
           // 全部
           const month = {};
           month[`${this.year}-${pad(this.month)}`] = [
-            ...flattenDeep(monthData)
+            ...flattenDeep(monthData),
           ];
           this.data.push(month);
         }
@@ -122,7 +122,7 @@ export default {
           artists: song.artists,
           duration: song.duration,
           mvId: song.mv,
-          img: song.picUrl
+          img: song.picUrl,
         })
       );
       this.setPlaylistLoading(false);
@@ -133,7 +133,7 @@ export default {
       let clientHeight = this.contentEl.clientHeight;
       // 滚动条距离底部的距离
       this.scrollToBottom = scrollHeight - scrollTop - clientHeight;
-    }
+    },
   },
   created() {
     this.getList();
@@ -143,7 +143,7 @@ export default {
   },
   destroyed() {
     off(this.contentEl, "scroll", this.scrollAction);
-  }
+  },
 };
 </script>
 
@@ -152,6 +152,9 @@ export default {
   .album-list-wrap {
     position: relative;
     display: flex;
+    .container {
+      width: 100%;
+    }
     .title-wrap {
       height: 0;
       width: 0;

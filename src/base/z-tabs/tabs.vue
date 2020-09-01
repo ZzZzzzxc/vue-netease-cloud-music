@@ -1,7 +1,9 @@
 <template>
   <div class="z-tabs">
     <div class="z-tabs__header">
-      <TabsNav @click="handleClick"></TabsNav>
+      <TabsNav @click="handleClick">
+        <slot name="header"></slot>
+      </TabsNav>
     </div>
     <div class="z-tabs__content">
       <slot></slot>
@@ -15,27 +17,27 @@ export default {
   name: "ZTabs",
   provide: function() {
     return {
-      root: this
+      root: this,
     };
   },
   model: {
     prop: "activeName",
-    event: "activeChange"
+    event: "activeChange",
   },
   props: {
     activeColor: String,
     activeName: {
-      type: String
+      type: String,
     },
     center: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data() {
     return {
       currentName: this.activeName,
-      panes: []
+      panes: [],
     };
   },
   watch: {
@@ -44,7 +46,7 @@ export default {
     },
     activeName(activeName) {
       this.currentName = activeName;
-    }
+    },
   },
   components: { TabsNav },
   methods: {
@@ -56,8 +58,8 @@ export default {
     },
     set(currentName) {
       this.currentName = currentName;
-    }
-  }
+    },
+  },
 };
 </script>
 

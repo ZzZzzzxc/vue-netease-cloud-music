@@ -5,9 +5,9 @@
         <div class="img-wrap">
           <img v-lazy="getImgUrl(list.coverImgUrl, 250, 250)" />
         </div>
-        <div class="info-wrap">
+        <div class="info-wrap" v-if="!loading">
           <div class="title-wrap">
-            <div class="tag" v-if="!loading">歌单</div>
+            <div class="tag">歌单</div>
             <h1 class="title">{{ list.name }}</h1>
           </div>
           <div class="user-wrap" v-if="list.creator">
@@ -17,7 +17,9 @@
               {{ formatDate(list.createTime) }}创建
             </div>
           </div>
-          <div class="tool-wrap"></div>
+          <div class="tool-wrap">
+            <div class="play-all" @click="playAll">播放全部</div>
+          </div>
           <div class="tag-wrap" v-if="list.tags">
             标签：<span v-for="(tag, idx) in list.tags" :key="idx">{{
               tag
@@ -47,10 +49,13 @@
     </loading>
     <div class="content">
       <tabs v-model="activeName" :center="false">
+        <template slot="header">
+          <input />
+        </template>
         <tabs-pane label="歌曲列表" name="1">
-          <song-list :ids="ids"></song-list>
+          <song-list :ids="ids" ref="songList"></song-list>
         </tabs-pane>
-        <tabs-pane :label="`评论(${this.list.commentCount})`" name="2">
+        <tabs-pane :label="`评论(${this.list.commentCount || '-'})`" name="2">
           <comments-list
             :id="id"
             :commentCount="list.commentCount"
@@ -70,19 +75,26 @@
 <script>
 import { Tabs, TabsPane, Loading } from "@/base";
 import { getPlayListDetail } from "@/api";
-import { getImgUrl, formatDate, formatNumber } from "@/utils";
+import {
+  getImgUrl,
+  formatDate,
+  formatNumber,
+  formatSong,
+  musicMixin,
+} from "@/utils";
 import CollectorsList from "./collectors-list";
 import SongList from "./song-list";
 import CommentsList from "./comments-list";
 export default {
   name: "Singer",
+  mixins: [musicMixin],
   components: {
     Tabs,
     TabsPane,
     CollectorsList,
     SongList,
     CommentsList,
-    Loading
+    Loading,
   },
   props: ["id"],
   data() {
@@ -90,7 +102,7 @@ export default {
       activeName: "1",
       list: {},
       ids: "",
-      loading: false
+      loading: false,
     };
   },
   methods: {
@@ -104,11 +116,34 @@ export default {
       this.list = playlist;
       this.ids = this.list.trackIds.map(({ id }) => id).join(",");
       this.loading = false;
-    }
+    },
+    playAll() {
+      if (this.$refs.songList) {
+        this.setPlaylistLoading(true);
+        const playlist = [];
+        this.$refs.songList.list.map(song => {
+          playlist.push(
+            formatSong({
+              id: song.id,
+              name: song.name,
+              artists: song.ar,
+              duration: song.dt,
+              mvId: song.mv,
+              img: song.al.picUrl,
+              albumId: song.al.id,
+              albumName: song.al.name,
+            })
+          );
+        });
+        this.setPlaylist(playlist);
+        this.setCurrentSong(playlist[0]);
+        this.setPlaylistLoading(false);
+      }
+    },
   },
   created() {
     this.initPlayListDetail();
-  }
+  },
 };
 </script>
 
@@ -147,6 +182,17 @@ export default {
           font-size: 28px;
           font-weight: 700;
           margin: 0 8px;
+        }
+      }
+      .tool-wrap {
+        display: flex;
+        justify-content: flex-start;
+        .play-all {
+          color: $white;
+          background-color: $theme-color;
+          padding: 4px 8px;
+          cursor: pointer;
+          font-size: $font-size-sm;
         }
       }
       .user-wrap {

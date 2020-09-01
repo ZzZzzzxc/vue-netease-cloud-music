@@ -152,16 +152,19 @@ export default {
         this.play();
       }
     },
-    currentSong(newSong) {
-      if (newSong.id) {
-        this.ready = false;
+    currentSong(newSong, oldSong) {
+      if (!newSong.id) {
         this.setPlayState(false);
-      } else {
-        this.setPlayState(false);
-        // this.pause();
         this.playProgress = 0;
         this.audio.currentTime = 0;
         this.audio.src = "";
+      }
+      if (newSong.id === oldSong.id) {
+        return;
+      }
+      if (newSong.id) {
+        this.ready = false;
+        this.setPlayState(false);
       }
     },
     volumeProgress(progress) {
