@@ -12,6 +12,7 @@ import Card from "./z-card";
 import Loading from "./z-loading";
 import ProgressBar from "./z-progress-bar";
 import Table from "./z-table";
+import Dialog from "./z-dialog";
 
 export {
   Popover,
@@ -27,5 +28,6 @@ export {
   Card,
   Loading,
   ProgressBar,
-  Table
+  Table,
+  Dialog,
 };

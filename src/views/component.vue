@@ -20,9 +20,15 @@
     <div class="content">
       <Card>
         <template slot="header">
-          当前 Menus 为{{ activeMenuIdx }}
-          <button>
-            这是一个卡片标题插槽
+          这是一个卡片标题插槽，当前 Menus 为{{ activeMenuIdx }}
+          <button
+            @click="
+              () => {
+                this.dialogVisible = !this.dialogVisible;
+              }
+            "
+          >
+            打开弹出框
           </button>
         </template>
         <div class="card-content">
@@ -145,6 +151,30 @@
         </div>
       </Card>
     </div>
+    <Dialog
+      v-model="dialogVisible"
+      :handleClose="
+        () => {
+          this.dialogVisible = false;
+        }
+      "
+    >
+      <template slot="header">
+        <div>
+          标题插槽<button
+            @click="
+              () => {
+                this.dialogVisible = false;
+              }
+            "
+          >
+            关闭弹出框
+          </button>
+        </div>
+      </template>
+      <h1>这是内容区域</h1>
+      <template slot="footer">这是Footer</template>
+    </Dialog>
   </div>
 </template>
 
@@ -162,7 +192,8 @@ import {
   Loading,
   ProgressBar,
   Pagination,
-  Popover
+  Popover,
+  Dialog,
 } from "@/base";
 export default {
   name: "",
@@ -179,16 +210,18 @@ export default {
     Loading,
     ProgressBar,
     Pagination,
-    Popover
+    Popover,
+    Dialog,
   },
   data() {
     return {
+      dialogVisible: false,
       activeMenuIdx: "1",
       activeTabsName: "气泡卡片",
       banners: [
         { url: "https://cdn.zhangxc.cn/image/jpeg/wallhaven-01qpg4.jpg" },
         { url: "https://cdn.zhangxc.cn/image/jpeg/2020-05-19 230011.jpg" },
-        { url: "https://cdn.zhangxc.cn/image/jpeg/希里.jpg" }
+        { url: "https://cdn.zhangxc.cn/image/jpeg/希里.jpg" },
       ],
       loading: true,
       percentage: 0.2,
@@ -197,9 +230,9 @@ export default {
       page: {
         current: 1,
         limit: 30,
-        total: 4000
+        total: 4000,
       },
-      manualShow: false
+      manualShow: false,
     };
   },
   mounted() {},
@@ -215,7 +248,7 @@ export default {
     },
     moveStop() {
       this.move = false;
-    }
+    },
   },
   computed: {},
   watch: {
@@ -228,8 +261,8 @@ export default {
       } else {
         this.loading = true;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

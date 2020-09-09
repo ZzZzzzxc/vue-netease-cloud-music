@@ -31,3 +31,14 @@
   transform: translate(-80%, 100%);
   opacity: 0;
 }
+
+// z-dialog
+.dialog-enter-active,
+.dialog-leave-active {
+  transition: 0.3s;
+}
+.dialog-enter,
+.dialog-leave-to {
+  transform: translateY(20px);
+  opacity: 0;
+}
