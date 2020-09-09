@@ -11,7 +11,7 @@
                 </div>
               </slot>
             </div>
-            <div class="close-wrap" @click="closeDialog">
+            <div class="close-wrap" @click.stop="closeDialog">
               <img :src="require(`@/assets/icon/close.png`)" />
             </div>
           </div>
@@ -52,14 +52,6 @@ export default {
   data() {
     return {};
   },
-  mounted() {},
-  methods: {
-    closeDialog() {
-      this.handleClose
-        ? this.handleClose()
-        : this.$emit("visibleChange", false);
-    },
-  },
   computed: {
     dialogStyle() {
       const { width } = this;
@@ -68,7 +60,18 @@ export default {
       };
     },
   },
-  watch: {},
+  watch: {
+    visible(v) {
+      console.log(v);
+    },
+  },
+  methods: {
+    closeDialog() {
+      this.handleClose
+        ? this.handleClose()
+        : this.$emit("visibleChange", false);
+    },
+  },
 };
 </script>
 
