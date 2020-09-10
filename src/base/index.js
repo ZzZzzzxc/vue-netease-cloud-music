@@ -13,6 +13,7 @@ import Loading from "./z-loading";
 import ProgressBar from "./z-progress-bar";
 import Table from "./z-table";
 import Dialog from "./z-dialog";
+import Select from "./z-select"
 
 export {
   Popover,
@@ -30,4 +31,5 @@ export {
   ProgressBar,
   Table,
   Dialog,
+  Select
 };

@@ -2,7 +2,12 @@
   <transition name="fade">
     <div class="z-dialog-wrap" v-show="visible">
       <transition name="dialog">
-        <div class="z-dialog" v-show="visible" :style="dialogStyle">
+        <div
+          class="z-dialog"
+          :class="customClass"
+          v-show="visible"
+          :style="dialogStyle"
+        >
           <div class="header-wrap">
             <div>
               <slot name="header">
@@ -48,6 +53,7 @@ export default {
       default: "",
     },
     handleClose: Function,
+    customClass: String,
   },
   data() {
     return {};

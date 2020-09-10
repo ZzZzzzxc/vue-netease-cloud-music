@@ -7,8 +7,8 @@
       <div class="item"><search></search></div>
     </div>
     <div class="right">
-      <div class="item"><theme></theme></div>
       <div class="item"><user></user></div>
+      <div class="item"><theme></theme></div>
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@ export default {
   components: { HistoryControl, Search, User, Theme },
   data() {
     return {};
-  }
+  },
 };
 </script>
 
@@ -57,7 +57,6 @@ export default {
     display: flex;
   }
   .item {
-    cursor: pointer;
     margin: 0 24px;
   }
 }

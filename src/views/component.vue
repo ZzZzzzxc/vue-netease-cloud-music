@@ -146,6 +146,31 @@
                   </button>
                 </Popover>
               </TabsPane>
+              <TabsPane :name="`选择器`" :label="`选择器`">
+                <div>
+                  <p>当前选择的是:{{ selectIdx }}</p>
+
+                  <button
+                    @click="
+                      () => {
+                        this.multiple = !this.multiple;
+                      }
+                    "
+                  >
+                    {{
+                      multiple
+                        ? `当前为多选，点击切换为单选`
+                        : `当前为单选，点击切换为多选`
+                    }}
+                  </button>
+                  <Select
+                    :list="selectListData"
+                    :placeholder="`自定义placeholder`"
+                    @dataChange="getSelectData"
+                    :multiple="multiple"
+                  />
+                </div>
+              </TabsPane>
             </Tabs>
           </div>
         </div>
@@ -194,6 +219,7 @@ import {
   Pagination,
   Popover,
   Dialog,
+  Select,
 } from "@/base";
 export default {
   name: "",
@@ -212,12 +238,13 @@ export default {
     Pagination,
     Popover,
     Dialog,
+    Select,
   },
   data() {
     return {
       dialogVisible: false,
       activeMenuIdx: "1",
-      activeTabsName: "气泡卡片",
+      activeTabsName: "轮播图",
       banners: [
         { url: "https://cdn.zhangxc.cn/image/jpeg/wallhaven-01qpg4.jpg" },
         { url: "https://cdn.zhangxc.cn/image/jpeg/2020-05-19 230011.jpg" },
@@ -233,6 +260,15 @@ export default {
         total: 4000,
       },
       manualShow: false,
+      selectListData: [
+        { label: "Item 1", value: "1" },
+        { label: "Item 2", value: "2" },
+        { label: "Item 3", value: "3" },
+        { label: "Item 4", value: "4" },
+        { label: "Item 5", value: "5" },
+      ],
+      selectIdx: null,
+      multiple: true,
     };
   },
   mounted() {},
@@ -248,6 +284,9 @@ export default {
     },
     moveStop() {
       this.move = false;
+    },
+    getSelectData(idx) {
+      this.selectIdx = Array.isArray(idx) ? idx.join(",") : idx;
     },
   },
   computed: {},
