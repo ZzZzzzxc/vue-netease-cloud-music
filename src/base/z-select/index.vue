@@ -84,12 +84,13 @@ export default {
       type: Array,
       required: true,
     },
+    defaultIdx: Number,
   },
   data() {
     return {
       height: INPUT_MIN_HEIGHT,
       checkedList: [],
-      checkedIdx: null,
+      checkedIdx: this.defaultIdx,
       show: false,
     };
   },
@@ -171,35 +172,36 @@ export default {
 .z-select {
   display: inline-block;
   .input-wrap {
-    width: 240px;
+    min-width: 80px;
+    width: 100%;
     position: relative;
     input {
+      @include text-ellipsis;
       box-sizing: border-box;
       width: 100%;
       border: 1px solid #dcdfe6;
       border-radius: 3px;
       transition: 0.3s;
       &:hover {
-        border: 1px solid $grey-dark;
+        border: 1px solid #dcdfe6;
       }
       &:focus {
         outline: none;
-        border: 1px solid #409eff;
+        border: 1px solid #dcdfe6;
       }
     }
     .close-wrap {
-      display: none;
       z-index: 20;
+      opacity: 0;
+      transition: 0.3s;
       position: absolute;
       top: 0;
       right: 8px;
       height: 100%;
+      display: flex;
+      align-items: center;
       cursor: pointer;
       img {
-        position: relative;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         width: 20px;
         height: 20px;
       }
@@ -239,7 +241,7 @@ export default {
     }
     &:hover {
       .close-wrap {
-        display: block;
+        opacity: 1;
       }
     }
   }
