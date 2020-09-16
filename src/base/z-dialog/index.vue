@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="z-dialog-wrap" v-show="visible">
+    <div class="z-dialog-wrap" v-if="visible">
       <transition name="dialog">
         <div
           class="z-dialog"

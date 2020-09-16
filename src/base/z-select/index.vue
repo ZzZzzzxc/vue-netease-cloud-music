@@ -3,15 +3,20 @@
     <Popove trigger="manual" :show="show" :placement="`bottom`">
       <div class="input-wrap" :class="isFocus ? `focus` : ``">
         <input
+          ref="input"
           readonly
-          :value="!isFocus && checkedIdx !== null ? list[checkedIdx].label : ``"
+          :value="
+            !isFocus && checkedIdx !== null
+              ? list[checkedIdx] && list[checkedIdx][labelName]
+              : ``
+          "
           @focus="onFocus"
           @blur="onBlur"
           type="text"
           :style="inputStyle"
           :placeholder="
             checkedIdx !== null
-              ? list[checkedIdx].label
+              ? list[checkedIdx] && list[checkedIdx][labelName]
               : !multiple
               ? placeholder
               : ``
@@ -27,7 +32,7 @@
             :key="checkedIdx"
           >
             <div>
-              {{ list[checkedIdx].label }}
+              {{ list[checkedIdx] && list[checkedIdx][labelName] }}
             </div>
             <div
               class="mul-check-close-wrap"
@@ -39,25 +44,25 @@
         </div>
       </div>
       <template slot="content">
-        <div class="list-wrap" ref="list">
-          <slot>
-            <div
-              class="item"
-              :class="[
-                !multiple &&
-                list[checkedIdx] &&
-                list[checkedIdx].value === item.value
-                  ? `checked`
-                  : ``,
-                multiple && checkedList.includes(idx) ? `checked` : ``,
-              ]"
-              v-for="(item, idx) in list"
-              :key="item.value"
-              @mousedown="handleCheck($event, item, idx)"
-            >
-              {{ item.label }}
-            </div>
-          </slot>
+        <div class="list-wrap" :style="listStyle" ref="list">
+          <div
+            class="item"
+            :class="[
+              !multiple &&
+              list[checkedIdx] &&
+              list[checkedIdx][valueName] === item[valueName]
+                ? `checked`
+                : ``,
+              multiple && checkedList.includes(idx) ? `checked` : ``,
+            ]"
+            v-for="(item, idx) in list"
+            :key="item[valueName]"
+            @mousedown="handleCheck($event, item, idx)"
+          >
+            <slot name="item" :scopeSlot="item">
+              {{ item[labelName] }}
+            </slot>
+          </div>
         </div>
       </template>
     </Popove>
@@ -72,6 +77,16 @@ export default {
   name: "ZSelect",
   components: { Popove },
   props: {
+    // 展示 item 名称
+    labelName: {
+      type: String,
+      default: "label",
+    },
+    // item 标识符
+    valueName: {
+      type: String,
+      default: "value",
+    },
     multiple: {
       type: Boolean,
       default: false,
@@ -84,7 +99,9 @@ export default {
       type: Array,
       required: true,
     },
-    defaultIdx: Number,
+    defaultIdx: {
+      default: null,
+    },
   },
   data() {
     return {
@@ -92,6 +109,7 @@ export default {
       checkedList: [],
       checkedIdx: this.defaultIdx,
       show: false,
+      listWidth: 0,
     };
   },
   computed: {
@@ -103,6 +121,12 @@ export default {
       return {
         height: `${height}px`,
         padding: `${INPUT_PADDINT_TOP}px 12px`,
+      };
+    },
+    listStyle() {
+      const { listWidth } = this;
+      return {
+        width: `${listWidth}px`,
       };
     },
   },
@@ -164,6 +188,9 @@ export default {
       const idxInList = this.checkedList.indexOf(target);
       this.checkedList.splice(idxInList, 1);
     },
+  },
+  mounted() {
+    this.listWidth = this.$refs.input.offsetWidth;
   },
 };
 </script>
@@ -247,7 +274,8 @@ export default {
   }
 }
 .list-wrap {
-  width: 240px;
+  overflow-y: auto;
+  max-height: 200px;
   overflow-y: auto;
   .item {
     cursor: pointer;
