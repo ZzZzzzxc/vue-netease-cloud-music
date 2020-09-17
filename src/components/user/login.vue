@@ -88,8 +88,8 @@ export default {
       activeName: LOGIN_NAME,
       phone: "",
       code: "",
-      account: "13690896312",
-      password: "Zxc199821",
+      account: "",
+      password: "",
       countriesCodeList: []
     };
   },

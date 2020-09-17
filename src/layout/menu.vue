@@ -10,7 +10,7 @@
         <menu-item index="Fm" :disable="true">私人FM</menu-item>
         <menu-item index="Video">视频</menu-item>
       </menu-item-group>
-      <sub-menu title="创建的歌单" index="/">
+      <sub-menu title="创建的歌单" index="/" v-if="userPlaylist.length">
         <menu-item
           v-for="item in userPlaylist"
           :key="item.id"
