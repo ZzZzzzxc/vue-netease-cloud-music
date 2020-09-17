@@ -27,14 +27,14 @@ export default {
   components: { Menu, MenuItem, SubMenu, MenuItemGroup },
   data() {
     return {
-      defaultActive: this.$route.name,
+      defaultActive: this.$route.name
     };
   },
   methods: {
     handleRouteChange(name) {
       this.$router.push({ name });
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -5,14 +5,14 @@ export default {
   data() {
     return {
       activeBarWidth: 0,
-      activeBarOffsetLeft: 0,
+      activeBarOffsetLeft: 0
     };
   },
   computed: {
     activeBarStyle() {
       const style = {
         width: this.activeBarWidth,
-        transform: `translateX(${this.activeBarOffsetLeft}px)`,
+        transform: `translateX(${this.activeBarOffsetLeft}px)`
       };
       if (this.root.activeColor) style.backgroundColor = this.root.activeColor;
       return style;
@@ -20,21 +20,21 @@ export default {
     activeNavStyle() {
       const style = {
         fontWeight: "bold",
-        color: this.root.activeColor ? this.root.activeColor : `#d33a31`,
+        color: this.root.activeColor ? this.root.activeColor : `#d33a31`
       };
       return style;
     },
     navStyle() {
       const placement = this.root.center ? "center" : "space-between";
       return {
-        justifyContent: placement,
+        justifyContent: placement
       };
-    },
+    }
   },
   watch: {
     "root.currentName"(currentName) {
       this.getActiveBarPosition(`ref_${currentName}`);
-    },
+    }
   },
   methods: {
     handleCurrentNameChange(pane) {
@@ -48,7 +48,7 @@ export default {
         this.activeBarWidth = width;
         this.activeBarOffsetLeft = ele.offsetLeft;
       }
-    },
+    }
   },
   mounted() {
     this.$nextTick(() => {
@@ -79,7 +79,7 @@ export default {
         <div class="z-tabs-nav-slot-wrap">{this.$slots.default}</div>
       </div>
     );
-  },
+  }
 };
 </script>
 

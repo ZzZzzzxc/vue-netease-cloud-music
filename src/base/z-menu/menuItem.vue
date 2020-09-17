@@ -3,7 +3,7 @@
     class="z-menu-item"
     :class="[
       rootMenu.activeIndex === index ? `z-menu-item__active` : ``,
-      disable ? `z-menu-item__disable` : ``,
+      disable ? `z-menu-item__disable` : ``
     ]"
     @click.stop="onClick"
   >
@@ -19,12 +19,12 @@ export default {
     index: {
       type: String,
       default: "",
-      required: true,
+      required: true
     },
     disable: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {};
@@ -39,8 +39,8 @@ export default {
     // 通知 menu activeIndex 改变
     handleActiveIndexChange() {
       this.$emit("activeIndexChange", this.index);
-    },
-  },
+    }
+  }
 };
 </script>
 

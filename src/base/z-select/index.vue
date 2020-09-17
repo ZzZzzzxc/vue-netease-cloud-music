@@ -53,7 +53,7 @@
               list[checkedIdx][valueName] === item[valueName]
                 ? `checked`
                 : ``,
-              multiple && checkedList.includes(idx) ? `checked` : ``,
+              multiple && checkedList.includes(idx) ? `checked` : ``
             ]"
             v-for="(item, idx) in list"
             :key="item[valueName]"
@@ -80,28 +80,28 @@ export default {
     // 展示 item 名称
     labelName: {
       type: String,
-      default: "label",
+      default: "label"
     },
     // item 标识符
     valueName: {
       type: String,
-      default: "value",
+      default: "value"
     },
     multiple: {
       type: Boolean,
-      default: false,
+      default: false
     }, // 多选
     placeholder: {
       type: String,
-      default: "请选择",
+      default: "请选择"
     },
     list: {
       type: Array,
-      required: true,
+      required: true
     },
     defaultIdx: {
-      default: null,
-    },
+      default: null
+    }
   },
   data() {
     return {
@@ -109,7 +109,7 @@ export default {
       checkedList: [],
       checkedIdx: this.defaultIdx,
       show: false,
-      listWidth: 0,
+      listWidth: 0
     };
   },
   computed: {
@@ -120,15 +120,15 @@ export default {
       const { height } = this;
       return {
         height: `${height}px`,
-        padding: `${INPUT_PADDINT_TOP}px 12px`,
+        padding: `${INPUT_PADDINT_TOP}px 12px`
       };
     },
     listStyle() {
       const { listWidth } = this;
       return {
-        width: `${listWidth}px`,
+        width: `${listWidth}px`
       };
-    },
+    }
   },
   watch: {
     multiple(multiple) {
@@ -147,8 +147,8 @@ export default {
         this.$emit("dataChange", idxList);
         this.$nextTick(this.calcInputHeight);
       },
-      deep: true,
-    },
+      deep: true
+    }
   },
   methods: {
     onFocus() {
@@ -160,7 +160,7 @@ export default {
     calcInputHeight() {
       const [{ offsetHeight }, offset] = [
         this.$refs.checkList,
-        INPUT_PADDINT_TOP * 2,
+        INPUT_PADDINT_TOP * 2
       ];
       offsetHeight > INPUT_MIN_HEIGHT - offset &&
         (this.height = offsetHeight + offset);
@@ -187,11 +187,11 @@ export default {
     clearTargetIdx(target) {
       const idxInList = this.checkedList.indexOf(target);
       this.checkedList.splice(idxInList, 1);
-    },
+    }
   },
   mounted() {
     this.listWidth = this.$refs.input.offsetWidth;
-  },
+  }
 };
 </script>
 

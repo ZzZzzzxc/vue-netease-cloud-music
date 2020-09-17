@@ -63,7 +63,7 @@ const tabsData = [
   { label: "华语", name: "2", type: 7, area: "ZH" },
   { label: "欧美", name: "3", type: 96, area: "EA" },
   { label: "韩国", name: "4", type: 16, area: "KR" },
-  { label: "日本", name: "5", type: 8, area: "JP" },
+  { label: "日本", name: "5", type: 8, area: "JP" }
 ];
 import { Tabs, TabsPane } from "@/base/index";
 import MusicList from "./music-list";
@@ -78,7 +78,7 @@ export default {
       activeName: "1",
       showTabLeft: true,
       type: "new",
-      tabsData,
+      tabsData
     };
   },
   methods: {
@@ -108,7 +108,7 @@ export default {
               mvId: song.mvid,
               img: song.album.picUrl,
               albumId: song.album.id,
-              albumName: song.album.name,
+              albumName: song.album.name
             })
           );
         });
@@ -116,8 +116,8 @@ export default {
         this.setCurrentSong(playlist[0]);
         this.setPlaylistLoading(false);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

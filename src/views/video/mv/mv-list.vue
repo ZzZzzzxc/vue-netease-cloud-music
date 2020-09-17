@@ -22,7 +22,7 @@
         <loading :loading="newMvsLoading">
           <ul class="list-wrap">
             <li
-              @click="toMvdetail(mv.id)"
+              @click="toMv(mv.id)"
               class="list-item"
               v-for="mv in newMvs"
               :key="mv.id"
@@ -51,7 +51,7 @@
         <loading :loading="hotMvsLoading">
           <ul class="list-wrap">
             <li
-              @click="toMvdetail(mv.id)"
+              @click="toMv(mv.id)"
               class="list-item"
               v-for="mv in hotMvs"
               :key="mv.id"
@@ -79,7 +79,7 @@
         <loading :loading="exclusiveMvLoading">
           <ul class="list-wrap">
             <li
-              @click="toMvdetail(mv.id)"
+              @click="toMv(mv.id)"
               class="list-item"
               v-for="mv in exclusiveMvs"
               :key="mv.id"
@@ -118,7 +118,7 @@
           <loading :loading="mvRankLoading">
             <ul class="list-wrap">
               <li
-                @click="toMvdetail(mv.id)"
+                @click="toMv(mv.id)"
                 class="list-item"
                 v-for="(mv, idx) in mvRank"
                 :key="mv.id"
@@ -210,8 +210,8 @@ export default {
     toDetail(name) {
       this.$router.push({ name });
     },
-    toMvDetail(id) {
-      if (id) this.$router.push({ name: "Mv", params: { id } });
+    toMv(id) {
+      id && this.$router.push({ name: "Mv", params: { id } });
     },
     // 获取热门 MV
     async getHotMvList() {

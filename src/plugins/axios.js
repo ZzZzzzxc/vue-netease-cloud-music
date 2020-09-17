@@ -8,13 +8,13 @@ import axios from "axios";
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
-// const baseURL = `http://localhost:2200`;
-const baseURL = `https://music.server.zhangxc.cn`;
+const baseURL = process.env.VUE_APP_API_URL;
+// const baseURL = `https://music.server.zhangxc.cn`;
 
 let config = {
   baseURL,
   timeout: 60 * 1000, // Timeout
-  withCredentials: true, // Check cross-site Access-Control
+  withCredentials: true // Check cross-site Access-Control
 };
 
 const _axios = axios.create(config);
@@ -49,13 +49,13 @@ Plugin.install = function(Vue) {
     axios: {
       get() {
         return _axios;
-      },
+      }
     },
     $axios: {
       get() {
         return _axios;
-      },
-    },
+      }
+    }
   });
 };
 

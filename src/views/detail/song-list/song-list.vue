@@ -48,13 +48,13 @@ export default {
   data() {
     return {
       list: [],
-      loading: false,
+      loading: false
     };
   },
   watch: {
     ids() {
       this.initList();
-    },
+    }
   },
   methods: {
     pad,
@@ -78,14 +78,14 @@ export default {
           mvId: song.mv,
           img: song.al.picUrl,
           albumId: song.al.id,
-          albumName: song.al.name,
+          albumName: song.al.name
         })
       );
-    },
+    }
   },
   created() {
     this.initList();
-  },
+  }
 };
 </script>
 

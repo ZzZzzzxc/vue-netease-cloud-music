@@ -44,7 +44,7 @@ export default {
     return {
       loading: false,
       info: {},
-      limit: 30,
+      limit: 30
     };
   },
   methods: {
@@ -60,12 +60,12 @@ export default {
     async initDjProgram() {
       const { id, limit } = this;
       await getDjProgram({ rid: id, limit });
-    },
+    }
   },
   created() {
     this.initDjProgramDetail();
     this.initDjProgram();
-  },
+  }
 };
 </script>
 

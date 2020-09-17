@@ -41,42 +41,42 @@ const DEFAULT_TYPE = [
   "text",
   "time",
   "url",
-  "week",
+  "week"
 ];
 export default {
   name: "ZInput",
   model: {
     prop: "value",
-    event: "change",
+    event: "change"
   },
   props: {
     type: {
       type: String,
       validator: type => DEFAULT_TYPE.indexOf(type) > -1,
-      default: "text",
+      default: "text"
     },
     value: String,
     minlength: Number,
     maxlength: Number,
     showWordLimit: {
       type: Boolean,
-      default: false,
+      default: false
     },
     placeholder: String,
     clearable: {
       type: Boolean,
-      default: false,
+      default: false
     },
     showPassword: {
       type: Boolean,
-      default: false,
+      default: false
     },
     disabled: Boolean,
     readonly: Boolean,
     autofocus: Boolean,
     label: String,
     prepend: String,
-    append: String,
+    append: String
   },
   data() {
     return {};
@@ -88,15 +88,15 @@ export default {
     inputStyle() {
       return {
         height: `${INPUT_MIN_HEIGHT}px`,
-        padding: `${INPUT_PADDINT_TOP}px 12px`,
+        padding: `${INPUT_PADDINT_TOP}px 12px`
       };
-    },
+    }
   },
   methods: {
     handleInput(e) {
       this.$emit("change", e.srcElement.value);
-    },
-  },
+    }
+  }
 };
 </script>
 

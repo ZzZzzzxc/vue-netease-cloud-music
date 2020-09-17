@@ -23,12 +23,12 @@ export default {
   name: "PrivateContentList",
   components: {
     PrivateContentCard,
-    Loading,
+    Loading
   },
   data() {
     return {
       privatecontent: [],
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -42,11 +42,11 @@ export default {
       if (id) {
         this.$router.push({ name: "Mv", params: { id } });
       }
-    },
+    }
   },
   created() {
     this.initPrivatecontent();
-  },
+  }
 };
 </script>
 

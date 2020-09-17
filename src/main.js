@@ -4,6 +4,9 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+import { init } from "@/utils";
+init();
+
 import LOADING_GIF from "./assets/loading.gif";
 import VueLazyload from "vue-lazyload";
 const EMPTY_IMG =

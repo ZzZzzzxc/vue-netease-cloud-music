@@ -12,14 +12,14 @@ const musicMixin = {
       isPlaylistShow: state => state.music.isPlaylistShow, // 播放列表是否显示
       history: state => state.music.history, // 历史记录
       playlistLoading: state => state.music.loading, // 歌单是否正在加载
-      isDetailShow: state => state.music.isDetailShow // 是否展示歌曲详情
+      isDetailShow: state => state.music.isDetailShow, // 是否展示歌曲详情
     }),
     ...mapGetters("music", [
       `currentIndex`,
       `prevSong`,
       `nextSong`,
-      `hasCurrentSong`
-    ])
+      `hasCurrentSong`,
+    ]),
   },
   methods: {
     ...mapMutations("music", [
@@ -31,14 +31,46 @@ const musicMixin = {
       "setPlaylist",
       "setMute",
       "setPlaylistLoading",
-      "setDetailShow"
+      "setDetailShow",
     ]),
     ...mapActions("music", [
       "clearPlaylist",
       "removeTargeSong",
-      "addToPlaylist"
-    ])
-  }
+      "addToPlaylist",
+    ]),
+  },
 };
 
-export { musicMixin };
+const userMixin = {
+  computed: {
+    ...mapState({
+      userId: state => state.user.userId, // id
+      userNickname: state => state.user.nickname, // 名字
+      userSignature: state => state.user.signature, // 个性签名
+      userPlaylist: state => state.user.playlist, // 歌单
+      userAvatarUrl: state => state.user.avatarUrl, // 头像
+      userBackgroundUrl: state => state.user.backgroundUrl, // 背景图
+      userLevel: state => state.user.level, // 等级
+      userFollows: state => state.user.follows, // 关注数
+      userFolloweds: state => state.user.followeds, // 粉丝数
+      userEventCount: state => state.user.eventCount, // 动态数
+    }),
+    ...mapGetters("user", ["isLogin"]),
+  },
+  methods: {
+    ...mapMutations("user", [
+      "setPlayState",
+      "setNickname",
+      "setSignature",
+      "setAvatarUrl",
+      "setBackgroundUrl",
+      "setUserPlaylist",
+      "setLevel",
+      "setFollows",
+      "setFolloweds",
+      "setEventCount",
+    ]),
+  },
+};
+
+export { musicMixin, userMixin };

@@ -33,5 +33,5 @@ export {
   Table,
   Dialog,
   Select,
-  Zinput,
+  Zinput
 };

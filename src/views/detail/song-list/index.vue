@@ -80,7 +80,7 @@ import {
   formatDate,
   formatNumber,
   formatSong,
-  musicMixin,
+  musicMixin
 } from "@/utils";
 import CollectorsList from "./collectors-list";
 import SongList from "./song-list";
@@ -94,7 +94,7 @@ export default {
     CollectorsList,
     SongList,
     CommentsList,
-    Loading,
+    Loading
   },
   props: ["id"],
   data() {
@@ -102,7 +102,7 @@ export default {
       activeName: "1",
       list: {},
       ids: "",
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -131,7 +131,7 @@ export default {
               mvId: song.mv,
               img: song.al.picUrl,
               albumId: song.al.id,
-              albumName: song.al.name,
+              albumName: song.al.name
             })
           );
         });
@@ -139,11 +139,11 @@ export default {
         this.setCurrentSong(playlist[0]);
         this.setPlaylistLoading(false);
       }
-    },
+    }
   },
   created() {
     this.initPlayListDetail();
-  },
+  }
 };
 </script>
 

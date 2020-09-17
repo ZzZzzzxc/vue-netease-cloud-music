@@ -20,7 +20,7 @@ export default {
   components: { HistoryControl, Search, User, Theme },
   data() {
     return {};
-  },
+  }
 };
 </script>
 

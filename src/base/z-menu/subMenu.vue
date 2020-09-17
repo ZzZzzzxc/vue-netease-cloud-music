@@ -20,7 +20,7 @@ export default {
   name: "ZSubMenu",
   provide: function() {
     return {
-      subMenu: this,
+      subMenu: this
     };
   },
   inject: ["rootMenu"],
@@ -28,17 +28,17 @@ export default {
     title: {
       type: String,
       default: "title",
-      required: true,
+      required: true
     },
     index: {
       type: String,
       default: "",
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
-      isOpen: true,
+      isOpen: true
     };
   },
   methods: {
@@ -50,11 +50,11 @@ export default {
     },
     doSubMenuClose() {
       this.isOpen = false;
-    },
+    }
   },
   mounted() {
     this.rootMenu.setSubMenus(this.index, this);
-  },
+  }
 };
 </script>
 

@@ -43,25 +43,25 @@ export default {
   props: {
     height: {
       type: Number,
-      default: 200,
+      default: 200
     },
     auto: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   data() {
     return {
       items: [],
       activeIndex: -1,
-      timer: null,
+      timer: null
     };
   },
   computed: {},
   watch: {
     activeIndex() {
       this.resetItemPosition();
-    },
+    }
   },
   methods: {
     startTimer() {
@@ -98,7 +98,7 @@ export default {
       this.items.forEach((item, index) => {
         item.translateItem(index, this.activeIndex);
       });
-    },
+    }
   },
   mounted() {
     this.updateItems();
@@ -107,7 +107,7 @@ export default {
   },
   beforeDestroy() {
     this.clearTimer();
-  },
+  }
 };
 </script>
 

@@ -13,5 +13,5 @@ export * from "./song";
 export * from "./lyric";
 export * from "./mv";
 export * from "./video";
-export * from "./login";
+export * from "./user";
 export * from "./common";
