@@ -90,7 +90,7 @@ export default {
       code: "",
       account: "13690896312",
       password: "Zxc199821",
-      countriesCodeList: [],
+      countriesCodeList: []
     };
   },
   methods: {
@@ -111,11 +111,11 @@ export default {
         this.closeLoginDialog();
       });
     },
-    async register() {},
+    async register() {}
   },
   created() {
     this.initCountriesCodeList();
-  },
+  }
 };
 </script>
 

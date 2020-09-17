@@ -53,8 +53,8 @@ export default {
     return {
       ulData: [
         ["会员中心", "等级", "商城"],
-        ["个人信息设置", "社交账号绑定"],
-      ],
+        ["个人信息设置", "社交账号绑定"]
+      ]
     };
   },
   mounted() {},
@@ -62,10 +62,10 @@ export default {
     getImgUrl,
     async logout() {
       await userLogout();
-    },
+    }
   },
   computed: {},
-  watch: {},
+  watch: {}
 };
 </script>
 

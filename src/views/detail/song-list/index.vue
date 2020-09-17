@@ -105,6 +105,11 @@ export default {
       loading: false
     };
   },
+  watch: {
+    id() {
+      this.initPlayListDetail();
+    }
+  },
   methods: {
     getImgUrl,
     formatDate,

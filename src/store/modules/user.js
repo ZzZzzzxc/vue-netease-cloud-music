@@ -10,7 +10,7 @@ export default {
     level: "", // 等级
     follows: "", // 关注数
     followeds: "", // 粉丝数
-    eventCount: "", // 动态数
+    eventCount: "" // 动态数
   },
   mutations: {
     setUserId(state, userId) {
@@ -42,12 +42,12 @@ export default {
     },
     setEventCount(state, eventCount) {
       state.eventCount = eventCount;
-    },
+    }
   },
   actions: {},
   getters: {
     isLogin(state) {
       return !!state.userId;
-    },
-  },
+    }
+  }
 };

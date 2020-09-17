@@ -51,6 +51,7 @@ export default {
   line-height: $menu-item-height;
   color: $black;
   font-size: $font-size;
+  @include text-ellipsis;
   cursor: pointer;
   &__active {
     background-color: $menu-item-active;

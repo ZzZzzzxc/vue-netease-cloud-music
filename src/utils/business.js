@@ -4,7 +4,7 @@ import {
   getUserPlaylist,
   loginByEmail,
   loginByPhone,
-  logout,
+  logout
 } from "@/api";
 import store from "@/store";
 
@@ -49,7 +49,7 @@ export function formatSong(song) {
     durationText: formatTime(duration / 1000),
     albumId,
     mvId,
-    ...rest,
+    ...rest
   };
 }
 
@@ -64,7 +64,7 @@ export async function initUserInfo(uid) {
       backgroundUrl,
       followeds,
       follows,
-      eventCount,
+      eventCount
     } = profile;
     store.commit("user/setUserId", uid);
     store.commit("user/setNickname", nickname);
@@ -88,7 +88,7 @@ export async function userLogin(account, password) {
       try {
         const { cookie, profile, token } = await loginByEmail({
           email: account,
-          password,
+          password
         });
         await afterLogin(profile.userId, token, cookie);
       } catch (e) {
@@ -100,13 +100,13 @@ export async function userLogin(account, password) {
       try {
         const { cookie, profile, token } = await loginByPhone({
           phone: account,
-          password,
+          password
         });
         await afterLogin(profile.userId, token, cookie);
       } catch (e) {
         console.log("登录失败");
       }
-    },
+    }
   };
   request[isEmail(account) ? "email" : "phone"]();
 }

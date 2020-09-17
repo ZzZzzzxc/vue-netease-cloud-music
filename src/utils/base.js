@@ -85,7 +85,7 @@ export function hasKey(obj, key) {
   return Object.prototype.hasOwnProperty.call(obj, key);
 }
 
-export function isEmail(val){
+export function isEmail(val) {
   const pattern = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
-  return pattern.test(val)
+  return pattern.test(val);
 }

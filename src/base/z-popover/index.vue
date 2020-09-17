@@ -27,52 +27,51 @@ export default {
   props: {
     show: {
       type: Boolean,
-      default: false,
+      default: false
     },
     popperStyle: Object,
     // className
     popperClass: {
       type: String,
-      default: "",
+      default: ""
     },
     // 触发方式
     trigger: {
       type: String,
       default: "click",
-      validator: value => ["click", "hover", "manual"].indexOf(value) > -1,
+      validator: value => ["click", "hover", "manual"].indexOf(value) > -1
     },
     // 出现位置
     placement: {
       type: String,
       default: "bottom",
-      validator: value =>
-        ["top", "right", "bottom", "left"].indexOf(value) > -1,
+      validator: value => ["top", "right", "bottom", "left"].indexOf(value) > -1
     },
     // 打开延迟
     openDelay: {
       type: Number,
-      default: 0,
+      default: 0
     },
     // 关闭延迟
     closeDelay: {
       type: Number,
-      default: 400,
-    },
+      default: 400
+    }
   },
   data() {
     return {
-      showPopper: false,
+      showPopper: false
     };
   },
   watch: {
     show(show) {
       if (show && this.isManual) this.$nextTick(() => this.placementContent());
-    },
+    }
   },
   computed: {
     isManual() {
       return this.trigger === "manual";
-    },
+    }
   },
   mounted() {
     if (!this.isManual) this.initObserve();
@@ -103,34 +102,34 @@ export default {
         width: triggerWidth,
         height: triggerHeight,
         left: triggerLeft,
-        top: triggerTop,
+        top: triggerTop
       } = trigger.getBoundingClientRect();
       const {
         height: contentHeight,
-        width: contentWidth,
+        width: contentWidth
       } = popper.getBoundingClientRect();
       const fixed = 10;
       const style = {
         top: {
           left:
             window.scrollX + triggerLeft - contentWidth / 2 + triggerWidth / 2,
-          top: window.scrollY + triggerTop - contentHeight - fixed,
+          top: window.scrollY + triggerTop - contentHeight - fixed
         },
         bottom: {
           left:
             window.scrollX + triggerLeft - contentWidth / 2 + triggerWidth / 2,
-          top: window.scrollY + triggerHeight + triggerTop,
+          top: window.scrollY + triggerHeight + triggerTop
         },
         left: {
           left: window.scrollX + triggerLeft - contentWidth - fixed,
           top:
-            window.scrollY + triggerTop - contentHeight / 2 + triggerHeight / 2,
+            window.scrollY + triggerTop - contentHeight / 2 + triggerHeight / 2
         },
         right: {
           left: window.scrollX + triggerLeft + triggerWidth,
           top:
-            window.scrollY + triggerTop - contentHeight / 2 + triggerHeight / 2,
-        },
+            window.scrollY + triggerTop - contentHeight / 2 + triggerHeight / 2
+        }
       };
       popper.style.left = `${style[this.placement].left}px`;
       popper.style.top = `${style[this.placement].top}px`;
@@ -177,7 +176,7 @@ export default {
       )
         return;
       this.showPopper = false;
-    },
+    }
   },
   destroyed() {
     const { trigger, popper } = this.$refs;
@@ -194,7 +193,7 @@ export default {
         off(popper, "mouseleave", this.handleMouseLeave);
       }
     }
-  },
+  }
 };
 </script>
 

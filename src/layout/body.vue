@@ -2,7 +2,7 @@
   <div class="container">
     <layout-menu></layout-menu>
     <div class="content" id="content__ref">
-      <router-view></router-view>
+      <router-view :key="true"></router-view>
     </div>
   </div>
 </template>
