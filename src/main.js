@@ -1,5 +1,5 @@
 import Vue from "vue";
-import "./plugins/axios";
+import "./plugins";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -17,7 +17,7 @@ Vue.use(VueLazyload, {
   error: EMPTY_IMG,
   loading: LOADING_GIF,
   attempt: 3,
-  lazyComponent: true
+  lazyComponent: true,
 });
 
 import "@/style/index.scss";
@@ -27,5 +27,5 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount("#app");

@@ -15,6 +15,7 @@ import Table from "./z-table";
 import Dialog from "./z-dialog";
 import Select from "./z-select";
 import Zinput from "./z-input";
+import Notification from "./z-notification/index";
 
 export {
   Popover,
@@ -33,5 +34,6 @@ export {
   Table,
   Dialog,
   Select,
-  Zinput
+  Zinput,
+  Notification,
 };

@@ -6,7 +6,7 @@
 import { MiniPlayer } from "@/components";
 export default {
   name: "Footer",
-  components: { MiniPlayer }
+  components: { MiniPlayer },
 };
 </script>
 
@@ -18,6 +18,6 @@ export default {
   width: 100%;
   z-index: $footer-index;
   background-color: $white;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  @include box-shadow;
 }
 </style>

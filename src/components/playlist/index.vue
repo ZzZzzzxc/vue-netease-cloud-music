@@ -75,7 +75,7 @@ export default {
   width: $playlist-width;
   background-color: $white;
   z-index: $playlist-index;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  @include box-shadow;
   overflow-y: auto;
   min-height: calc(100% - 64px);
   .list-wrap {

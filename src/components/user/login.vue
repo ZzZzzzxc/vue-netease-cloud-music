@@ -160,14 +160,14 @@ export default {
     .login-btn {
       background-color: $theme-color;
       color: $white;
-      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+      @include box-shadow;
     }
     .register-btn {
       background-color: $white;
       color: $black;
       border: 1px $grey solid;
       &:hover {
-        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        @include box-shadow;
       }
     }
   }

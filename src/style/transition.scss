@@ -42,3 +42,20 @@
   transform: translateY(20px);
   opacity: 0;
 }
+
+// z-notification
+.z-notification-fade-enter {
+  &.right {
+    right: 0;
+    transform: translateX(100%);
+  }
+
+  &.left {
+    left: 0;
+    transform: translateX(-100%);
+  }
+}
+
+.z-notification-fade-leave-active {
+  opacity: 0;
+}

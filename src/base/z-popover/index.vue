@@ -212,7 +212,7 @@ export default {
   min-width: $popper-min-width;
   border-radius: 4px;
   background-color: $white;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  @include box-shadow;
   border: 1px solid $grey;
   padding: 18px 0;
   .z-popper-arrow,

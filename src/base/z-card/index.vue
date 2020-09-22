@@ -21,31 +21,31 @@ export default {
     shadow: {
       type: String,
       default: "hover",
-      validator: value => ["always", "never", "hover"].indexOf(value) > -1
+      validator: value => ["always", "never", "hover"].indexOf(value) > -1,
     },
     wrapStyle: {
       default: () => {
         return {};
       },
-      type: Object
+      type: Object,
     },
     headerStyle: {
       default: () => {
         return {};
       },
-      type: Object
+      type: Object,
     },
     contentStyle: {
       default: () => {
         return {};
       },
-      type: Object
-    }
+      type: Object,
+    },
   },
   data() {
     return {};
   },
-  methods: {}
+  methods: {},
 };
 </script>
 
@@ -64,11 +64,11 @@ export default {
   box-shadow: none;
 }
 .is-always-shadow {
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  @include box-shadow;
 }
 .is-hover-shadow {
   &:hover {
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    @include box-shadow;
   }
 }
 </style>
