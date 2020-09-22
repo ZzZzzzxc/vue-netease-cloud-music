@@ -36,7 +36,7 @@ export default {
   components: { Menu, MenuItem, SubMenu, MenuItemGroup },
   data() {
     return {
-      defaultActive: this.$route.name
+      defaultActive: this.$route.name,
     };
   },
   methods: {
@@ -46,8 +46,8 @@ export default {
       } else {
         this.$router.push({ name: "SongListDetail", params: { id: name } });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

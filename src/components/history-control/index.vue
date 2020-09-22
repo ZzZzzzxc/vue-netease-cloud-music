@@ -18,8 +18,8 @@ export default {
     },
     forward() {
       this.$router.forward();
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -29,11 +29,17 @@ export default {
   height: 100%;
   align-items: center;
   .item {
+    transition: 0.4s;
     display: flex;
     align-items: center;
     padding: 0 4px;
+    cursor: pointer;
+    opacity: 0.4;
     img {
-      height: 20px;
+      height: 24px;
+    }
+    &:hover {
+      opacity: 1;
     }
   }
 }

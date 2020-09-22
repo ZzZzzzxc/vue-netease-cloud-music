@@ -75,10 +75,11 @@ const LOGIN_NAME = "账号登录";
 const REGISTER_NAME = "用户注册";
 import { Dialog, Zinput, Select, Tabs, TabsPane } from "@/base";
 import { getCountriesCodeList } from "@/api";
-import { userLogin } from "@/utils";
+import { userLogin, userMixin } from "@/utils";
 
 export default {
   name: "Login",
+  mixins: [userMixin],
   components: { Dialog, Zinput, Select, Tabs, TabsPane },
   data() {
     return {
@@ -88,9 +89,10 @@ export default {
       activeName: LOGIN_NAME,
       phone: "",
       code: "",
-      account: "",
-      password: "",
-      countriesCodeList: []
+      account: "13690896312",
+      password: "Zxc199821",
+      countriesCodeList: [],
+      loading: false,
     };
   },
   methods: {
@@ -107,15 +109,17 @@ export default {
       this.countriesCodeList = codeList;
     },
     async login() {
+      this.setLoading(true);
       await userLogin(this.account, this.password).finally(() => {
         this.closeLoginDialog();
       });
+      this.setLoading(false);
     },
-    async register() {}
+    async register() {},
   },
   created() {
     this.initCountriesCodeList();
-  }
+  },
 };
 </script>
 

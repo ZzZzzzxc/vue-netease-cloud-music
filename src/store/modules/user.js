@@ -10,7 +10,8 @@ export default {
     level: "", // 等级
     follows: "", // 关注数
     followeds: "", // 粉丝数
-    eventCount: "" // 动态数
+    eventCount: "", // 动态数
+    loading: false, // 登录中
   },
   mutations: {
     setUserId(state, userId) {
@@ -42,12 +43,15 @@ export default {
     },
     setEventCount(state, eventCount) {
       state.eventCount = eventCount;
-    }
+    },
+    setLoading(state, loading) {
+      state.loading = loading;
+    },
   },
   actions: {},
   getters: {
     isLogin(state) {
       return !!state.userId;
-    }
-  }
+    },
+  },
 };
