@@ -89,8 +89,8 @@ export default {
       activeName: LOGIN_NAME,
       phone: "",
       code: "",
-      account: "13690896312",
-      password: "Zxc199821",
+      account: "",
+      password: "",
       countriesCodeList: [],
       loading: false,
     };
@@ -110,9 +110,13 @@ export default {
     },
     async login() {
       this.setLoading(true);
-      await userLogin(this.account, this.password).finally(() => {
-        this.closeLoginDialog();
-      });
+      await userLogin(this.account, this.password)
+        .then(() => {
+          this.$notify({ title: "登录成功" });
+        })
+        .finally(() => {
+          this.closeLoginDialog();
+        });
       this.setLoading(false);
     },
     async register() {},
