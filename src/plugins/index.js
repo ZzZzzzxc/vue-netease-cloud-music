@@ -8,8 +8,8 @@ plugins.map(plugin => {
       Object.defineProperty(Vue.prototype, plugin.key, {
         get() {
           return plugin.value;
-        },
+        }
       });
-    },
+    }
   });
 });

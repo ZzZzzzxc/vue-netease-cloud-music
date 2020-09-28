@@ -11,7 +11,7 @@ export default {
     follows: "", // 关注数
     followeds: "", // 粉丝数
     eventCount: "", // 动态数
-    loading: false, // 登录中
+    loading: false // 登录中
   },
   mutations: {
     setUserId(state, userId) {
@@ -46,12 +46,12 @@ export default {
     },
     setLoading(state, loading) {
       state.loading = loading;
-    },
+    }
   },
   actions: {},
   getters: {
     isLogin(state) {
       return !!state.userId;
-    },
-  },
+    }
+  }
 };

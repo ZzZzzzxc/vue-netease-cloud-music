@@ -34,7 +34,7 @@ export default {
       verticalOffset: 0,
       position: "top-right",
       onClose: () => {},
-      timer: null,
+      timer: null
     };
   },
   computed: {
@@ -46,9 +46,9 @@ export default {
     },
     positionStyle() {
       return {
-        [this.verticalProperty]: `${this.verticalOffset}px`,
+        [this.verticalProperty]: `${this.verticalOffset}px`
       };
-    },
+    }
   },
   methods: {
     handleClose() {
@@ -66,11 +66,11 @@ export default {
           }
         }, this.duration);
       }
-    },
+    }
   },
   mounted() {
     this.startTimer();
-  },
+  }
 };
 </script>
 

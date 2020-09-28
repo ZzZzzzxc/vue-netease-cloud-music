@@ -15,7 +15,7 @@ import { Loading } from "@/base";
 export default {
   name: "UserWrap",
   mixins: [userMixin],
-  components: { login, user, Loading },
+  components: { login, user, Loading }
 };
 </script>
 

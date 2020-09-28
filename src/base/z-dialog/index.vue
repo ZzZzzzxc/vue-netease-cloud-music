@@ -37,23 +37,23 @@ export default {
   name: "ZDialog",
   model: {
     prop: "visible",
-    event: "visibleChange",
+    event: "visibleChange"
   },
   props: {
     visible: {
       type: Boolean,
-      required: true,
+      required: true
     },
     width: {
       type: String,
-      default: "50%",
+      default: "50%"
     },
     title: {
       type: String,
-      default: "",
+      default: ""
     },
     handleClose: Function,
-    customClass: String,
+    customClass: String
   },
   data() {
     return {};
@@ -62,22 +62,22 @@ export default {
     dialogStyle() {
       const { width } = this;
       return {
-        width,
+        width
       };
-    },
+    }
   },
   watch: {
     visible(v) {
       console.log(v);
-    },
+    }
   },
   methods: {
     closeDialog() {
       this.handleClose
         ? this.handleClose()
         : this.$emit("visibleChange", false);
-    },
-  },
+    }
+  }
 };
 </script>
 

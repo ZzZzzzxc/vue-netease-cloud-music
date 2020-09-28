@@ -21,31 +21,31 @@ export default {
     shadow: {
       type: String,
       default: "hover",
-      validator: value => ["always", "never", "hover"].indexOf(value) > -1,
+      validator: value => ["always", "never", "hover"].indexOf(value) > -1
     },
     wrapStyle: {
       default: () => {
         return {};
       },
-      type: Object,
+      type: Object
     },
     headerStyle: {
       default: () => {
         return {};
       },
-      type: Object,
+      type: Object
     },
     contentStyle: {
       default: () => {
         return {};
       },
-      type: Object,
-    },
+      type: Object
+    }
   },
   data() {
     return {};
   },
-  methods: {},
+  methods: {}
 };
 </script>
 

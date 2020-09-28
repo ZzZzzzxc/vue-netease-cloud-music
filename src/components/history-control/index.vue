@@ -18,8 +18,8 @@ export default {
     },
     forward() {
       this.$router.forward();
-    },
-  },
+    }
+  }
 };
 </script>
 

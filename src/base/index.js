@@ -35,5 +35,5 @@ export {
   Dialog,
   Select,
   Zinput,
-  Notification,
+  Notification
 };

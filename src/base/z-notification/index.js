@@ -15,7 +15,7 @@ const Notification = options => {
     Notification.close(id);
   };
   instance = new NotificationConstructor({
-    data: options,
+    data: options
   });
   instance.id = id;
   instance.visible = true;

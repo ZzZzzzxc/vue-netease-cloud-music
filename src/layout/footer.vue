@@ -6,7 +6,7 @@
 import { MiniPlayer } from "@/components";
 export default {
   name: "Footer",
-  components: { MiniPlayer },
+  components: { MiniPlayer }
 };
 </script>
 

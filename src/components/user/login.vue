@@ -92,7 +92,7 @@ export default {
       account: "",
       password: "",
       countriesCodeList: [],
-      loading: false,
+      loading: false
     };
   },
   methods: {
@@ -119,11 +119,11 @@ export default {
         });
       this.setLoading(false);
     },
-    async register() {},
+    async register() {}
   },
   created() {
     this.initCountriesCodeList();
-  },
+  }
 };
 </script>
 
