@@ -85,6 +85,9 @@ export default {
   watch: {
     activeName() {
       this.getArtistsList();
+    },
+    id() {
+      this.getArtistsList();
     }
   },
   methods: {

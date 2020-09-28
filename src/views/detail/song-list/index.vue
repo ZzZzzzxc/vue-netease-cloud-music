@@ -49,9 +49,6 @@
     </loading>
     <div class="content">
       <tabs v-model="activeName" :center="false">
-        <template slot="header">
-          <input />
-        </template>
         <tabs-pane label="歌曲列表" name="1">
           <song-list :ids="ids" ref="songList"></song-list>
         </tabs-pane>

@@ -126,15 +126,13 @@ export default {
       };
     },
     prefixStyle() {
-      const { fixStyle, prefixWidth } = this;
-      return { ...fixStyle, width: `${prefixWidth}px` };
+      const { fixStyle } = this;
+      return { ...fixStyle };
     },
     suffixStyle() {
-      const { fixStyle, suffixWidth } = this;
+      const { fixStyle } = this;
       return {
         ...fixStyle,
-        width: `${suffixWidth}px`,
-        right: `${suffixWidth}px`,
       };
     },
     inputStyle() {
@@ -203,6 +201,7 @@ export default {
     left: 0;
   }
   .suffix-wrap {
+    right: 0;
   }
 }
 </style>

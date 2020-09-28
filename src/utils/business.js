@@ -20,6 +20,7 @@ export function getSongUrl(id) {
 }
 
 export function getArtistisText(artists) {
+  console.log(artists)
   return (artists || []).map(({ name }) => name).join("/");
 }
 

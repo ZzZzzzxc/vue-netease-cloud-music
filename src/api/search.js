@@ -1,7 +1,7 @@
 import { request } from "@/plugins/axios";
 
-// 热搜列表(简略)
-export const getSearchHot = () => request.get("/search/hot");
+// 热搜列表(详细)
+export const getSearchHot = () => request.get("/search/hot/detail");
 
 /**
  * 分类搜索
@@ -20,7 +20,7 @@ export const getDefaultSearchWord = () => request.get("/search/default");
  * @param {String} keywords 关键词
  * @param {String} [type] 如果传 'mobile' 则返回移动端数据
  */
-export const d = params => request.get("/search/suggest", { params });
+export const getSearchSuggest = params => request.get("/search/suggest", { params });
 
 /**
  * 多重搜索

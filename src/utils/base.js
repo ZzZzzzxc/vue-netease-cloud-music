@@ -63,7 +63,7 @@ export function formatDate(date, fmt = "yyyy-MM-dd hh:mm:ss") {
     "d+": date.getDate(),
     "h+": date.getHours(),
     "m+": date.getMinutes(),
-    "s+": date.getSeconds()
+    "s+": date.getSeconds(),
   };
   for (let k in o) {
     if (new RegExp(`(${k})`).test(fmt)) {
@@ -88,4 +88,11 @@ export function hasKey(obj, key) {
 export function isEmail(val) {
   const pattern = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
   return pattern.test(val);
+}
+
+export function brightenKeyword(val, keyword, color = "#d33a31") {
+  const Reg = new RegExp(keyword, "i");
+  if (val) {
+    return val.replace(Reg, `<span style="color: ${color}">${keyword}</span>`);
+  }
 }
