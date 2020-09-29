@@ -83,23 +83,23 @@ const ERROR_MAP = {
   MEDIA_ERR_ABORTED: {
     key: 1,
     desc: "用户的请求中止了关联资源的获取.",
-    info: "用户的请求中止了关联资源的获取"
+    info: "用户的请求中止了关联资源的获取",
   },
   MEDIA_ERR_NETWORK: {
     key: 2,
     desc: "尽管以前可用，但发生了某种网络错误，阻止了媒体的成功获取.",
-    info: "网络错误"
+    info: "网络错误",
   },
   MEDIA_ERR_DECODE: {
     key: 3,
     desc: "	尽管先前已确定可用，但在尝试解码媒体资源时发生了错误，从而导致错误.",
-    info: "资源出现错误，请尝试切换歌曲"
+    info: "资源出现错误，请尝试切换歌曲",
   },
   MEDIA_ERR_SRC_NOT_SUPPORTED: {
     key: 4,
     desc: "已发现关联的资源或媒体提供程序对象（例如MediaStream ）不合适.",
-    info: "无法播放，可能是VIP歌曲，请切换歌曲"
-  }
+    info: "无法播放，可能是VIP歌曲，请切换歌曲",
+  },
 };
 import { ProgressBar, Loading, Popover } from "@/base";
 import { playModeConfig, defaultMode } from "@/config";
@@ -117,7 +117,7 @@ export default {
       error: false,
       artificialMoving: false,
       isTipsShow: false,
-      tipsText: ""
+      tipsText: "",
     };
   },
   computed: {
@@ -135,7 +135,7 @@ export default {
     },
     isSingle() {
       return this.mode.key === playModeConfig.singel.key;
-    }
+    },
   },
   watch: {
     isTipsShow(show) {
@@ -178,7 +178,7 @@ export default {
       if (err) {
         this.pause();
       }
-    }
+    },
   },
   methods: {
     getImgUrl,
@@ -214,7 +214,6 @@ export default {
       this.setMode(mode);
     },
     canPlay() {
-      console.log("audio 准备完成");
       this.ready = true;
     },
     onEnded() {
@@ -243,7 +242,6 @@ export default {
       }
     },
     onError() {
-      console.log("Error");
       this.error = true;
       const { error } = this.audio;
       if (error) {
@@ -252,7 +250,11 @@ export default {
         const idx = errors.findIndex(({ key }) => key === code);
         const msg = detail ? detail : errors[idx].info;
         this.showTips(`CODE：${code}，信息：${msg}`);
-        // console.log(`CODE：${code}，信息：${msg}`);
+        this.$notify({
+          duration: 6000,
+          title: `CODE：${code}`,
+          message: `信息：${msg}`,
+        });
       }
     },
     showTips(text) {
@@ -262,14 +264,10 @@ export default {
     onTimeUpdate(e) {
       this.setCurrentTime(e.target.currentTime);
     },
-    onVolumeChange() {
-      // console.log("音量发生改变");
-      // console.log(this.audio.volume);
-    },
+    onVolumeChange() {},
     async play() {
       if (!isDef(this.currentSong.id)) return;
       try {
-        console.log("audio 播放");
         this.error = false;
         await this.audio.play();
       } catch (err) {
@@ -279,7 +277,6 @@ export default {
     },
     pause() {
       if (!isDef(this.currentSong.id)) return;
-      console.log(`audio 暂停`);
       this.audio.pause();
     },
     prev() {
@@ -287,8 +284,8 @@ export default {
     },
     next() {
       if (this.nextSong) this.setCurrentSong(this.nextSong);
-    }
-  }
+    },
+  },
 };
 </script>
 

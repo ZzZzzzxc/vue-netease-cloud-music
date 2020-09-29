@@ -92,7 +92,7 @@ export default {
       account: "",
       password: "",
       countriesCodeList: [],
-      loading: false
+      loading: false,
     };
   },
   methods: {
@@ -110,20 +110,16 @@ export default {
     },
     async login() {
       this.setLoading(true);
-      await userLogin(this.account, this.password)
-        .then(() => {
-          this.$notify({ title: "登录成功" });
-        })
-        .finally(() => {
-          this.closeLoginDialog();
-        });
+      await userLogin(this.account, this.password).finally(() => {
+        this.closeLoginDialog();
+      });
       this.setLoading(false);
     },
-    async register() {}
+    async register() {},
   },
   created() {
     this.initCountriesCodeList();
-  }
+  },
 };
 </script>
 

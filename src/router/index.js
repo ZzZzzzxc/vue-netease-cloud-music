@@ -58,100 +58,100 @@ const routes = [
           {
             name: "Recommendation",
             path: "recommendation", // 个性推荐
-            component: recommendation,
+            component: recommendation
           },
           {
             name: "SongList",
             path: "song-list", // 歌单
-            component: songList,
+            component: songList
           },
           {
             name: "Singer",
             path: "singer", // 歌手
-            component: singer,
+            component: singer
           },
           {
             name: "Rank",
             path: "rank", // 排行榜
-            component: rank,
+            component: rank
           },
           {
             name: "NewMusic",
             path: "new-music", // 最新音乐
-            component: newMusic,
-          },
-        ],
+            component: newMusic
+          }
+        ]
       },
       {
         name: "Fm",
         path: "/fm",
-        component: fm,
+        component: fm
       },
       {
         name: "SingerDetail",
         path: "/singer/:id", // 歌手详情
         component: singerDetail,
-        props: true,
+        props: true
       },
       {
         name: "DjDetail",
         path: "/dj/:id",
         component: djDetail,
-        props: true,
+        props: true
       },
       {
         name: "SongListDetail",
         path: "/song-list/:id", // 歌单详情
         component: songListDetail,
-        props: true,
+        props: true
       },
       {
         name: "AlbumDetail",
         path: "/album/:id", // 歌单详情
         component: albumDetail,
-        props: true,
+        props: true
       },
       {
         name: "Mv",
         path: "/mv/:id", // mv 详情
         component: mv,
-        props: true,
+        props: true
       },
       {
         name: "singerListDetail",
         path: "/singer-list", // 歌手排行榜
         component: singerListDetail,
-        props: true,
+        props: true
       },
       {
         name: "Component",
         path: "/components", // 组件
         component: component,
-        props: true,
+        props: true
       },
       {
         name: "Video",
         path: "/video",
-        component: video,
+        component: video
       },
       {
         name: "AllMv",
         path: "/all-mv",
-        component: allMv,
+        component: allMv
       },
       {
         name: "MvRankList",
         path: "/mv-rank-list",
-        component: mvRankList,
-      },
-    ],
-  },
+        component: mvRankList
+      }
+    ]
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes,
+  routes
 });
 
 router.beforeEach((to, from, next) => {

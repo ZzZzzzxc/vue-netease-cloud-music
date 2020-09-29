@@ -2,6 +2,9 @@
 
 import Vue from "vue";
 import axios from "axios";
+import { Notification } from "@/base";
+
+const ERROR_MSG = "请求错误";
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -14,7 +17,7 @@ const baseURL = process.env.VUE_APP_API_URL;
 let config = {
   baseURL,
   timeout: 60 * 1000, // Timeout
-  withCredentials: true // Check cross-site Access-Control
+  withCredentials: true, // Check cross-site Access-Control
 };
 
 const _axios = axios.create(config);
@@ -37,7 +40,16 @@ _axios.interceptors.response.use(
     return response.data;
   },
   function(error) {
+    const {
+      data,
+      config: { method },
+    } = error.response;
     // Do something with response error
+    Notification({
+      duration: 4000,
+      title: `[${data.code}] ${method.toUpperCase()}`,
+      message: data.message || data.msg || ERROR_MSG,
+    });
     return Promise.reject(error);
   }
 );
@@ -49,13 +61,13 @@ Plugin.install = function(Vue) {
     axios: {
       get() {
         return _axios;
-      }
+      },
     },
     $axios: {
       get() {
         return _axios;
-      }
-    }
+      },
+    },
   });
 };
 

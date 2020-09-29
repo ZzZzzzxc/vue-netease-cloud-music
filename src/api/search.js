@@ -20,7 +20,8 @@ export const getDefaultSearchWord = () => request.get("/search/default");
  * @param {String} keywords 关键词
  * @param {String} [type] 如果传 'mobile' 则返回移动端数据
  */
-export const getSearchSuggest = params => request.get("/search/suggest", { params });
+export const getSearchSuggest = params =>
+  request.get("/search/suggest", { params });
 
 /**
  * 多重搜索

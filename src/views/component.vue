@@ -220,7 +220,7 @@ import {
   Popover,
   Dialog,
   Select,
-  Notification
+  Notification,
 } from "@/base";
 export default {
   name: "",
@@ -239,7 +239,7 @@ export default {
     Pagination,
     Popover,
     Dialog,
-    Select
+    Select,
   },
   data() {
     return {
@@ -249,7 +249,7 @@ export default {
       banners: [
         { url: "https://cdn.zhangxc.cn/image/jpeg/wallhaven-01qpg4.jpg" },
         { url: "https://cdn.zhangxc.cn/image/jpeg/2020-05-19 230011.jpg" },
-        { url: "https://cdn.zhangxc.cn/image/jpeg/希里.jpg" }
+        { url: "https://cdn.zhangxc.cn/image/jpeg/希里.jpg" },
       ],
       loading: true,
       percentage: 0.2,
@@ -258,7 +258,7 @@ export default {
       page: {
         current: 1,
         limit: 30,
-        total: 4000
+        total: 4000,
       },
       manualShow: false,
       selectListData: [
@@ -266,17 +266,17 @@ export default {
         { label: "Item 2", value: "2" },
         { label: "Item 3", value: "3" },
         { label: "Item 4", value: "4" },
-        { label: "Item 5", value: "5" }
+        { label: "Item 5", value: "5" },
       ],
       selectIdx: null,
-      multiple: true
+      multiple: true,
     };
   },
   mounted() {
     Notification({
       duration: 0,
       title: "这是不会消失的一个通知框",
-      message: "Notification()调用"
+      message: "Notification()调用",
     });
     this.$notify({ title: "这是一个通知框", message: "this.$notify()调用" });
   },
@@ -284,9 +284,7 @@ export default {
     activeChange(idx) {
       this.activeMenuIdx = idx;
     },
-    barClick() {
-      console.log("点击进度条");
-    },
+    barClick() {},
     moving() {
       this.move = true;
     },
@@ -295,7 +293,7 @@ export default {
     },
     getSelectData(idx) {
       this.selectIdx = Array.isArray(idx) ? idx.join(",") : idx;
-    }
+    },
   },
   computed: {},
   watch: {
@@ -308,8 +306,8 @@ export default {
       } else {
         this.loading = true;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

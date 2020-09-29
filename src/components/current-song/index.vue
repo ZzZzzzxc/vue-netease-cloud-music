@@ -298,9 +298,7 @@ export default {
       if (audio) {
         audio.currentTime = lrcData.time;
         this.scrollToActiveLyric(idx);
-      } else {
-        console.log("audio 呢？");
-      }
+      } 
     },
     // 滚动至当前歌词
     scrollToActiveLyric(activeLyricIndex) {

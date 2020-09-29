@@ -66,11 +66,6 @@ export default {
       };
     }
   },
-  watch: {
-    visible(v) {
-      console.log(v);
-    }
-  },
   methods: {
     closeDialog() {
       this.handleClose

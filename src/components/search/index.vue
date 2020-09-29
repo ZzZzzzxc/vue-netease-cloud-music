@@ -111,13 +111,13 @@ import {
   getDefaultSearchWord,
   getMultimatchSearchData,
   getSearchHot,
-  getSearchSuggest,
+  getSearchSuggest
 } from "@/api";
 import {
   getArtistisText,
   brightenKeyword,
   musicMixin,
-  formatSong,
+  formatSong
 } from "@/utils";
 import { Zinput, Popover } from "@/base";
 export default {
@@ -131,10 +131,10 @@ export default {
       showKeyword: DEFAULT_KEY_WORD,
       hots: [],
       popperStyle: {
-        padding: 0,
+        padding: 0
       },
       suggest: {},
-      showSuggest: false,
+      showSuggest: false
     };
   },
   watch: {
@@ -146,7 +146,7 @@ export default {
         this.showSuggest = false;
         this.suggest = {};
       }
-    },
+    }
   },
   methods: {
     getArtistisText,
@@ -159,7 +159,7 @@ export default {
           artists: song.artists,
           duration: song.duration,
           mvId: song.mvid,
-          img: song.album.picUrl,
+          img: song.album.picUrl
         })
       );
     },
@@ -174,7 +174,7 @@ export default {
     },
     async getDefaultWord() {
       const {
-        data: { showKeyword, realkeyword },
+        data: { showKeyword, realkeyword }
       } = await getDefaultSearchWord();
       this.showKeyword = showKeyword ? showKeyword : DEFAULT_KEY_WORD;
       this.realkeyword = realkeyword;
@@ -188,16 +188,16 @@ export default {
       let word = words || keywords || realkeyword;
       if (word !== "") {
         await getMultimatchSearchData({
-          keywords: word,
+          keywords: word
         });
       }
       this.keywords = "";
-    },
+    }
   },
   created() {
     this.getDefaultWord();
     this.getHot();
-  },
+  }
 };
 </script>
 
