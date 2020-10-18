@@ -2,7 +2,6 @@ import HistoryControl from "./history-control";
 import Search from "./search";
 import User from "./user";
 import Theme from "./theme";
-import HotTabs from "./hot-tabs";
 import SongSheetCard from "./song-sheet-card";
 import TagList from "./tag-list";
 import AlbumCard from "./album-card";
@@ -24,7 +23,6 @@ export {
   Search,
   User,
   Theme,
-  HotTabs,
   SongSheetCard,
   TagList,
   AlbumCard,

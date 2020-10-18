@@ -10,7 +10,7 @@ export const getSearchHot = () => request.get("/search/hot/detail");
  * @param {Number} [limit] 默认为 30
  * @param {Number} [offset] 默认为 0
  */
-export const getSearchData = params => request.get("/cloudsearch", { params });
+export const getSearchData = params => request.get("/search", { params });
 
 // 默认搜索关键词
 export const getDefaultSearchWord = () => request.get("/search/default");

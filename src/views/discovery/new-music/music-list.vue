@@ -28,8 +28,8 @@
           {{ formatTime(data.duration / 1000) }}
         </td>
       </tr>
-    </table></loading
-  >
+    </table>
+  </loading>
 </template>
 
 <script>
@@ -87,7 +87,7 @@ export default {
 
 <style lang="scss" scoped>
 .music-list {
-  width: 900px;
+  width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
   table-layout: fixed;

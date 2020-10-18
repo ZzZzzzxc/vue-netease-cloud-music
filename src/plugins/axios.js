@@ -17,7 +17,7 @@ const baseURL = process.env.VUE_APP_API_URL;
 let config = {
   baseURL,
   timeout: 60 * 1000, // Timeout
-  withCredentials: true, // Check cross-site Access-Control
+  withCredentials: true // Check cross-site Access-Control
 };
 
 const _axios = axios.create(config);
@@ -42,13 +42,13 @@ _axios.interceptors.response.use(
   function(error) {
     const {
       data,
-      config: { method },
+      config: { method }
     } = error.response;
     // Do something with response error
     Notification({
       duration: 4000,
       title: `[${data.code}] ${method.toUpperCase()}`,
-      message: data.message || data.msg || ERROR_MSG,
+      message: data.message || data.msg || ERROR_MSG
     });
     return Promise.reject(error);
   }
@@ -61,13 +61,13 @@ Plugin.install = function(Vue) {
     axios: {
       get() {
         return _axios;
-      },
+      }
     },
     $axios: {
       get() {
         return _axios;
-      },
-    },
+      }
+    }
   });
 };
 

@@ -1,14 +1,21 @@
 <template>
   <div class="search-wrap">
-    <Popover trigger="click" :placement="`bottom`" :popperStyle="popperStyle">
+    <Popover
+      :show="dataShow"
+      trigger="manual"
+      :placement="`bottom`"
+      :popperStyle="popperStyle"
+    >
       <Zinput
         :size="`sm`"
         :borderRadius="`16px`"
         :placeholder="showKeyword"
         v-model="keywords"
+        @blur="handleBlur"
+        @focus="handleFocus"
       >
         <template slot="suffix">
-          <div class="handle" @click="handleSearch">
+          <div class="handle" @click="handleSearch()">
             <img :src="require(`@/assets/icon/search.png`)" />
           </div>
         </template>
@@ -107,17 +114,12 @@
 
 <script>
 const DEFAULT_KEY_WORD = "搜索音乐、视频、歌词";
-import {
-  getDefaultSearchWord,
-  getMultimatchSearchData,
-  getSearchHot,
-  getSearchSuggest
-} from "@/api";
+import { getDefaultSearchWord, getSearchHot, getSearchSuggest } from "@/api";
 import {
   getArtistisText,
   brightenKeyword,
   musicMixin,
-  formatSong
+  formatSong,
 } from "@/utils";
 import { Zinput, Popover } from "@/base";
 export default {
@@ -131,10 +133,11 @@ export default {
       showKeyword: DEFAULT_KEY_WORD,
       hots: [],
       popperStyle: {
-        padding: 0
+        padding: 0,
       },
       suggest: {},
-      showSuggest: false
+      showSuggest: false,
+      dataShow: false,
     };
   },
   watch: {
@@ -146,11 +149,17 @@ export default {
         this.showSuggest = false;
         this.suggest = {};
       }
-    }
+    },
   },
   methods: {
     getArtistisText,
     brightenKeyword,
+    handleBlur() {
+      this.dataShow = false;
+    },
+    handleFocus() {
+      this.dataShow = true;
+    },
     handleSetCurrentSong(song) {
       this.setCurrentSong(
         formatSong({
@@ -159,7 +168,7 @@ export default {
           artists: song.artists,
           duration: song.duration,
           mvId: song.mvid,
-          img: song.album.picUrl
+          img: song.album.picUrl,
         })
       );
     },
@@ -174,7 +183,7 @@ export default {
     },
     async getDefaultWord() {
       const {
-        data: { showKeyword, realkeyword }
+        data: { showKeyword, realkeyword },
       } = await getDefaultSearchWord();
       this.showKeyword = showKeyword ? showKeyword : DEFAULT_KEY_WORD;
       this.realkeyword = realkeyword;
@@ -187,17 +196,18 @@ export default {
       const { keywords, realkeyword } = this;
       let word = words || keywords || realkeyword;
       if (word !== "") {
-        await getMultimatchSearchData({
-          keywords: word
+        this.$router.push({
+          name: "Search",
+          params: { keywords: word },
         });
       }
       this.keywords = "";
-    }
+    },
   },
   created() {
     this.getDefaultWord();
     this.getHot();
-  }
+  },
 };
 </script>
 

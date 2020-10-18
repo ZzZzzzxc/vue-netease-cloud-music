@@ -1,21 +1,21 @@
 <template>
   <div>
     <h1>Table</h1>
-    <Table :columns="columns" :data="data">
+    <ZTable :columns="columns" :data="data">
       <template v-slot:name="slotProps">
         <div>123{{ slotProps.name }}</div>
       </template>
       <template v-slot:action="slotProps">
         <button @click="click(slotProps)" />
       </template>
-    </Table>
+    </ZTable>
   </div>
 </template>
 
 <script>
-import { Table } from "@/base";
+import { ZTable } from "@/base";
 export default {
-  components: { Table },
+  components: { ZTable },
   data() {
     return {
       columns: [

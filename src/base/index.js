@@ -11,10 +11,10 @@ import Pagination from "./z-pagination";
 import Card from "./z-card";
 import Loading from "./z-loading";
 import ProgressBar from "./z-progress-bar";
-import Table from "./z-table";
 import Dialog from "./z-dialog";
 import Select from "./z-select";
 import Zinput from "./z-input";
+import ZTable from "./z-table";
 import Notification from "./z-notification/index";
 
 export {
@@ -31,7 +31,7 @@ export {
   Card,
   Loading,
   ProgressBar,
-  Table,
+  ZTable,
   Dialog,
   Select,
   Zinput,

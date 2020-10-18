@@ -23,6 +23,8 @@ export default {
       state.currentTime = currentTime;
     },
     setCurrentSong(state, currentSong) {
+      const { artistsText, name } = currentSong;
+      document.title = `${name} - ${artistsText}`;
       state.currentSong = currentSong;
     },
     setPlaylistShow(state, show) {

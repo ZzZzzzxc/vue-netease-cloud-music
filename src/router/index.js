@@ -42,6 +42,9 @@ const video = () => import("../views/video");
 const allMv = () => import("../views/video/mv/all-mv.vue");
 const mvRankList = () => import("../views/video/mv/mv-rank-list.vue");
 
+// 搜索结果
+const search = () => import("../views/search/index.vue");
+
 const routes = [
   {
     name: "Layout",
@@ -131,18 +134,24 @@ const routes = [
       },
       {
         name: "Video",
-        path: "/video",
+        path: "/video", // 视频
         component: video
       },
       {
         name: "AllMv",
-        path: "/all-mv",
+        path: "/all-mv", // 所有 MV
         component: allMv
       },
       {
         name: "MvRankList",
-        path: "/mv-rank-list",
+        path: "/mv-rank-list", // MV 排行榜
         component: mvRankList
+      },
+      {
+        name: "Search",
+        path: "/search/:keywords", // 搜索结果
+        component: search,
+        props: true
       }
     ]
   }

@@ -14,6 +14,8 @@
         :placeholder="placeholder"
         :style="inputStyle"
         @input="handleInput"
+        @blur="handleBlur"
+        @focus="handleFocus"
       />
     </div>
     <div class="append-wrap">
@@ -55,56 +57,56 @@ const DEFAULT_TYPE = [
   "text",
   "time",
   "url",
-  "week"
+  "week",
 ];
 export default {
   name: "ZInput",
   model: {
     prop: "value",
-    event: "change"
+    event: "change",
   },
   props: {
     type: {
       type: String,
       validator: type => DEFAULT_TYPE.indexOf(type) > -1,
-      default: "text"
+      default: "text",
     },
     size: {
       type: String,
       validator: type => ["md", "sm", "lg"].indexOf(type) > -1,
-      default: "md"
+      default: "md",
     },
     borderRadius: {
       type: String,
-      default: "3px"
+      default: "3px",
     },
     value: String,
     minlength: Number,
     maxlength: Number,
     showWordLimit: {
       type: Boolean,
-      default: false
+      default: false,
     },
     placeholder: String,
     clearable: {
       type: Boolean,
-      default: false
+      default: false,
     },
     showPassword: {
       type: Boolean,
-      default: false
+      default: false,
     },
     disabled: Boolean,
     readonly: Boolean,
     autofocus: Boolean,
     label: String,
     prepend: String,
-    append: String
+    append: String,
   },
   data() {
     return {
       suffixWidth: MIN_INPUT_PADDING_RIGHT,
-      prefixWidth: MIN_INPUT_PADDING_LEFT
+      prefixWidth: MIN_INPUT_PADDING_LEFT,
     };
   },
   computed: {
@@ -112,7 +114,7 @@ export default {
       const map = {
         sm: SM_INPUT_MIN_HEIGHT,
         md: MD_INPUT_MIN_HEIGHT,
-        lg: LG_INPUT_MIN_HEIGHT
+        lg: LG_INPUT_MIN_HEIGHT,
       };
       return map[this.size];
     },
@@ -122,7 +124,7 @@ export default {
     fixStyle() {
       const { inputHeight } = this;
       return {
-        height: `${inputHeight}px`
+        height: `${inputHeight}px`,
       };
     },
     prefixStyle() {
@@ -132,7 +134,7 @@ export default {
     suffixStyle() {
       const { fixStyle } = this;
       return {
-        ...fixStyle
+        ...fixStyle,
       };
     },
     inputStyle() {
@@ -140,14 +142,20 @@ export default {
       return {
         height: `${inputHeight}px`,
         padding: `${INPUT_PADDING_TOP}px ${suffixWidth}px ${INPUT_PADDING_BOTTOM}px ${prefixWidth}px`,
-        borderRadius
+        borderRadius,
       };
-    }
+    },
   },
   methods: {
     handleInput(e) {
       this.$emit("change", e.srcElement.value);
-    }
+    },
+    handleFocus() {
+      this.$emit("focus");
+    },
+    handleBlur() {
+      this.$emit("blur");
+    },
   },
   mounted() {
     if (this.$refs.suffix) {
@@ -162,7 +170,7 @@ export default {
         MIN_INPUT_PADDING_LEFT
       );
     }
-  }
+  },
 };
 </script>
 
