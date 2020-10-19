@@ -119,7 +119,7 @@ import {
   getArtistisText,
   brightenKeyword,
   musicMixin,
-  formatSong,
+  formatSong
 } from "@/utils";
 import { Zinput, Popover } from "@/base";
 export default {
@@ -133,11 +133,11 @@ export default {
       showKeyword: DEFAULT_KEY_WORD,
       hots: [],
       popperStyle: {
-        padding: 0,
+        padding: 0
       },
       suggest: {},
       showSuggest: false,
-      dataShow: false,
+      dataShow: false
     };
   },
   watch: {
@@ -149,7 +149,7 @@ export default {
         this.showSuggest = false;
         this.suggest = {};
       }
-    },
+    }
   },
   methods: {
     getArtistisText,
@@ -169,7 +169,7 @@ export default {
           duration: song.duration,
           mvId: song.mvid,
           img: song.album.picUrl,
-          albumId: song.album.id,
+          albumId: song.album.id
         })
       );
     },
@@ -184,7 +184,7 @@ export default {
     },
     async getDefaultWord() {
       const {
-        data: { showKeyword, realkeyword },
+        data: { showKeyword, realkeyword }
       } = await getDefaultSearchWord();
       this.showKeyword = showKeyword ? showKeyword : DEFAULT_KEY_WORD;
       this.realkeyword = realkeyword;
@@ -199,16 +199,16 @@ export default {
       if (word !== "") {
         this.$router.push({
           name: "Search",
-          params: { keywords: word },
+          params: { keywords: word }
         });
       }
       this.keywords = "";
-    },
+    }
   },
   created() {
     this.getDefaultWord();
     this.getHot();
-  },
+  }
 };
 </script>
 

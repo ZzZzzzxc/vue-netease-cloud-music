@@ -26,9 +26,12 @@
             }}</span>
           </div>
           <div class="desc-wrap" v-if="list.description">
-            <p v-for="(txt, idx) in list.description.split('\n')" :key="idx">
-              {{ txt }}
-            </p>
+            <span>简介：</span>
+            <div class="desc">
+              <p v-for="(txt, idx) in list.description.split('\n')" :key="idx">
+                {{ txt }}
+              </p>
+            </div>
           </div>
         </div>
         <div class="count-wrap">
@@ -156,14 +159,14 @@ export default {
     min-height: 200px;
     display: flex;
     justify-content: flex-start;
-    padding: 0 34px;
+    padding: 0 24px;
     margin-bottom: 48px;
     .img-wrap {
       width: 30%;
-      height: 250px;
+      height: 240px;
       img {
-        height: 250px;
-        width: 250px;
+        height: 240px;
+        width: 240px;
       }
     }
     .info-wrap {
@@ -171,17 +174,17 @@ export default {
       .title-wrap {
         display: flex;
         justify-content: flex-start;
-        align-items: flex-start;
+        align-items: center;
         .tag {
           margin: 4px 0;
           padding: 2px 8px;
           border: solid 1px $theme-color;
           color: $theme-color;
-          font-size: $font-size-sm;
+          font-size: $font-size-md;
           white-space: nowrap;
         }
         .title {
-          font-size: 28px;
+          font-size: 26px;
           font-weight: 700;
           margin: 0 8px;
         }
@@ -194,28 +197,28 @@ export default {
           background-color: $theme-color;
           padding: 4px 8px;
           cursor: pointer;
-          font-size: $font-size-sm;
+          font-size: $font-size;
         }
       }
       .user-wrap {
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        margin: 16px 0;
+        margin: 12px 0;
         img {
-          @include circle(40px);
+          @include circle(30px);
         }
         .name {
-          margin: 0 16px 0 6px;
+          margin: 0 16px 0 16px;
         }
         .date {
-          font-size: $font-size-sm;
+          font-size: $font-size;
           color: $grey-dark;
         }
       }
       .tag-wrap {
         font-size: $font-size;
-        margin: 16px 0;
+        margin: 12px 0;
         span {
           color: $blue;
           cursor: pointer;
@@ -228,11 +231,10 @@ export default {
         }
       }
       .desc-wrap {
+        font-size: $font-size;
+        display: flex;
         p {
           line-height: 1.4;
-          &:first-child::before {
-            content: "简介：";
-          }
         }
       }
     }
@@ -252,14 +254,15 @@ export default {
           right: 0;
           content: "";
           width: 1px;
-          height: 80%;
+          height: 90%;
           display: block;
           background-color: $grey-dark;
+          opacity: 0.7;
         }
-        padding: 0 12px;
+        padding: 0 8px;
         div {
           font-weight: bold;
-          padding: 6px 0;
+          padding: 2px 0;
         }
       }
     }

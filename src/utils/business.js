@@ -5,7 +5,7 @@ import {
   loginByEmail,
   loginByPhone,
   logout,
-  getAlbumDetail,
+  getAlbumDetail
 } from "@/api";
 import store from "@/store";
 import { Notification } from "@/base";
@@ -51,14 +51,14 @@ export function formatSong(song) {
     durationText: formatTime(duration / 1000),
     albumId,
     mvId,
-    ...rest,
+    ...rest
   };
 }
 
 export async function getSongImg(id, albumId) {
   const { songs } = await getAlbumDetail({ id: albumId });
   const {
-    al: { picUrl },
+    al: { picUrl }
   } = songs.find(({ id: songId }) => songId === id) || {};
   return picUrl;
 }
@@ -74,7 +74,7 @@ export async function initUserInfo(uid) {
       backgroundUrl,
       followeds,
       follows,
-      eventCount,
+      eventCount
     } = profile;
     store.commit("user/setUserId", uid);
     store.commit("user/setNickname", nickname);
@@ -88,12 +88,12 @@ export async function initUserInfo(uid) {
     store.commit("user/setUserPlaylist", playlist);
     Notification({
       duration: 4000,
-      title: `成功获取用户信息`,
+      title: `成功获取用户信息`
     });
   } catch (e) {
     Notification({
       duration: 4000,
-      title: `获取用户信息失败`,
+      title: `获取用户信息失败`
     });
   }
 }
@@ -101,7 +101,7 @@ export async function initUserInfo(uid) {
 export async function userLogin(account, password) {
   const request = {
     email: emailLogin,
-    phone: phoneLogin,
+    phone: phoneLogin
   };
   return request[isEmail(account) ? "email" : "phone"](account, password);
 }
@@ -111,7 +111,7 @@ export async function emailLogin(account, password) {
   try {
     const { cookie, profile, token } = await loginByEmail({
       email: account,
-      password,
+      password
     });
     loginSuccess(profile.userId, token, cookie);
   } catch (e) {
@@ -125,7 +125,7 @@ export async function phoneLogin(account, password) {
   try {
     const { cookie, profile, token } = await loginByPhone({
       phone: account,
-      password,
+      password
     });
     loginSuccess(profile.userId, token, cookie);
   } catch (e) {
@@ -137,7 +137,7 @@ export async function phoneLogin(account, password) {
 async function loginSuccess(userId, token, cookie) {
   Notification({
     duration: 4000,
-    title: `登录成功`,
+    title: `登录成功`
   });
   document.cookie = cookie;
   localStorage.setItem("userId", userId);
@@ -148,7 +148,7 @@ async function loginSuccess(userId, token, cookie) {
 function loginError() {
   Notification({
     duration: 4000,
-    title: `登录失败`,
+    title: `登录失败`
   });
 }
 
@@ -158,13 +158,13 @@ export async function userLogout() {
     resetUserDetail();
     Notification({
       duration: 4000,
-      title: `成功退出登录`,
+      title: `成功退出登录`
     });
   } catch (e) {
     Notification({
       duration: 4000,
       title: `退出登录失败`,
-      message: "请刷新页面/清理缓存",
+      message: "请刷新页面/清理缓存"
     });
     resetUserDetail();
   }

@@ -115,6 +115,13 @@ export default {
   name: "MiniPlayer",
   mixins: [musicMixin],
   components: { ProgressBar, Loading, Popover },
+  metaInfo() {
+    return {
+      title: this.currentSong.id
+        ? `${this.currentSong.name}--${this.currentSong.artistsText}`
+        : "☁☁☁☁☁☁",
+    };
+  },
   data() {
     return {
       playModeConfig,
@@ -176,9 +183,9 @@ export default {
         // 当前歌曲没有设置封面的时候主动去获取
         if (!newSong.img) {
           if (newSong.albumId) {
-            const song = Object.assign({}, newSong)
+            const song = Object.assign({}, newSong);
             song.img = await getSongImg(song.id, song.albumId);
-            this.setCurrentSong(song)
+            this.setCurrentSong(song);
           }
         }
       }
