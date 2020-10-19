@@ -119,7 +119,7 @@ export default {
     return {
       title: this.currentSong.id
         ? `${this.currentSong.name}--${this.currentSong.artistsText}`
-        : "☁☁☁☁☁☁",
+        : "你好，欢迎来到☁村",
     };
   },
   data() {
