@@ -41,13 +41,13 @@ export default {
       limit: 30,
       data: [],
       count: 0,
-      loading: false,
+      loading: false
     };
   },
   computed: {
     offset() {
       return this.limit * (this.current - 1);
-    },
+    }
   },
   watch: {
     current() {
@@ -56,7 +56,7 @@ export default {
     keywords() {
       this.current = 1;
       this.getData();
-    },
+    }
   },
   methods: {
     getImgUrl,
@@ -65,22 +65,22 @@ export default {
       this.loading = true;
       const { keywords, type, offset, limit } = this;
       const {
-        result: { userprofileCount, userprofiles },
+        result: { userprofileCount, userprofiles }
       } = await getSearchData({
         keywords,
         type,
         offset,
-        limit,
+        limit
       });
       this.data = userprofiles;
       this.count = userprofileCount;
       this.$emit("count", userprofileCount);
       this.loading = false;
-    },
+    }
   },
   mounted() {
     this.$nextTick(this.getData);
-  },
+  }
 };
 </script>
 
@@ -103,7 +103,7 @@ export default {
           @include circle(42px);
           margin-right: 16px;
         }
-        .gender{
+        .gender {
           width: 16px;
           height: 16px;
         }

@@ -12,7 +12,9 @@
             <img class="cover" v-lazy="getImgUrl(album.picUrl, 90, 90)" />
             <div class="name">
               <span v-html="brightenKeyword(album.name, `${keywords}`)"></span>
-              <span class="alias" v-if="album.alias.length">({{ album.alias.join(",") }})</span>
+              <span class="alias" v-if="album.alias.length"
+                >({{ album.alias.join(",") }})</span
+              >
             </div>
           </div>
           <div class="creator">by {{ getArtistisText(album.artists) }}</div>
@@ -39,13 +41,13 @@ export default {
       limit: 30,
       data: [],
       count: 0,
-      loading: false,
+      loading: false
     };
   },
   computed: {
     offset() {
       return this.limit * (this.current - 1);
-    },
+    }
   },
   watch: {
     current() {
@@ -54,7 +56,7 @@ export default {
     keywords() {
       this.current = 1;
       this.getData();
-    },
+    }
   },
   methods: {
     getImgUrl,
@@ -68,22 +70,22 @@ export default {
       this.loading = true;
       const { keywords, type, offset, limit } = this;
       const {
-        result: { albumCount, albums },
+        result: { albumCount, albums }
       } = await getSearchData({
         keywords,
         type,
         offset,
-        limit,
+        limit
       });
       this.data = albums;
       this.count = albumCount;
       this.$emit("count", albumCount);
       this.loading = false;
-    },
+    }
   },
   mounted() {
     this.$nextTick(this.getData);
-  },
+  }
 };
 </script>
 

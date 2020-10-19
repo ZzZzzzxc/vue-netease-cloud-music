@@ -37,13 +37,13 @@ export default {
       limit: 30,
       data: [],
       count: 0,
-      loading: false,
+      loading: false
     };
   },
   computed: {
     offset() {
       return this.limit * (this.current - 1);
-    },
+    }
   },
   watch: {
     current() {
@@ -52,7 +52,7 @@ export default {
     keywords() {
       this.current = 1;
       this.getData();
-    },
+    }
   },
   methods: {
     getImgUrl,
@@ -66,22 +66,22 @@ export default {
       this.loading = true;
       const { keywords, type, offset, limit } = this;
       const {
-        result: { artistCount, artists },
+        result: { artistCount, artists }
       } = await getSearchData({
         keywords,
         type,
         offset,
-        limit,
+        limit
       });
       this.data = artists;
       this.count = artistCount;
       this.$emit("count", artistCount);
       this.loading = false;
-    },
+    }
   },
   mounted() {
     this.$nextTick(this.getData);
-  },
+  }
 };
 </script>
 

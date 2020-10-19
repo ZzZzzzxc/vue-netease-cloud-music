@@ -169,6 +169,7 @@ export default {
           duration: song.duration,
           mvId: song.mvid,
           img: song.album.picUrl,
+          albumId: song.album.id,
         })
       );
     },

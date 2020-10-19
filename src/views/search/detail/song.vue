@@ -47,7 +47,7 @@ import {
   getArtistisText,
   formatTime,
   formatSong,
-  musicMixin,
+  musicMixin
 } from "@/utils";
 import { Pagination, Loading } from "@/base";
 export default {
@@ -61,13 +61,13 @@ export default {
       limit: 30,
       data: [],
       count: 0,
-      loading: false,
+      loading: false
     };
   },
   computed: {
     offset() {
       return this.limit * (this.current - 1);
-    },
+    }
   },
   watch: {
     current() {
@@ -76,7 +76,7 @@ export default {
     keywords() {
       this.current = 1;
       this.getData();
-    },
+    }
   },
   methods: {
     formatTime,
@@ -89,7 +89,7 @@ export default {
         album: { name: albumName, id: albumId, picUrl: img },
         artists,
         mvid: mvId,
-        duration,
+        duration
       } = song;
       this.addToPlaylist(
         formatSong({
@@ -100,7 +100,7 @@ export default {
           duration,
           albumId,
           albumName,
-          mvId,
+          mvId
         })
       );
     },
@@ -109,22 +109,22 @@ export default {
       this.loading = true;
       const { keywords, type, offset, limit } = this;
       const {
-        result: { songCount, songs },
+        result: { songCount, songs }
       } = await getSearchData({
         keywords,
         type,
         offset,
-        limit,
+        limit
       });
       this.data = songs;
       this.count = songCount;
       this.$emit("count", songCount);
       this.loading = false;
-    },
+    }
   },
   mounted() {
     this.$nextTick(this.getData);
-  },
+  }
 };
 </script>
 

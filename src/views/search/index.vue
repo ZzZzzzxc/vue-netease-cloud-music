@@ -34,7 +34,7 @@ const tabs = [
   { name: "singer", label: "歌手", component: Singer, type: 100 },
   { name: "playlist", label: "歌单", component: Playlist, type: 1000 },
   { name: "user", label: "用户", component: User, type: 1002 },
-  { name: "mv", label: "MV", component: Mv, type: 1004 },
+  { name: "mv", label: "MV", component: Mv, type: 1004 }
 ];
 const info = {
   song: "首",
@@ -42,7 +42,7 @@ const info = {
   singer: "位",
   playlist: "个",
   user: "位",
-  mv: "个",
+  mv: "个"
 };
 import { brightenKeyword } from "@/utils";
 import { Tabs, TabsPane } from "@/base";
@@ -54,13 +54,13 @@ export default {
     return {
       tabs,
       activeTabsName: "song",
-      count: 0,
+      count: 0
     };
   },
   watch: {
     activeTabsName() {
       this.count = 0;
-    },
+    }
   },
   computed: {
     title() {
@@ -73,14 +73,14 @@ export default {
       return `搜索“${keywords}”，共找到 ${count || 0} ${
         info[activeTabsName]
       }${label}`;
-    },
+    }
   },
   methods: {
     brightenKeyword,
     getCount(count) {
       this.count = count;
-    },
-  },
+    }
+  }
 };
 </script>
 

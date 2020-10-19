@@ -39,13 +39,13 @@ export default {
       limit: 20,
       data: [],
       count: 0,
-      loading: false,
+      loading: false
     };
   },
   computed: {
     offset() {
       return this.limit * (this.current - 1);
-    },
+    }
   },
   watch: {
     current() {
@@ -54,7 +54,7 @@ export default {
     keywords() {
       this.current = 1;
       this.getData();
-    },
+    }
   },
   methods: {
     getImgUrl,
@@ -69,22 +69,22 @@ export default {
       this.loading = true;
       const { keywords, type, offset, limit } = this;
       const {
-        result: { mvCount, mvs },
+        result: { mvCount, mvs }
       } = await getSearchData({
         keywords,
         type,
         offset,
-        limit,
+        limit
       });
       this.data = mvs;
       this.count = mvCount;
       this.$emit("count", mvCount);
       this.loading = false;
-    },
+    }
   },
   mounted() {
     this.$nextTick(this.getData);
-  },
+  }
 };
 </script>
 
